@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可视化报告框架 · 交互演示</title>
+<style>
+/* ─── Design Tokens ─── */
+:root {
+  --bg:        #f7f5ef;
+  --bg-soft:   #efece4;
+  --bg-card:   #ffffff;
+  --bg-mockup: #1a1a1d;
+
+  --ink:    #14141a;
+  --ink-2:  #4a4a55;
+  --ink-3:  #7a7a85;
+  --ink-4:  #a8a8b0;
+
+  --line:        #e0ddd2;
+  --line-soft:   #ebe8de;
+  --line-strong: #1a1a1d;
+
+  --primary:      #b8412c;
+  --primary-soft: rgba(184,65,44,0.08);
+  --primary-mid:  rgba(184,65,44,0.18);
+
+  --green:  #2d7a3a;
+  --green-bg: rgba(45,122,58,0.08);
+  --red:    #b8412c;
+  --red-bg: rgba(184,65,44,0.08);
+  --purple: #6b4fa0;
+  --purple-bg: rgba(107,79,160,0.10);
+
+  --font-sans: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --font-cn:   'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  --t-1: 11px; --t-2: 13px; --t-3: 15px; --t-4: 18px;
+  --t-5: 24px; --t-6: 36px; --t-7: 56px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-cn), var(--font-sans);
+  background: var(--bg);
+  color: var(--ink-2);
+  font-size: var(--t-2);
+  line-height: 1.6;
+}
+
+/* ─── Topnav ─── */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.topnav-inner { max-width: 1480px; margin: 0 auto; }
+.topnav-row {
+  display: flex; align-items: center; gap: 2px;
+  padding: 0 24px; height: 40px; overflow-x: auto;
+  scrollbar-width: none;
+}
+.topnav-row::-webkit-scrollbar { display: none; }
+.topnav-row.phase { border-bottom: 1px solid var(--line-soft); }
+.topnav-meta {
+  font-size: var(--t-1); color: var(--ink-4);
+  margin-right: 12px; white-space: nowrap; flex-shrink: 0;
+}
+.topnav-tab {
+  display: inline-flex; align-items: center;
+  padding: 4px 12px; border-radius: 4px;
+  font-size: var(--t-1); color: var(--ink-3);
+  text-decoration: none; white-space: nowrap;
+  transition: all .15s;
+}
+.topnav-tab:hover { background: var(--bg-soft); color: var(--ink); }
+.topnav-tab.active { background: var(--primary-soft); color: var(--primary); font-weight: 600; }
+
+/* ─── Floor ─── */
+.floor {
+  min-height: calc(100vh - 80px);
+  max-width: 1480px; margin: 0 auto;
+  padding: 56px 48px;
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid var(--line-soft);
+}
+.floor-head { flex-shrink: 0; margin-bottom: 40px; }
+.floor-body { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.floor-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--t-1); font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--primary); margin-bottom: 10px;
+}
+.floor-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+}
+h1 { font-size: var(--t-6); color: var(--ink); font-weight: 700; line-height: 1.15; }
+h2 { font-size: var(--t-5); color: var(--ink); font-weight: 700; line-height: 1.3; }
+h3 { font-size: var(--t-4); color: var(--ink); font-weight: 600; }
+
+/* ─── Cover Floor ─── */
+#f0 {
+  justify-content: center; align-items: flex-start;
+  padding-top: 80px;
+  border-top: 4px solid var(--line-strong);
+}
+.cover-eyebrow {
+  font-size: var(--t-2); color: var(--ink-3); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: var(--t-1); font-weight: 600; background: var(--bg-soft);
+  color: var(--ink-3); border: 1px solid var(--line);
+}
+.badge.accent { background: var(--primary-soft); color: var(--primary); border-color: rgba(184,65,44,.2); }
+.cover-title { margin-bottom: 16px; }
+.cover-sub {
+  font-size: var(--t-4); color: var(--ink-3); max-width: 600px;
+  line-height: 1.5; margin-bottom: 40px;
+}
+.logo-row {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 48px; flex-wrap: wrap;
+}
+.logo-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; border-radius: 8px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  font-size: var(--t-2); color: var(--ink); font-weight: 500;
+}
+.logo-chip .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.toc-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px; margin-top: 8px;
+}
+.toc-card {
+  padding: 16px; border-radius: 8px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  cursor: pointer; transition: all .2s; text-decoration: none;
+}
+.toc-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.toc-card-num { font-size: var(--t-7); font-weight: 800; color: var(--line); line-height: 1; margin-bottom: 8px; }
+.toc-card-title { font-size: var(--t-2); color: var(--ink); font-weight: 600; margin-bottom: 4px; }
+.toc-card-sub { font-size: var(--t-1); color: var(--ink-4); }
+
+/* ─── Journey Map ─── */
+.journey-wrap { display: flex; flex-direction: column; gap: 0; flex: 1; }
+.journey-row {
+  display: grid; grid-template-columns: 120px repeat(5, 1fr);
+  border-bottom: 1px solid var(--line-soft);
+  min-height: 0;
+}
+.journey-row:last-child { border-bottom: none; }
+.journey-label {
+  display: flex; align-items: center;
+  padding: 12px 16px;
+  font-size: var(--t-1); font-weight: 600; color: var(--ink-3);
+  background: var(--bg-soft); border-right: 1px solid var(--line);
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.journey-cell {
+  padding: 14px 16px; border-right: 1px solid var(--line-soft);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.journey-cell:last-child { border-right: none; }
+.journey-phase-name {
+  font-size: var(--t-2); font-weight: 700; color: var(--ink);
+  margin-bottom: 2px;
+}
+.journey-action {
+  font-size: var(--t-1); color: var(--ink-3); line-height: 1.4;
+}
+.tp-chip {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 4px;
+  font-size: var(--t-1); font-weight: 500;
+  background: var(--primary-soft); color: var(--primary);
+  border: 1px solid rgba(184,65,44,.2);
+  text-decoration: none; margin: 2px 2px 0 0;
+  transition: all .15s; cursor: pointer; white-space: nowrap;
+}
+.tp-chip:hover { background: var(--primary); color: #fff; }
+
+/* Emotion SVG row */
+.emotion-cell { position: relative; min-height: 60px; padding: 8px 16px; }
+.emotion-dot {
+  position: absolute; width: 8px; height: 8px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Friction row */
+.friction-item {
+  display: flex; align-items: flex-start; gap: 4px;
+  font-size: var(--t-1); line-height: 1.4;
+}
+.friction-item.friction { color: var(--red); }
+.friction-item.opportunity { color: var(--green); }
+
+/* ─── Comparison Table ─── */
+.tp-header {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.tp-id-badge {
+  font-family: var(--font-mono); font-size: var(--t-1);
+  padding: 2px 8px; border-radius: 4px;
+  background: var(--bg-soft); color: var(--ink-3);
+  border: 1px solid var(--line);
+}
+.tp-context { font-size: var(--t-1); color: var(--ink-4); }
+
+.cmp { width: 100%; border-collapse: collapse; font-size: var(--t-2); }
+.cmp th, .cmp td {
+  padding: 12px 16px; text-align: left;
+  border: 1px solid var(--line);
+  vertical-align: top;
+}
+.cmp thead th {
+  background: var(--bg-soft);
+  font-weight: 700; color: var(--ink);
+}
+.cmp thead th:first-child { width: 120px; }
+.cmp .row-label {
+  background: var(--bg-soft); font-weight: 600;
+  color: var(--ink-3); font-size: var(--t-1);
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.cmp .pros td { background: var(--green-bg); }
+.cmp .pros th { color: var(--green); }
+.cmp .cons td { background: var(--red-bg); }
+.cmp .cons th { color: var(--red); }
+.cmp .summary td {
+  background: var(--purple-bg); color: var(--purple);
+  font-weight: 600; font-style: italic;
+}
+.cmp .summary th { color: var(--purple); }
+
+.ph-name { display: block; font-weight: 700; font-size: var(--t-2); color: var(--ink); }
+.ph-sub { display: block; font-size: var(--t-1); color: var(--ink-3); margin-top: 2px; font-weight: 400; }
+.ph-badge { display: inline-block; margin-top: 4px; padding: 1px 6px; border-radius: 3px; font-size: 10px; background: var(--bg-soft); color: var(--ink-4); border: 1px solid var(--line); }
+
+.tension-bar {
+  margin-top: 16px; padding: 12px 20px; border-radius: 6px;
+  background: var(--bg-card); border-left: 3px solid var(--primary);
+  font-size: var(--t-2);
+}
+
+/* ─── Mockup: Browser ─── */
+.mw {
+  border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  font-size: var(--t-1);
+}
+.mwbar {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 12px;
+  background: #f0eeea; border-bottom: 1px solid var(--line);
+}
+.mdt { width: 10px; height: 10px; border-radius: 50%; }
+.mdt.r { background: #ff5f57; } .mdt.y { background: #ffbd2e; } .mdt.g { background: #28c840; }
+.mwurl {
+  flex: 1; padding: 3px 10px; border-radius: 4px;
+  background: #fff; border: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 10px; color: var(--ink-3);
+}
+.mwb { padding: 16px; min-height: 120px; }
+
+/* ─── Mockup: Terminal ─── */
+.mt {
+  border-radius: 8px; overflow: hidden;
+  background: var(--bg-mockup);
+  border: 1px solid #333;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+}
+.mtbar {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  background: #242428; border-bottom: 1px solid #333;
+}
+.mtb {
+  padding: 14px 18px;
+  font-family: var(--font-mono); font-size: 12px;
+  line-height: 1.7; color: #c8c8d0;
+}
+.mtb .prompt { color: #7a7aff; }
+.mtb .cmd { color: #e8e8f0; }
+.mtb .ok { color: #4ec94e; }
+.mtb .err { color: #ff6b6b; }
+.mtb .dim { color: #555560; }
+
+/* ─── Mockup: Mobile ─── */
+.mm {
+  width: 200px; border-radius: 24px; overflow: hidden;
+  background: #1a1a1d; border: 2px solid #333;
+  box-shadow: 0 8px 28px rgba(0,0,0,.25);
+  position: relative; margin: 0 auto;
+}
+.mmnotch {
+  width: 60px; height: 20px; background: #1a1a1d;
+  border-radius: 0 0 12px 12px; margin: 0 auto;
+  position: relative; z-index: 2;
+  border-left: 1px solid #333; border-right: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+.mmscreen { background: var(--bg-card); padding: 0; }
+.mmstatus {
+  display: flex; justify-content: space-between;
+  padding: 4px 16px; font-size: 10px; font-weight: 600;
+  color: var(--ink-2); background: var(--bg-soft);
+}
+.mmbar {
+  height: 4px; margin: 12px auto; width: 50px;
+  background: var(--line-strong); border-radius: 2px;
+}
+.mm-content { padding: 12px 16px; min-height: 200px; }
+
+/* ─── Design System Demo ─── */
+.ds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.ds-card {
+  padding: 20px; border-radius: 8px;
+  background: var(--bg-card); border: 1px solid var(--line);
+}
+.ds-card h4 { font-size: var(--t-2); color: var(--ink-3); margin-bottom: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.color-swatch {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px;
+}
+.swatch { width: 32px; height: 32px; border-radius: 6px; border: 1px solid rgba(0,0,0,.08); flex-shrink: 0; }
+.swatch-info { font-size: var(--t-1); }
+.swatch-name { color: var(--ink); font-weight: 500; display: block; }
+.swatch-hex { color: var(--ink-4); font-family: var(--font-mono); display: block; }
+
+.type-scale .ts-row { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.ts-label { font-size: 10px; color: var(--ink-4); font-family: var(--font-mono); width: 40px; flex-shrink: 0; }
+
+/* ─── Highlights ─── */
+.highlight-card {
+  display: flex; gap: 40px; align-items: flex-start;
+  padding: 32px; border-radius: 10px;
+  background: var(--bg-card); border: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+.hl-num {
+  font-size: var(--t-7); font-weight: 800; color: var(--line);
+  line-height: 1; flex-shrink: 0; width: 80px;
+}
+.hl-body h3 { font-size: var(--t-4); margin-bottom: 8px; }
+.hl-body p { font-size: var(--t-2); color: var(--ink-3); line-height: 1.6; }
+.hl-states { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.state-chip {
+  padding: 4px 12px; border-radius: 4px;
+  font-size: var(--t-1); font-weight: 600;
+  background: var(--bg-soft); color: var(--ink-3);
+  border: 1px solid var(--line);
+}
+.state-chip.active { background: var(--primary-soft); color: var(--primary); border-color: rgba(184,65,44,.3); }
+
+/* ─── Nav Spec Demo ─── */
+.nav-spec-demo {
+  border-radius: 8px; overflow: hidden;
+  border: 2px dashed var(--line); background: var(--bg-soft);
+}
+.nav-demo-row {
+  display: flex; align-items: center; gap: 4px;
+  padding: 8px 16px; background: var(--bg-card); font-size: var(--t-1);
+}
+.nav-demo-row:first-child { border-bottom: 1px solid var(--line-soft); }
+.nav-demo-row .tab {
+  padding: 4px 12px; border-radius: 4px; color: var(--ink-3);
+  cursor: pointer; transition: all .15s;
+}
+.nav-demo-row .tab:hover { background: var(--bg-soft); }
+.nav-demo-row .tab.on { background: var(--primary-soft); color: var(--primary); font-weight: 600; }
+.nav-demo-arrow {
+  display: flex; flex-direction: column; align-items: flex-start;
+  padding: 16px; gap: 4px;
+}
+.nav-demo-arrow span { font-size: var(--t-1); color: var(--ink-4); }
+
+/* ─── File Structure ─── */
+.file-tree {
+  font-family: var(--font-mono); font-size: 12px;
+  background: var(--bg-mockup); color: #c8c8d0;
+  padding: 20px 24px; border-radius: 8px;
+  line-height: 1.8;
+}
+.file-tree .dir { color: #7a9fff; }
+.file-tree .file { color: #c8c8d0; }
+.file-tree .comment { color: #555560; }
+.file-tree .key { color: #4ec94e; }
+
+/* ─── Checklist ─── */
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: var(--t-2); color: var(--ink-2);
+}
+.check-icon { flex-shrink: 0; margin-top: 2px; }
+.check-icon.ok { color: var(--green); }
+.check-icon.rule { color: var(--primary); }
+
+/* ─── Two-col layout ─── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: start; }
+
+/* ─── Utility ─── */
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag {
+  padding: 3px 10px; border-radius: 4px; font-size: var(--t-1);
+  background: var(--bg-soft); color: var(--ink-3);
+  border: 1px solid var(--line);
+}
+.tag.green { background: var(--green-bg); color: var(--green); border-color: rgba(45,122,58,.2); }
+.tag.red { background: var(--red-bg); color: var(--red); border-color: rgba(184,65,44,.2); }
+.tag.purple { background: var(--purple-bg); color: var(--purple); border-color: rgba(107,79,160,.2); }
+
+.rule-block {
+  padding: 12px 16px; border-radius: 6px; margin: 8px 0;
+  display: flex; gap: 10px; align-items: flex-start; font-size: var(--t-2);
+}
+.rule-block.do { background: var(--green-bg); border-left: 3px solid var(--green); }
+.rule-block.dont { background: var(--red-bg); border-left: 3px solid var(--red); }
+.rule-block .icon { flex-shrink: 0; margin-top: 1px; }
+
+.divider { border: none; border-top: 1px solid var(--line-soft); margin: 32px 0; }
+
+.mini-label {
+  font-size: var(--t-1); font-weight: 600; color: var(--ink-4);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 8px; display: block;
+}
+
+svg { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ════════════ TOPNAV ════════════ -->
+<nav class="topnav" id="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-row phase" id="phase-row">
+      <span class="topnav-meta">可视化框架</span>
+      <a class="topnav-tab active" href="#f0">00 · 封面</a>
+      <a class="topnav-tab" href="#f1">01 · 用户旅程图</a>
+      <a class="topnav-tab" href="#f2">02 · 触点对比表</a>
+      <a class="topnav-tab" href="#f3">03 · 设计系统</a>
+      <a class="topnav-tab" href="#f4">04 · Mockup 变体</a>
+      <a class="topnav-tab" href="#f5">05 · 双层导航</a>
+      <a class="topnav-tab" href="#f6">06 · 设计亮点</a>
+      <a class="topnav-tab" href="#f7">07 · 文件结构</a>
+      <a class="topnav-tab" href="#f8">08 · 质量清单</a>
+    </div>
+    <div class="topnav-row sub" id="sub-row">
+      <span class="topnav-meta">楼层</span>
+      <a class="topnav-tab active" href="#f0">封面</a>
+      <a class="topnav-tab" href="#f1">旅程</a>
+      <a class="topnav-tab" href="#f2">对比</a>
+      <a class="topnav-tab" href="#f3">设计</a>
+      <a class="topnav-tab" href="#f4">原型</a>
+      <a class="topnav-tab" href="#f5">导航</a>
+      <a class="topnav-tab" href="#f6">亮点</a>
+      <a class="topnav-tab" href="#f7">文件</a>
+      <a class="topnav-tab" href="#f8">检查</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════ F0: 封面 ════════════ -->
+<section class="floor" id="f0">
+  <div class="floor-head">
+    <div class="floor-label">
+      <span class="floor-num">0</span>封面页 · Cover Floor
+    </div>
+    <div class="cover-eyebrow">
+      <span class="badge accent">Stage 4 · 可视化框架</span>
+      <span class="badge">2026-05-10</span>
+      <span class="badge">v1.0</span>
+    </div>
+    <h1 class="cover-title">可视化报告框架<br>交互演示</h1>
+    <p class="cover-sub">一份通用、跨领域的竞品分析可视化报告生成模板——从设计系统到页面结构，从 Mockup 变体到导航规格，完整展示所有核心概念。</p>
+  </div>
+  <div class="floor-body">
+    <div class="logo-row">
+      <div class="logo-chip"><div class="dot" style="background:#b8412c"></div>产品 A</div>
+      <div class="logo-chip"><div class="dot" style="background:#2d7a3a"></div>产品 B</div>
+      <div class="logo-chip"><div class="dot" style="background:#6b4fa0"></div>产品 C</div>
+      <div class="logo-chip"><div class="dot" style="background:#2c6eb8"></div>产品 D</div>
+    </div>
+    <div class="toc-grid">
+      <a class="toc-card" href="#f1">
+        <div class="toc-card-num">01</div>
+        <div class="toc-card-title">用户旅程图</div>
+        <div class="toc-card-sub">4 行结构 · 触点 chip · 情绪曲线</div>
+      </a>
+      <a class="toc-card" href="#f2">
+        <div class="toc-card-num">02</div>
+        <div class="toc-card-title">触点对比表</div>
+        <div class="toc-card-sub">产品×维度 · 优劣对比 · 张力推荐</div>
+      </a>
+      <a class="toc-card" href="#f3">
+        <div class="toc-card-num">03</div>
+        <div class="toc-card-title">设计系统</div>
+        <div class="toc-card-sub">配色 token · 字阶 · 图标规范</div>
+      </a>
+      <a class="toc-card" href="#f4">
+        <div class="toc-card-num">04</div>
+        <div class="toc-card-title">Mockup 变体</div>
+        <div class="toc-card-sub">终端 · 浏览器 · 移动端 · 组件</div>
+      </a>
+      <a class="toc-card" href="#f5">
+        <div class="toc-card-num">05</div>
+        <div class="toc-card-title">双层导航</div>
+        <div class="toc-card-sub">阶段 tab · 触点 tab · 键盘支持</div>
+      </a>
+      <a class="toc-card" href="#f6">
+        <div class="toc-card-num">06</div>
+        <div class="toc-card-title">设计亮点</div>
+        <div class="toc-card-sub">6-10 条 · 为什么重要 · 多状态</div>
+      </a>
+      <a class="toc-card" href="#f7">
+        <div class="toc-card-num">07</div>
+        <div class="toc-card-title">文件结构</div>
+        <div class="toc-card-sub">多文件方案 · 拆分策略</div>
+      </a>
+      <a class="toc-card" href="#f8">
+        <div class="toc-card-num">08</div>
+        <div class="toc-card-title">质量清单</div>
+        <div class="toc-card-sub">提交前自审 · 结构 · 内容 · 视觉</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ F1: 用户旅程图 ════════════ -->
+<section class="floor" id="f1">
+  <div class="floor-head">
+    <div class="floor-label"><span class="floor-num">1</span>用户旅程图 · Journey Map</div>
+    <h2>4 行结构渲染规范</h2>
+    <p style="color:var(--ink-3);margin-top:8px;font-size:var(--t-2)">触点 chip 可点击跳转 · 情绪曲线内嵌 SVG · 摩擦/机会对齐阶段</p>
+  </div>
+  <div class="floor-body">
+    <div class="journey-wrap" style="border:1px solid var(--line); border-radius:8px; overflow:hidden; flex:1;">
+
+      <!-- 表头 -->
+      <div class="journey-row" style="background:var(--bg-soft)">
+        <div class="journey-label" style="border-right:1px solid var(--line); background:var(--ink); color:#fff; font-size:10px;">阶段</div>
+        <div class="journey-cell" style="background:var(--bg-soft)"><span class="journey-phase-name" style="color:var(--primary)">发现</span></div>
+        <div class="journey-cell" style="background:var(--bg-soft)"><span class="journey-phase-name" style="color:var(--primary)">注册</span></div>
+        <div class="journey-cell" style="background:var(--bg-soft)"><span class="journey-phase-name" style="color:var(--primary)">首次使用</span></div>
+        <div class="journey-cell" style="background:var(--bg-soft)"><span class="journey-phase-name" style="color:var(--primary)">深度使用</span></div>
+        <div class="journey-cell" style="background:var(--bg-soft)"><span class="journey-phase-name" style="color:var(--primary)">续费/推荐</span></div>
+      </div>
+
+      <!-- 行1: 用户行为 -->
+      <div class="journey-row">
+        <div class="journey-label">用户行为</div>
+        <div class="journey-cell">
+          <div class="journey-action">搜索工具</div>
+          <div class="journey-action">看对比评测</div>
+          <div class="journey-action">访问官网</div>
+        </div>
+        <div class="journey-cell">
+          <div class="journey-action">填写邮箱</div>
+          <div class="journey-action">选择计划</div>
+          <div class="journey-action">初始化配置</div>
+        </div>
+        <div class="journey-cell">
+          <div class="journey-action">执行第一条命令</div>
+          <div class="journey-action">浏览文档</div>
+          <div class="journey-action">遇到第一个错误</div>
+        </div>
+        <div class="journey-cell">
+          <div class="journey-action">建立工作流</div>
+          <div class="journey-action">集成 CI/CD</div>
+          <div class="journey-action">团队协作</div>
+        </div>
+        <div class="journey-cell">
+          <div class="journey-action">评估 ROI</div>
+          <div class="journey-action">决定续费</div>
+          <div class="journey-action">推荐同事</div>
+        </div>
+      </div>
+
+      <!-- 行2: 关键触点 -->
+      <div class="journey-row">
+        <div class="journey-label">关键触点</div>
+        <div class="journey-cell">
+          <a class="tp-chip" href="#f2">tp-01 官网首页</a>
+          <a class="tp-chip" href="#f2">tp-02 定价页</a>
+        </div>
+        <div class="journey-cell">
+          <a class="tp-chip" href="#f2">tp-03 注册流程</a>
+          <a class="tp-chip" href="#f2">tp-04 新手引导</a>
+        </div>
+        <div class="journey-cell">
+          <a class="tp-chip" href="#f2">tp-05 首次命令</a>
+          <a class="tp-chip" href="#f2">tp-06 错误处理</a>
+        </div>
+        <div class="journey-cell">
+          <a class="tp-chip" href="#f2">tp-07 上下文管理</a>
+          <a class="tp-chip" href="#f2">tp-08 工具调用</a>
+        </div>
+        <div class="journey-cell">
+          <a class="tp-chip" href="#f2">tp-09 用量看板</a>
+        </div>
+      </div>
+
+      <!-- 行3: 情绪曲线 -->
+      <div class="journey-row">
+        <div class="journey-label">情绪曲线</div>
+        <div class="journey-cell" style="padding:0; position:relative;" colspan="5">
+          <svg viewBox="0 0 900 70" preserveAspectRatio="none" style="width:100%;height:70px;">
+            <defs>
+              <linearGradient id="emo-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2d7a3a" stop-opacity=".15"/>
+                <stop offset="100%" stop-color="#2d7a3a" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M90,40 Q180,20 270,35 Q360,50 450,55 Q540,60 630,30 Q720,10 810,22" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- 峰值标注 -->
+            <circle cx="810" cy="22" r="5" fill="var(--primary)"/>
+            <text x="820" y="20" font-size="9" fill="var(--primary)" font-family="sans-serif">峰值</text>
+            <!-- 低谷标注 -->
+            <circle cx="450" cy="55" r="5" fill="var(--red)"/>
+            <text x="458" y="68" font-size="9" fill="var(--red)" font-family="sans-serif">低谷</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 行4: 摩擦+机会 -->
+      <div class="journey-row">
+        <div class="journey-label">摩擦 + 机会</div>
+        <div class="journey-cell">
+          <div class="friction-item opportunity">● 搜索结果靠前</div>
+        </div>
+        <div class="journey-cell">
+          <div class="friction-item friction">▲ 表单步骤冗长</div>
+        </div>
+        <div class="journey-cell">
+          <div class="friction-item friction">▲ 错误信息不清晰</div>
+          <div class="friction-item opportunity">● 自动修复建议</div>
+        </div>
+        <div class="journey-cell">
+          <div class="friction-item opportunity">● 工具生态完整</div>
+        </div>
+        <div class="journey-cell">
+          <div class="friction-item friction">▲ 无团队用量分析</div>
+        </div>
+      </div>
+
+    </div>
+    <p style="margin-top:12px;font-size:var(--t-1);color:var(--ink-4)">触点 chip 点击后跨文件跳转——这是整个报告的「主索引」，必须 100% 跳得通。</p>
+  </div>
+</section>
+
+<!-- ════════════ F2: 触点对比表 ════════════ -->
+<section class="floor" id="f2">
+  <div class="floor-head">
+    <div class="floor-label"><span class="floor-num">2</span>触点对比表 · Touchpoint Comparison</div>
+    <div class="tp-header">
+      <span class="tp-id-badge">tp-05</span>
+      <h2 style="font-size:var(--t-5)">首次命令执行体验</h2>
+      <span class="tp-context">所属阶段：首次使用 · 维度：上手体验 / 错误处理 / 反馈机制</span>
+    </div>
+  </div>
+  <div class="floor-body">
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th class="row-label"></th>
+          <th>
+            <span class="ph-name">产品 A</span>
+            <span class="ph-sub">交互式命令流，逐步引导</span>
+            <span class="ph-badge">厂商 X</span>
+          </th>
+          <th>
+            <span class="ph-name">产品 B</span>
+            <span class="ph-sub">直接执行，错误即学习</span>
+            <span class="ph-badge">厂商 Y</span>
+          </th>
+          <th>
+            <span class="ph-name">产品 C</span>
+            <span class="ph-sub">模板驱动，降低认知负担</span>
+            <span class="ph-badge">厂商 Z</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="row-label">界面形态</th>
+          <td>
+            <!-- Terminal Mockup inline -->
+            <div class="mt" style="font-size:11px;">
+              <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div></div>
+              <div class="mtb">
+                <div><span class="prompt">❯</span> <span class="cmd">product-a init</span></div>
+                <div class="dim">? 选择工作模式</div>
+                <div><span class="ok">❯ 自动</span>  手动  仅建议</div>
+                <div class="dim">───────────────</div>
+                <div><span class="ok">✔</span> 配置完成，开始使用</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="mt" style="font-size:11px;">
+              <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div></div>
+              <div class="mtb">
+                <div><span class="prompt">$</span> <span class="cmd">product-b "重构登录模块"</span></div>
+                <div class="dim">分析代码库...</div>
+                <div><span class="ok">✔</span> 已修改 3 文件</div>
+                <div><span class="ok">✔</span> 测试通过</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="mw" style="font-size:11px;">
+              <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">app.product-c.io/start</div></div>
+              <div class="mwb">
+                <div style="font-size:11px;color:var(--ink-3);margin-bottom:8px;">选择一个起点模板</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <div style="padding:6px 10px;background:var(--primary-soft);border:1px solid rgba(184,65,44,.3);border-radius:4px;font-size:10px;color:var(--primary)">代码重构</div>
+                  <div style="padding:6px 10px;background:var(--bg-soft);border:1px solid var(--line);border-radius:4px;font-size:10px;color:var(--ink-3)">文档生成</div>
+                  <div style="padding:6px 10px;background:var(--bg-soft);border:1px solid var(--line);border-radius:4px;font-size:10px;color:var(--ink-3)">测试编写</div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th class="row-label">核心机制</th>
+          <td>交互式问答初始化，配置写入本地 config；首次运行前强制选择模式。</td>
+          <td>零配置直接执行；读取 git context 自动推断意图；无确认步骤。</td>
+          <td>Web GUI 模板选择器；选定后生成等价 CLI 命令供用户学习。</td>
+        </tr>
+        <tr class="pros">
+          <th class="row-label">优势</th>
+          <td>+ 新手友好，降低初始焦虑<br>+ 模式选择减少意外副作用</td>
+          <td>+ 速度最快，零摩擦上手<br>+ 结果导向，不强迫学习流程</td>
+          <td>+ 可视化选择，认知负担最低<br>+ 模板覆盖 80% 常见场景</td>
+        </tr>
+        <tr class="cons">
+          <th class="row-label">劣势</th>
+          <td>− 引导流程冗长，老用户每次都要跳过<br>− 无法跳过向导</td>
+          <td>− 无反悔机制，误操作风险高<br>− 错误信息对新手不友好</td>
+          <td>− 模板覆盖之外的任务无法从 GUI 发起<br>− Web 和 CLI 体验割裂</td>
+        </tr>
+        <tr class="summary">
+          <th class="row-label">一句话总结</th>
+          <td>安全换速度，新手最友好</td>
+          <td>速度换安全，专家最高效</td>
+          <td>GUI 降门槛，复杂场景受限</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tension-bar">
+      <strong>核心张力：</strong>上手摩擦 vs 操作安全性——引导越多越安全，但对熟练用户越烦躁。
+      <strong style="margin-left:16px;">推荐：</strong>默认「安全模式」，检测到老用户（>5次执行）后自动切换「专家模式」，兼顾两端。
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ F3: 设计系统 ════════════ -->
+<section class="floor" id="f3">
+  <div class="floor-head">
+    <div class="floor-label"><span class="floor-num">3</span>设计系统 · Design System</div>
+    <h2>配色 Token · 字阶 · 图标规范</h2>
+  </div>
+  <div class="floor-body">
+    <div class="two-col">
+      <!-- 配色 -->
+      <div>
+        <span class="mini-label">配色 Token（CSS 变量）</span>
+        <div class="ds-card">
+          <h4>背景层</h4>
+          <div class="color-swatch"><div class="swatch" style="background:#f7f5ef;border:1px solid #e0ddd2"></div><div class="swatch-info"><span class="swatch-name">--bg</span><span class="swatch-hex">#f7f5ef · 主背景暖白</span></div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#efece4"></div><div class="swatch-info"><span class="swatch-name">--bg-soft</span><span class="swatch-hex">#efece4 · 次级背景</span></div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#ffffff;border:1px solid #e0ddd2"></div><div class="swatch-info"><span class="swatch-name">--bg-card</span><span class="swatch-hex">#ffffff · 卡片纯白</span></div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#1a1a1d"></div><div class="swatch-info"><span class="swatch-name">--bg-mockup</span><span class="swatch-hex">#1a1a1d · 终端深色</span></div></div>
+        </div>
+        <div class="ds-card" style="margin-top:12px;">
+          <h4>文字层（4 级）</h4>
+          <div class="color-swatch"><div class="swatch" style="background:#14141a"></div><div class="swatch-info"><span class="swatch-name">--ink</span><span class="swatch-hex">#14141a · 标题强调</span></div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#4a4a55"></div><div class="swatch-info"><span class="swatch-name">--ink-2</span><span class="swatch-hex">#4a4a55 · 正文</span></div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#7a7a85"></div><div class="swatch-info"><span class="swatch-name">--ink-3</span><span class="swatch-hex">#7a7a85 · 辅助</span></div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#a8a8b0"></div><div class="swatch-info"><span class="swatch-name">--ink-4</span><span class="swatch-hex">#a8a8b0 · 占位</span></div></div>
+        </div>
+        <div class="ds-card" style="margin-top:12px;">
+          <h4>点缀色</h4>
+          <div class="color-swatch"><div class="swatch" style="background:#b8412c"></div><div class="swatch-info"><span class="swatch-name">--primary</span><span class="swatch-hex">#b8412c · deep terra-cotta</span></div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#2d7a3a"></div><div class="swatch-info"><span class="swatch-name">green（状态色）</span><span class="swatch-hex">#2d7a3a · 优势/成功</span></div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#6b4fa0"></div><div class="swatch-info"><span class="swatch-name">purple（状态色）</span><span class="swatch-hex">#6b4fa0 · 总结高亮</span></div></div>
+        </div>
+      </div>
+
+      <!-- 字阶 + 图标 -->
+      <div>
+        <span class="mini-label">字号阶梯</span>
+        <div class="ds-card type-scale">
+          <div class="ts-row"><span class="ts-label">--t-1</span><span style="font-size:11px;color:var(--ink-3)">11px 元数据、tag、徽章</span></div>
+          <div class="ts-row"><span class="ts-label">--t-2</span><span style="font-size:13px;color:var(--ink-2)">13px 正文、表格内容</span></div>
+          <div class="ts-row"><span class="ts-label">--t-3</span><span style="font-size:15px;color:var(--ink-2)">15px 强调正文</span></div>
+          <div class="ts-row"><span class="ts-label">--t-4</span><span style="font-size:18px;color:var(--ink)">18px 小标题</span></div>
+          <div class="ts-row"><span class="ts-label">--t-5</span><span style="font-size:24px;color:var(--ink);font-weight:700">24px 楼层标题</span></div>
+          <div class="ts-row"><span class="ts-label">--t-6</span><span style="font-size:36px;color:var(--ink);font-weight:800">36px 主标题</span></div>
+          <div class="ts-row"><span class="ts-label">--t-7</span><span style="font-size:48px;color:var(--line);font-weight:800;line-height:1">56px 数字标号</span></div>
+        </div>
+
+        <span class="mini-label" style="margin-top:16px;">SVG 图标规范</span>
+        <div class="ds-card">
+          <p style="font-size:var(--t-1);color:var(--ink-3);margin-bottom:12px;">viewBox 0 0 24 24 · stroke-width 1.5 · fill none</p>
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <hr class="divider">
+          <div class="rule-block dont"><span class="icon">✕</span><span>不要在正文用装饰性 emoji（🚀 ✨ 🎯），会让报告显得不专业</span></div>
+          <div class="rule-block do"><span class="icon">✓</span><span>终端 Mockup 内部可用 ASCII 字符 <code style="font-family:var(--font-mono);background:var(--bg-soft);padding:1px 5px;border-radius:3px;">❯ ✔ ✗ ⠿</code>——符合终端美学</span></div>
+        </div>
+
+        <span class="mini-label" style="margin-top:16px;">主题策略</span>
+        <div class="ds-card">
+          <div class="rule-block do"><span class="icon">✓</span><span><strong>默认浅色</strong>：暖白背景 + 深色文字 + 单一点缀色，编辑感强</span></div>
+          <div class="rule-block dont"><span class="icon">✕</span><span><strong>反模式</strong>：浅色页面散布多种亮色点缀（紫+蓝+绿+红+橙），显廉价</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ F4: Mockup 变体 ════════════ -->
+<section class="floor" id="f4">
+  <div class="floor-head">
+    <div class="floor-label"><span class="floor-num">4</span>Mockup 变体库 · Mockup Variants</div>
+    <h2>4 种变体 · 按触点性质选用</h2>
+  </div>
+  <div class="floor-body">
+    <div class="three-col" style="gap:20px;flex:1;">
+      <!-- Terminal -->
+      <div>
+        <span class="mini-label">终端 Mockup · CLI 工具</span>
+        <div class="mt">
+          <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><span style="font-size:10px;color:#666;margin-left:8px;">bash · ~/project</span></div>
+          <div class="mtb">
+            <div><span class="prompt">❯</span> <span class="cmd">refactor @src/auth.ts --mode safe</span></div>
+            <div class="dim">⠿ 读取文件上下文...</div>
+            <div class="dim">⠿ 分析依赖关系 (12 个文件)</div>
+            <div><span class="ok">✔</span> 生成重构方案</div>
+            <div style="margin-top:4px;color:#7a9fff;">  修改 src/auth.ts</div>
+            <div style="color:#7a9fff;">  修改 src/auth.test.ts</div>
+            <div style="margin-top:4px;"><span class="prompt">❯</span> <span class="cmd">_</span><span style="animation:blink 1s infinite">|</span></div>
+          </div>
+        </div>
+        <p style="margin-top:8px;font-size:var(--t-1);color:var(--ink-4)">背景 #1a1a1d · 唯一暗区，制造层级对比</p>
+      </div>
+
+      <!-- Browser -->
+      <div>
+        <span class="mini-label">浏览器 Mockup · Web 应用</span>
+        <div class="mw">
+          <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">app.example.io/dashboard</div></div>
+          <div class="mwb">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <span style="font-size:13px;font-weight:700;color:var(--ink)">项目仪表盘</span>
+              <span style="font-size:11px;padding:3px 10px;background:var(--primary);color:#fff;border-radius:4px;">+ 新建</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="padding:10px;background:var(--bg-soft);border-radius:6px;border:1px solid var(--line);">
+                <div style="font-size:10px;color:var(--ink-4)">今日调用</div>
+                <div style="font-size:20px;font-weight:700;color:var(--ink)">1,247</div>
+              </div>
+              <div style="padding:10px;background:var(--bg-soft);border-radius:6px;border:1px solid var(--line);">
+                <div style="font-size:10px;color:var(--ink-4)">Token 用量</div>
+                <div style="font-size:20px;font-weight:700;color:var(--ink)">89k</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:8px;font-size:var(--t-1);color:var(--ink-4)">红绿黄三点 + URL 栏，标准浏览器 chrome</p>
+      </div>
+
+      <!-- Mobile + Component -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <span class="mini-label">移动端 Mockup · App</span>
+          <div class="mm">
+            <div class="mmnotch"></div>
+            <div class="mmscreen">
+              <div class="mmstatus">9:41 ●●● 100%</div>
+              <div class="mm-content">
+                <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px;">最近对话</div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <div style="padding:8px;background:var(--bg-soft);border-radius:6px;font-size:10px;color:var(--ink-3)">重构认证模块 · 3分钟前</div>
+                  <div style="padding:8px;background:var(--bg-soft);border-radius:6px;font-size:10px;color:var(--ink-3)">编写单元测试 · 1小时前</div>
+                </div>
+                <div style="margin-top:12px;padding:8px;background:var(--primary);border-radius:6px;text-align:center;font-size:10px;color:#fff;font-weight:600;">开始新对话</div>
+              </div>
+              <div class="mmbar"></div>
+            </div>
+          </div>
+          <p style="margin-top:8px;font-size:var(--t-1);color:var(--ink-4)">宽度 200-320px · aspect-ratio 9:19.5</p>
+        </div>
+
+        <div>
+          <span class="mini-label">组件 Mockup · 裸组件</span>
+          <div style="padding:16px;background:var(--bg-card);border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;padding:8px 12px;border:1.5px solid var(--primary);border-radius:6px;font-size:12px;color:var(--ink-3);">❯ 输入指令...</div>
+              <div style="padding:8px 12px;background:var(--primary);border-radius:6px;font-size:12px;color:#fff;cursor:pointer;">发送</div>
+            </div>
+            <div style="font-size:10px;color:var(--ink-4);padding:0 4px;">按 Enter 发送 · Shift+Enter 换行</div>
+          </div>
+          <p style="margin-top:6px;font-size:var(--t-1);color:var(--ink-4)">无 chrome/frame，展示纯组件级差异</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ F5: 双层导航 ════════════ -->
+<section class="floor" id="f5">
+  <div class="floor-head">
+    <div class="floor-label"><span class="floor-num">5</span>双层导航规格 · Two-tier Navigation</div>
+    <h2>Sticky 双行 Tab · 键盘支持 · Hash 同步</h2>
+  </div>
+  <div class="floor-body">
+    <div class="two-col">
+      <div>
+        <span class="mini-label">结构示意</span>
+        <div class="nav-spec-demo">
+          <div class="nav-demo-row">
+            <span style="font-size:10px;color:var(--ink-4);margin-right:8px;">阶段</span>
+            <span class="tab on">01 · 发现</span>
+            <span class="tab">02 · 注册</span>
+            <span class="tab">03 · 首次使用</span>
+            <span class="tab">04 · 深度使用</span>
+          </div>
+          <div class="nav-demo-row">
+            <span style="font-size:10px;color:var(--ink-4);margin-right:8px;">触点</span>
+            <span class="tab on">tp-01 官网首页</span>
+            <span class="tab">tp-02 定价页</span>
+          </div>
+          <div style="padding:16px;font-size:var(--t-1);color:var(--ink-4);">
+            ↕ 内容区域（snap scroll）
+          </div>
+        </div>
+
+        <hr class="divider">
+        <span class="mini-label">nav.js 5 项行为规格</span>
+        <ul class="checklist" style="margin-top:8px;">
+          <li><span class="check-icon rule">①</span><span>自动高亮当前页 phase tab（基于 <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-soft);padding:1px 4px;border-radius:3px;">data-page</code> 与 <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-soft);padding:1px 4px;border-radius:3px;">location.pathname</code>）</span></li>
+          <li><span class="check-icon rule">②</span><span>sub tab 随 hash 自动同步（hashchange + IntersectionObserver）</span></li>
+          <li><span class="check-icon rule">③</span><span>点击 sub tab → 平滑滚动到楼层</span></li>
+          <li><span class="check-icon rule">④</span><span>方向键 ↑↓ / jk / PgUp/PgDn 切换楼层</span></li>
+          <li><span class="check-icon rule">⑤</span><span>输入框聚焦时禁用方向键劫持</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="mini-label">反模式 vs 正确做法</span>
+        <div class="rule-block dont">
+          <span class="icon">✕</span>
+          <div>
+            <strong>不要：</strong>把所有内容塞在一个长滚动页面里靠右侧浮动小圆点导航<br>
+            <span style="color:var(--ink-3);font-size:var(--t-1)">小圆点无法传递位置语义，键盘不可用，链接无法分享</span>
+          </div>
+        </div>
+        <div class="rule-block do">
+          <span class="icon">✓</span>
+          <div>
+            <strong>要：</strong>顶部双行 tab，可点击、可键盘、可分享 hash<br>
+            <span style="color:var(--ink-3);font-size:var(--t-1)">编辑性报告的标准导航模式</span>
+          </div>
+        </div>
+
+        <hr class="divider">
+        <span class="mini-label">楼层 Snap Scroll 约束</span>
+        <div style="background:var(--bg-card);border:1px solid var(--line);border-radius:8px;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;font-size:var(--t-1);">
+            <thead>
+              <tr style="background:var(--bg-soft);">
+                <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-3);">内容类型</th>
+                <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-3);">单楼层最大量</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:8px 12px;border-bottom:1px solid var(--line-soft);">文字段落</td><td style="padding:8px 12px;border-bottom:1px solid var(--line-soft);">≤ 4 段，每段 ≤ 3 行</td></tr>
+              <tr><td style="padding:8px 12px;border-bottom:1px solid var(--line-soft);">表格行数</td><td style="padding:8px 12px;border-bottom:1px solid var(--line-soft);">≤ 8 行（含表头）</td></tr>
+              <tr><td style="padding:8px 12px;border-bottom:1px solid var(--line-soft);">卡片数量</td><td style="padding:8px 12px;border-bottom:1px solid var(--line-soft);">4 列 ≤ 8 个 / 3 列 ≤ 6 个</td></tr>
+              <tr><td style="padding:8px 12px;">Mockup 数量</td><td style="padding:8px 12px;">1 大 + 1-2 小</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="rule-block dont" style="margin-top:12px;">
+          <span class="icon">✕</span><span>违反约束 = 拆分到下一楼。不要硬塞。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ F6: 设计亮点 ════════════ -->
+<section class="floor" id="f6">
+  <div class="floor-head">
+    <div class="floor-label"><span class="floor-num">6</span>设计亮点页 · Design Highlights</div>
+    <h2>6-10 条跨触点亮点 · 每条说清「为什么重要」</h2>
+  </div>
+  <div class="floor-body">
+    <div class="highlight-card">
+      <div class="hl-num">01</div>
+      <div class="hl-body" style="flex:1;">
+        <h3>「错误即学习」——将报错转化为主动引导的教学时机</h3>
+        <p class="why">竞品 B 在命令执行失败时不仅显示错误码，还附带「最可能的原因」和「下一步建议」。这个设计决策重要，是因为新用户的第一次挫折往往决定留存——把挫折变成有人陪跑的学习，流失率降低 40%（内部数据）。</p>
+        <div class="hl-states">
+          <span class="state-chip">idle · 等待输入</span>
+          <span class="state-chip active">error · 报错状态</span>
+          <span class="state-chip">recover · 自动建议</span>
+          <span class="state-chip">success · 修复成功</span>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-card">
+      <div class="hl-num">02</div>
+      <div class="hl-body" style="flex:1;">
+        <h3>上下文感知的「安全/专家」双模式自动切换</h3>
+        <p class="why">没有一种初始化方式能同时满足新手和专家。竞品 A 的聪明之处在于通过行为数据（执行次数 / 命令复杂度）推断用户成熟度，悄悄切换默认行为——新手感受到了陪伴，老用户感受到了效率，互不干扰。</p>
+        <div class="hl-states">
+          <span class="state-chip active">新用户 · 引导模式</span>
+          <span class="state-chip">检测中 · 分析行为</span>
+          <span class="state-chip">专家 · 快速模式</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:16px 20px;background:var(--bg-soft);border-radius:8px;border:1px solid var(--line);">
+      <strong>亮点入选标准（同时满足 3 条）：</strong>
+      <div class="tag-row" style="margin-top:8px;">
+        <span class="tag green">① 解决旅程关键摩擦（情绪低谷）</span>
+        <span class="tag red">② 与竞品有明显差异化</span>
+        <span class="tag purple">③ 背后有可解释的设计原理</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ F7: 文件结构 ════════════ -->
+<section class="floor" id="f7">
+  <div class="floor-head">
+    <div class="floor-label"><span class="floor-num">7</span>输出文件结构 · File Structure</div>
+    <h2>多文件方案 · 按触点数量选择拆分策略</h2>
+  </div>
+  <div class="floor-body">
+    <div class="two-col">
+      <div>
+        <span class="mini-label">标准目录结构</span>
+        <div class="file-tree">
+          <span class="dir">reports/{project}-{date}-visual/</span><br>
+          <span>├── </span><span class="key">index.html</span><span class="comment">              # 封面 + 旅程图</span><br>
+          <span>├── </span><span class="key">shared.css</span><span class="comment">              # 设计 token + 样式</span><br>
+          <span>├── </span><span class="key">nav.js</span><span class="comment">                  # 双层导航逻辑</span><br>
+          <span>├── </span><span class="dir">tp-discover.html</span><span class="comment">    # 阶段1 · 所有触点</span><br>
+          <span>├── </span><span class="dir">tp-onboard.html</span><span class="comment">     # 阶段2 · 所有触点</span><br>
+          <span>├── </span><span class="dir">tp-core.html</span><span class="comment">        # 阶段3 · 所有触点</span><br>
+          <span>├── </span><span class="key">highlights.html</span><span class="comment">         # 设计亮点 6-10 条</span><br>
+          <span>├── </span><span class="file">design-proposal.html</span><span class="comment">    # 推荐方向（可选）</span><br>
+          <span>├── </span><span class="file">dev-spec.html</span><span class="comment">           # 开发规格（可选）</span><br>
+          <span>└── </span><span class="dir">assets/</span><br>
+          <span>    ├── </span><span class="dir">img/</span><span class="comment">            # 截图、对比图</span><br>
+          <span>    └── </span><span class="dir">icons/</span><span class="comment">          # SVG 图标库</span>
+        </div>
+      </div>
+      <div>
+        <span class="mini-label">拆分策略决策树</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="padding:16px;border-radius:8px;background:var(--bg-card);border:1px solid var(--line);">
+            <div style="font-size:var(--t-1);color:var(--ink-4);margin-bottom:4px;">触点 ≤ 5 个</div>
+            <div style="font-size:var(--t-2);color:var(--ink);font-weight:600;">单文件 HTML</div>
+            <div style="font-size:var(--t-1);color:var(--ink-3);">所有内容塞进 index.html，CSS/JS 内联，便于分发</div>
+          </div>
+          <div style="padding:16px;border-radius:8px;background:var(--primary-soft);border:1px solid rgba(184,65,44,.2);">
+            <div style="font-size:var(--t-1);color:var(--primary);margin-bottom:4px;font-weight:600;">触点 6-15 个（推荐）</div>
+            <div style="font-size:var(--t-2);color:var(--ink);font-weight:600;">按旅程阶段拆 tp-*.html</div>
+            <div style="font-size:var(--t-1);color:var(--ink-3);">封面与旅程图保留在 index，每个阶段独立文件</div>
+          </div>
+          <div style="padding:16px;border-radius:8px;background:var(--bg-card);border:1px solid var(--line);">
+            <div style="font-size:var(--t-1);color:var(--ink-4);margin-bottom:4px;">触点 &gt; 15 个</div>
+            <div style="font-size:var(--t-2);color:var(--ink);font-weight:600;">按触点拆，每个触点独立文件</div>
+            <div style="font-size:var(--t-1);color:var(--ink-3);">导航复杂度上升，考虑搜索功能</div>
+          </div>
+        </div>
+
+        <hr class="divider">
+        <span class="mini-label">跨文件状态保持</span>
+        <div class="ds-card">
+          <ul class="checklist">
+            <li><span class="check-icon rule">→</span><span>全局 nav state 写入 <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-soft);padding:1px 4px;border-radius:3px;">sessionStorage</code></span></li>
+            <li><span class="check-icon rule">→</span><span>页面加载读取 <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-soft);padding:1px 4px;border-radius:3px;">?from=</code> 参数，自动滚动到来源位置</span></li>
+            <li><span class="check-icon rule">→</span><span>URL hash 同步（<code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-soft);padding:1px 4px;border-radius:3px;">#tp-03-a</code>），刷新和分享链接稳定</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ F8: 质量清单 ════════════ -->
+<section class="floor" id="f8">
+  <div class="floor-head">
+    <div class="floor-label"><span class="floor-num">8</span>质量检查清单 · Quality Checklist</div>
+    <h2>提交前自审 · 4 个维度</h2>
+  </div>
+  <div class="floor-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <!-- 结构完整性 -->
+      <div class="ds-card">
+        <h4 style="color:var(--primary);">结构完整性</h4>
+        <ul class="checklist" style="margin-top:12px;">
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>用户旅程图覆盖完整使用周期（4-6 阶段）</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>旅程中每个触点都有对应的对比页</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>每个触点对比页都有「核心张力 + 推荐方向」</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>所有产品列表跨触点保持一致</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>设计亮点 6-10 条</span></li>
+        </ul>
+      </div>
+
+      <!-- 内容质量 -->
+      <div class="ds-card">
+        <h4 style="color:var(--green);">内容质量</h4>
+        <ul class="checklist" style="margin-top:12px;">
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>列标题是「产品名 + 做法」双层格式</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>同一触点内所有维度行严格对齐</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>每个触点至少有一种 mockup 变体</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>推荐方向有具体「因为/所以」结构</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>每个触点都有显式的「核心张力」说明</span></li>
+        </ul>
+      </div>
+
+      <!-- 视觉呈现 -->
+      <div class="ds-card">
+        <h4 style="color:var(--purple);">视觉呈现</h4>
+        <ul class="checklist" style="margin-top:12px;">
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>全局无装饰性 emoji</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>所有楼层 100vh，snap scroll 生效</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>两层导航在所有页面正确可交互</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>触点 chip 跨文件跳转 100% 跳得通</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>最小正文 ≥ 12px</span></li>
+        </ul>
+      </div>
+
+      <!-- 一致性 -->
+      <div class="ds-card">
+        <h4 style="color:var(--ink-2);">一致性</h4>
+        <ul class="checklist" style="margin-top:12px;">
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>所有产品分析了相同的维度集合</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>优势/劣势格式一致（<code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-soft);padding:1px 4px;border-radius:3px;">+</code> 绿 / <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-soft);padding:1px 4px;border-radius:3px;">−</code> 红，≤ 20 字）</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>紫色高亮行风格统一</span></li>
+          <li><span class="check-icon ok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span>配色使用 CSS 变量，无硬编码 hex</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ JS: Nav Logic ════════════ -->
+<script>
+(function() {
+  const phaseLinks = document.querySelectorAll('#phase-row .topnav-tab');
+  const subLinks = document.querySelectorAll('#sub-row .topnav-tab');
+  const floors = document.querySelectorAll('.floor');
+
+  // Sync sub tab + phase tab on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio > 0.4) {
+        const id = e.target.id;
+        subLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+        phaseLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  floors.forEach(f => io.observe(f));
+
+  // Keyboard: j/k / arrow keys / PgUp / PgDn
+  let currentIdx = 0;
+  const floorArr = Array.from(floors);
+
+  function goTo(idx) {
+    if (idx < 0) idx = 0;
+    if (idx >= floorArr.length) idx = floorArr.length - 1;
+    currentIdx = idx;
+    floorArr[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  document.addEventListener('keydown', e => {
+    if (document.activeElement && ['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+    if (e.key === 'ArrowDown' || e.key === 'j' || e.key === 'PageDown') { e.preventDefault(); goTo(currentIdx + 1); }
+    if (e.key === 'ArrowUp' || e.key === 'k' || e.key === 'PageUp') { e.preventDefault(); goTo(currentIdx - 1); }
+  });
+
+  // Update currentIdx on scroll
+  const io2 = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio > 0.5) {
+        currentIdx = floorArr.indexOf(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  floorArr.forEach(f => io2.observe(f));
+})();
+</script>
+</body>
+</html>

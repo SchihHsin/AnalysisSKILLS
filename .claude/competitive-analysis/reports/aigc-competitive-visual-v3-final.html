@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>AIGC 创意平台体验竞品分析 — 渲染样本</title>
+<style>
+:root{
+  --acc:#834DF0; --acc-2:#6B3FE5; --acc-bg:#F4EFFE;
+  --g:#059669; --g-bg:#ECFDF5;
+  --r:#DC2626; --r-bg:#FEF2F2;
+  --y:#D97706; --y-bg:#FFFBEB;
+  --bl:#2563EB; --bl-bg:#EFF6FF;
+  --bg:#FFFFFF; --bg-2:#FAFAFA; --bg-3:#F4F4F5;
+  --fg:#18181B; --fg-2:#52525B; --fg-3:#A1A1AA;
+  --border:#E4E4E7; --border-2:#D4D4D8;
+  --tg:#34D399; --tg2:#10B981; --tb2:#60A5FA; --tb3:#3B82F6;
+  --tp2:#A78BFA; --tp3:#8B5CF6; --ty:#FBBF24; --ty3:#F59E0B;
+  --tr:#F87171; --tc:#22D3EE; --tw:#F4F4F5; --td:#71717A;
+
+  --t-1:12px; --t-2:14px; --t-3:16px; --t-4:20px;
+  --t-5:28px; --t-6:40px; --t-7:64px;
+
+  --font-sans:'Inter',-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+  --font-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:var(--font-sans);color:var(--fg);background:var(--bg);font-size:var(--t-2);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* ================= snap container ================= */
+.snap{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+.snap::-webkit-scrollbar{width:0}
+.section{width:100vw;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;padding:88px 80px 56px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+
+/* ================= top nav (two-layer) ================= */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
+.topnav-inner{padding:0 80px;display:flex;flex-direction:column}
+.topnav-row1{height:48px;display:flex;align-items:center;gap:24px;border-bottom:1px solid var(--border)}
+.brand{font-weight:600;font-size:13px;letter-spacing:.02em;color:var(--fg);display:flex;align-items:center;gap:8px}
+.brand-dot{width:8px;height:8px;border-radius:2px;background:var(--acc);transform:rotate(45deg)}
+.brand small{color:var(--fg-3);font-weight:400;margin-left:8px;font-size:11px}
+.tabs1{display:flex;gap:4px;flex:1;justify-content:center}
+.tab1{padding:6px 14px;font-size:13px;color:var(--fg-2);cursor:pointer;border-radius:999px;transition:all .15s;font-weight:500;white-space:nowrap;border:1px solid transparent}
+.tab1:hover{background:var(--bg-3);color:var(--fg)}
+.tab1.active{background:var(--fg);color:var(--bg)}
+.meta-right{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--fg-3);font-family:var(--font-mono)}
+.meta-right .badge{padding:2px 7px;border:1px solid var(--border);border-radius:4px;background:var(--bg-2)}
+.meta-right .badge.warn{color:var(--y);border-color:var(--y);background:var(--y-bg)}
+
+.topnav-row2{height:40px;display:flex;align-items:center;gap:8px;overflow-x:auto}
+.tabs2{display:flex;gap:6px;flex:1}
+.tab2{padding:5px 11px;font-size:12px;color:var(--fg-2);cursor:pointer;border-radius:6px;transition:all .15s;border:1px solid var(--border);background:var(--bg);font-family:var(--font-mono);white-space:nowrap}
+.tab2:hover{border-color:var(--acc);color:var(--acc)}
+.tab2.active{background:var(--acc);color:#fff;border-color:var(--acc)}
+.tab2 .tp-id{opacity:.7;margin-right:6px}
+
+/* ================= right dots ================= */
+.dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border-2);cursor:pointer;transition:all .2s;border:none;padding:0}
+.dot:hover{background:var(--fg-3)}
+.dot.active{background:var(--acc);transform:scale(1.4)}
+
+/* ================= cover ================= */
+.cover{justify-content:center;background:linear-gradient(135deg,#fafafa 0%,#f0e9fc 100%)}
+.cover-inner{max-width:1100px;margin:0 auto;width:100%}
+.cover-meta{display:flex;gap:8px;margin-bottom:24px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-family:var(--font-mono);padding:3px 9px;border-radius:4px;background:var(--bg);border:1px solid var(--border);color:var(--fg-2)}
+.tag.warn{background:var(--y-bg);border-color:var(--y);color:var(--y)}
+.tag.acc{background:var(--acc-bg);border-color:var(--acc);color:var(--acc)}
+.cover h1{font-size:64px;line-height:1.05;letter-spacing:-.02em;font-weight:700;margin-bottom:16px;color:var(--fg)}
+.cover h1 .accent{color:var(--acc)}
+.cover-sub{font-size:20px;color:var(--fg-2);max-width:720px;line-height:1.4;margin-bottom:48px}
+.cover-products{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.prod-chip{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--bg);border:1px solid var(--border);border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:all .2s}
+.prod-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.prod-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;font-family:var(--font-mono)}
+.prod-icon.jm{background:linear-gradient(135deg,#FF6A33,#FF3060)}
+.prod-icon.kl{background:linear-gradient(135deg,#0AC2C2,#0B7AC2)}
+.prod-icon.mj{background:linear-gradient(135deg,#000,#3A3A4F)}
+.prod-icon.tn{background:linear-gradient(135deg,#FFB73D,#FF6A33)}
+.prod-name{font-weight:600;font-size:14px}
+.prod-name small{display:block;font-weight:400;font-size:11px;color:var(--fg-3);margin-top:1px}
+.cover-cta{display:flex;align-items:center;gap:16px;color:var(--fg-2);font-size:13px}
+.cta-arrow{width:32px;height:32px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.cover-disclaimer{position:absolute;bottom:32px;left:80px;right:80px;font-size:11px;color:var(--fg-3);font-family:var(--font-mono);padding-top:16px;border-top:1px dashed var(--border-2);display:flex;justify-content:space-between;align-items:center}
+
+/* ================= journey ================= */
+.journey-head{margin-bottom:24px}
+.section-eyebrow{font-size:11px;color:var(--acc);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-weight:600}
+.section-title{font-size:var(--t-5);font-weight:700;color:var(--fg);letter-spacing:-.01em}
+.section-desc{font-size:13px;color:var(--fg-2);margin-top:8px;max-width:780px}
+
+.journey-grid{display:grid;grid-template-columns:120px repeat(5,1fr);gap:0;flex:1;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.j-cell{padding:14px 16px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.j-cell:last-child{border-right:none}
+.j-row-label{font-size:11px;color:var(--fg-3);font-weight:600;text-transform:uppercase;font-family:var(--font-mono);letter-spacing:.05em;background:var(--bg-2);display:flex;align-items:center;justify-content:center;text-align:center}
+.j-stage-head{background:linear-gradient(180deg,var(--acc-bg) 0%,var(--bg) 100%);font-weight:600;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.j-stage-num{font-size:11px;color:var(--acc);font-family:var(--font-mono)}
+.j-stage-name{font-size:14px;color:var(--fg)}
+.j-actions{font-size:12px;line-height:1.6;color:var(--fg-2)}
+.j-actions div{display:flex;gap:6px;align-items:flex-start}
+.j-actions div::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--fg-3);margin-top:7px;flex-shrink:0}
+.j-tps{display:flex;flex-direction:column;gap:6px}
+.tp-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:var(--acc-bg);color:var(--acc);border-radius:6px;font-size:11px;font-family:var(--font-mono);cursor:pointer;border:1px solid transparent;transition:all .15s;width:fit-content;max-width:100%}
+.tp-chip:hover{border-color:var(--acc);background:var(--bg);transform:translateX(2px)}
+.tp-chip .id{opacity:.65}
+.j-emotion{position:relative;height:120px}
+.j-emotion svg{width:100%;height:100%}
+.j-friction{font-size:11px;line-height:1.6;color:var(--fg-2);display:flex;flex-direction:column;gap:4px}
+.j-friction .frict::before{content:"▲";color:var(--r);margin-right:4px;font-size:9px}
+.j-friction .opp::before{content:"●";color:var(--g);margin-right:4px}
+
+/* ================= touchpoint pages ================= */
+.tp-section{background:var(--bg);position:relative}
+.tp-header{display:flex;align-items:flex-end;gap:16px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.tp-id-tag{font-family:var(--font-mono);font-size:10px;padding:3px 8px;background:var(--fg);color:var(--bg);border-radius:4px;font-weight:600;letter-spacing:.05em}
+.tp-name{font-size:24px;font-weight:700;color:var(--fg);line-height:1.1}
+.tp-context{font-size:11px;color:var(--fg-3);font-family:var(--font-mono);display:flex;gap:12px;margin-left:auto}
+.tp-context span::before{content:"·";margin-right:8px;color:var(--border-2)}
+.tp-context span:first-child::before{display:none}
+
+table.cmp{width:100%;flex:1;border-collapse:separate;border-spacing:0;font-size:11.5px;table-layout:fixed}
+.cmp thead th{padding:10px 12px;background:var(--bg-2);border-bottom:2px solid var(--fg);text-align:left;vertical-align:top;font-weight:600}
+.cmp thead .row-label{background:transparent;border-bottom:2px solid transparent;width:90px}
+.cmp .ph-name{display:block;font-size:13px;color:var(--fg);margin-bottom:2px}
+.cmp .ph-sub{display:block;font-size:10.5px;color:var(--fg-2);font-weight:400;line-height:1.4;font-family:var(--font-mono)}
+.cmp tbody th{font-weight:500;font-size:10.5px;color:var(--fg-3);text-transform:uppercase;font-family:var(--font-mono);letter-spacing:.05em;padding:10px 8px 10px 0;text-align:right;vertical-align:top;background:transparent;border-bottom:1px solid var(--border)}
+.cmp tbody td{padding:10px 12px;vertical-align:top;border-bottom:1px solid var(--border);border-right:1px solid var(--border);line-height:1.5}
+.cmp tbody td:last-child{border-right:none}
+.cmp .row-mockup td{background:var(--bg-2);padding:12px}
+.cmp .row-mech td{font-size:11.5px;color:var(--fg-2)}
+.cmp .row-pros td{background:var(--g-bg);color:var(--g);font-size:11px;line-height:1.7}
+.cmp .row-pros td > div::before{content:"+";font-weight:700;margin-right:5px}
+.cmp .row-cons td{background:var(--r-bg);color:var(--r);font-size:11px;line-height:1.7}
+.cmp .row-cons td > div::before{content:"−";font-weight:700;margin-right:5px}
+.cmp .row-summary td{background:var(--acc-bg);color:var(--acc-2);font-weight:600;font-size:11.5px;border-bottom:none}
+
+.tension-row{margin-top:14px;padding:12px 14px;background:var(--fg);color:var(--bg);border-radius:8px;display:flex;align-items:center;gap:24px;font-size:12px}
+.tension-row strong{color:#FBBF24;margin-right:6px;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-family:var(--font-mono)}
+.tension-row .recom strong{color:#34D399}
+
+/* ================= mockups ================= */
+/* browser mockup */
+.mw{background:#fff;border:1px solid var(--border-2);border-radius:6px;overflow:hidden;font-family:var(--font-sans);box-shadow:0 1px 3px rgba(0,0,0,.04);height:100%;min-height:120px}
+.mwbar{display:flex;align-items:center;gap:6px;padding:5px 8px;background:var(--bg-3);border-bottom:1px solid var(--border)}
+.mdt{width:8px;height:8px;border-radius:50%}
+.mdt.r{background:#FF5F57}.mdt.y{background:#FEBC2E}.mdt.g{background:#28C840}
+.mwurl{flex:1;background:var(--bg);border-radius:3px;padding:2px 8px;font-size:9px;color:var(--fg-3);font-family:var(--font-mono);margin-left:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mwb{padding:8px;font-size:10px;height:calc(100% - 26px);overflow:hidden}
+
+/* mobile mockup */
+.mm{width:120px;background:#000;border-radius:14px;padding:5px;margin:0 auto;box-shadow:0 2px 8px rgba(0,0,0,.15);position:relative}
+.mm::before{content:"";display:block;width:34px;height:5px;background:#000;border-radius:0 0 8px 8px;position:absolute;top:5px;left:50%;transform:translateX(-50%);z-index:2}
+.mmscreen{background:#fff;border-radius:10px;height:200px;overflow:hidden;font-size:8px;display:flex;flex-direction:column;position:relative}
+.mmstatus{padding:8px 10px 4px;font-size:8px;color:#000;display:flex;justify-content:space-between;font-weight:600;font-family:var(--font-mono)}
+.mmcontent{flex:1;padding:4px 8px;font-size:9px;overflow:hidden}
+
+/* terminal mockup */
+.mt{background:#0E0E10;border-radius:6px;overflow:hidden;font-family:var(--font-mono);font-size:9.5px;height:100%;min-height:120px;border:1px solid #1F1F22}
+.mtbar{display:flex;align-items:center;gap:5px;padding:5px 8px;background:#1A1A1D;border-bottom:1px solid #27272A}
+.mtt{margin-left:8px;color:#A1A1AA;font-size:9px}
+.mb{padding:8px 10px;color:#F4F4F5;line-height:1.6;height:calc(100% - 26px);overflow:hidden}
+.mb .td{color:#71717A}.mb .tg{color:var(--tg)}.mb .tb{color:var(--tb2)}
+.mb .tp{color:var(--tp2)}.mb .ty{color:var(--ty)}.mb .tr{color:var(--tr)}
+.mb .tc{color:var(--tc)}.mb .tw{color:#F4F4F5}
+.mb .cur{color:var(--tp2);animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* mockup specifics for individual cells */
+.mockup-cell{height:140px;display:flex;flex-direction:column}
+
+/* abstract UI elements inside mockups */
+.ui-block{background:var(--bg-3);border-radius:3px;height:6px;margin:3px 0}
+.ui-block.w70{width:70%}.ui-block.w50{width:50%}.ui-block.w90{width:90%}.ui-block.w30{width:30%}
+.ui-pill{display:inline-block;padding:1px 5px;background:var(--acc);color:#fff;font-size:8px;border-radius:6px;margin-right:3px}
+.ui-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:3px}
+.ui-grid-4{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.ui-thumb{aspect-ratio:1;background:linear-gradient(135deg,var(--bg-3),var(--border));border-radius:2px;position:relative;overflow:hidden}
+.ui-thumb.purple{background:linear-gradient(135deg,#A78BFA,#6B3FE5)}
+.ui-thumb.orange{background:linear-gradient(135deg,#FBBF24,#F59E0B)}
+.ui-thumb.cyan{background:linear-gradient(135deg,#22D3EE,#0891B2)}
+.ui-thumb.pink{background:linear-gradient(135deg,#F472B6,#DB2777)}
+
+/* ================= highlights ================= */
+.hl-overview{background:linear-gradient(135deg,#1A1A1D 0%,#27272A 100%);color:#fff}
+.hl-overview .section-eyebrow{color:#A78BFA}
+.hl-overview .section-title{color:#fff}
+.hl-overview .section-desc{color:#A1A1AA;margin-bottom:32px}
+.hl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1}
+.hl-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px;display:flex;flex-direction:column;cursor:pointer;transition:all .2s}
+.hl-card:hover{background:rgba(131,77,240,.1);border-color:var(--acc);transform:translateY(-2px)}
+.hl-num{font-family:var(--font-mono);font-size:32px;font-weight:700;color:var(--acc);line-height:1;margin-bottom:12px;letter-spacing:-.02em}
+.hl-title{font-size:14px;font-weight:600;color:#fff;line-height:1.3;flex:1}
+.hl-prod{font-size:10px;color:#A1A1AA;font-family:var(--font-mono);margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);text-transform:uppercase;letter-spacing:.05em}
+
+.hl-detail{background:linear-gradient(135deg,#fff 0%,var(--acc-bg) 100%)}
+.hl-detail-head{display:flex;gap:32px;align-items:flex-start;margin-bottom:32px}
+.hl-detail-num{font-family:var(--font-mono);font-size:96px;font-weight:700;color:var(--acc);line-height:.9;letter-spacing:-.04em}
+.hl-detail-title-block{flex:1;padding-top:8px}
+.hl-detail-eyebrow{font-size:11px;color:var(--acc);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-weight:600}
+.hl-detail-title{font-size:36px;font-weight:700;color:var(--fg);line-height:1.15;letter-spacing:-.015em;margin-bottom:14px}
+.hl-detail-why{font-size:14px;color:var(--fg-2);line-height:1.7;max-width:720px}
+.hl-detail-why strong{color:var(--fg);background:rgba(131,77,240,.15);padding:1px 5px;border-radius:3px}
+
+.hl-states{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;align-content:start}
+.hl-state{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:200px}
+.hl-state-label{font-size:10px;color:var(--fg-3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em;padding-bottom:8px;border-bottom:1px dashed var(--border);display:flex;justify-content:space-between;align-items:center}
+.hl-state-label .badge-state{padding:2px 6px;background:var(--acc);color:#fff;border-radius:3px;font-size:9px}
+.hl-state-mockup{flex:1;display:flex;flex-direction:column;justify-content:center}
+.hl-state-cap{font-size:11px;color:var(--fg-2);line-height:1.5;padding-top:8px;border-top:1px dashed var(--border)}
+
+/* ================= utilities ================= */
+.icon{width:14px;height:14px;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none;flex-shrink:0;display:inline-block;vertical-align:middle}
+.icon-lg{width:16px;height:16px}
+.muted{color:var(--fg-3)}
+.mono{font-family:var(--font-mono)}
+
+/* product mini badges */
+.pbadge{display:inline-block;padding:1px 5px;border-radius:3px;font-size:9px;font-family:var(--font-mono);font-weight:600;color:#fff;letter-spacing:.02em}
+.pbadge.jm{background:#FF6A33}
+.pbadge.kl{background:#0B7AC2}
+.pbadge.mj{background:#27272A}
+.pbadge.tn{background:#7C3AED;color:#fff}
+
+/* ============ Stage 2 verification markers ============ */
+.corrected{position:relative;outline:1px dashed var(--r);outline-offset:2px;background:rgba(220,38,38,.04) !important}
+.corrected::before{content:"✎ Stage 2 修正";position:absolute;top:-9px;right:6px;font-size:8.5px;font-family:var(--font-mono);color:#fff;background:var(--r);padding:1px 5px;border-radius:3px;font-weight:600;z-index:5;letter-spacing:.02em;line-height:1.4}
+.cmp tbody td.corrected::before{top:-7px;right:4px;font-size:8px}
+td.corrected, th.corrected{position:relative}
+
+/* verification section */
+.verify{background:linear-gradient(180deg,#FEF2F2 0%,#fff 60%);height:100vh;overflow-y:auto;padding:88px 80px 32px}
+.verify::-webkit-scrollbar{width:6px}
+.verify::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:3px}
+
+/* real screenshots section */
+.shots{background:#0E0E10;color:#fff;height:100vh;overflow-y:auto;padding:88px 80px 32px}
+.shots::-webkit-scrollbar{width:6px}
+.shots::-webkit-scrollbar-thumb{background:#27272A;border-radius:3px}
+.shots .section-eyebrow{color:#34D399}
+.shots .section-title{color:#fff}
+.shots .section-desc{color:#A1A1AA;margin-bottom:18px}
+.shots-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.shot-card{background:#18181B;border:1px solid #27272A;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.shot-img{width:100%;aspect-ratio:16/9;background:#27272A;object-fit:cover;display:block;border-bottom:1px solid #27272A}
+.shot-meta{padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.shot-meta-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.shot-meta-title{font-size:13px;font-weight:600;color:#fff}
+.shot-meta-pbadge{padding:2px 7px;border-radius:3px;font-size:9px;font-family:var(--font-mono);font-weight:600;letter-spacing:.02em;color:#fff}
+.shot-meta-desc{font-size:11px;color:#A1A1AA;line-height:1.5}
+.shot-meta-source{font-size:10px;color:#60A5FA;font-family:var(--font-mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;border-top:1px dashed #27272A;padding-top:6px;margin-top:2px}
+.shot-meta-source:hover{color:#A78BFA}
+.shot-missing{background:#18181B;border:1px dashed var(--r);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;color:#F87171;text-align:center;gap:6px}
+.shot-missing .missing-num{font-size:24px;font-family:var(--font-mono);font-weight:700;opacity:.5}
+.shot-missing .missing-msg{font-size:11px;line-height:1.5;color:#A1A1AA}
+.verify .section-eyebrow{color:var(--r)}
+.verify-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.verify-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.verify-card.severe{border-color:var(--r);border-left:3px solid var(--r)}
+.verify-card.medium{border-left:3px solid var(--y)}
+.verify-card.ok{border-left:3px solid var(--g)}
+.verify-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.verify-head-l{display:flex;flex-direction:column;gap:3px;flex:1}
+.verify-tag{font-family:var(--font-mono);font-size:10px;color:var(--fg-3);text-transform:uppercase;letter-spacing:.05em}
+.verify-title{font-size:13px;font-weight:600;color:var(--fg);line-height:1.3}
+.verify-status{font-family:var(--font-mono);font-size:9.5px;padding:2px 6px;border-radius:3px;white-space:nowrap;font-weight:600;letter-spacing:.02em}
+.verify-status.severe{background:var(--r);color:#fff}
+.verify-status.medium{background:var(--y);color:#fff}
+.verify-status.ok{background:var(--g);color:#fff}
+.verify-row{display:grid;grid-template-columns:54px 1fr;gap:6px;font-size:11px;line-height:1.5}
+.verify-row .lbl{font-family:var(--font-mono);color:var(--fg-3);font-size:10px;padding-top:1px}
+.verify-row.before .txt{color:var(--r);text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:rgba(220,38,38,.5)}
+.verify-row.after .txt{color:var(--g);font-weight:500}
+.verify-source{font-size:10px;color:var(--bl);font-family:var(--font-mono);margin-top:2px}
+.verify-source a{color:var(--bl);border-bottom:1px dashed var(--bl)}
+.verify-source a:hover{background:var(--bl-bg)}
+
+/* v2 banner */
+.v2-banner{position:fixed;bottom:18px;left:18px;background:#fff;border:1px solid var(--r);border-radius:8px;padding:10px 14px;font-size:11px;font-family:var(--font-mono);color:var(--r);z-index:60;box-shadow:0 4px 16px rgba(0,0,0,.08);display:flex;align-items:center;gap:8px;cursor:pointer;transition:all .2s}
+.v2-banner:hover{background:var(--r);color:#fff;transform:translateY(-2px)}
+.v2-banner .dot-r{width:6px;height:6px;border-radius:50%;background:var(--r);animation:pulse 2s infinite}
+.v2-banner:hover .dot-r{background:#fff}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* footer disclaimer on each tp section */
+.tp-disclaim{position:absolute;bottom:8px;right:80px;font-size:9px;color:var(--fg-3);font-family:var(--font-mono);opacity:.5}
+
+</style>
+</head>
+<body>
+
+<!-- ============ TOP NAV (two-layer) ============ -->
+<nav class="topnav" id="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-row1">
+      <div class="brand"><span class="brand-dot"></span> AIGC 创意平台体验竞品分析 <small>v3 · 触点全修正 + 真实截图</small></div>
+      <div class="tabs1" id="tabs1">
+        <div class="tab1" data-target="cover">封面</div>
+        <div class="tab1" data-target="journey">旅程图</div>
+        <div class="tab1" data-stage="s1">阶段1 · 发现与上手</div>
+        <div class="tab1" data-stage="s2">阶段2 · 灵感起点</div>
+        <div class="tab1" data-stage="s3">阶段3 · 创作生成</div>
+        <div class="tab1" data-stage="s4">阶段4 · 编辑迭代</div>
+        <div class="tab1" data-stage="s5">阶段5 · 导出分享</div>
+        <div class="tab1" data-target="hl-overview">设计亮点</div>
+        <div class="tab1" data-target="verify" style="color:var(--r);font-weight:600">✎ 核查日志</div>
+        <div class="tab1" data-target="shots" style="color:var(--g);font-weight:600">📷 截图证据</div>
+      </div>
+      <div class="meta-right">
+        <span class="badge">2026-05-10</span>
+        <span class="badge warn">未经事实核查</span>
+      </div>
+    </div>
+    <div class="topnav-row2">
+      <div class="tabs2" id="tabs2">
+        <!-- populated by JS based on current stage -->
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ DOTS ============ -->
+<div class="dots" id="dots"></div>
+
+<!-- ============ MAIN ============ -->
+<main class="snap" id="main">
+
+<!-- COVER -->
+<section class="section cover" id="cover" data-section="cover">
+  <div class="cover-inner">
+    <div class="cover-meta">
+      <span class="tag">竞品分析 · UX Research</span>
+      <span class="tag">v3 · 2026-05-10</span>
+      <span class="tag" style="background:var(--g-bg);border-color:var(--g);color:var(--g)">✓ Stage 2 完整核查 · 触点级修正 · 真实截图</span>
+    </div>
+    <h1>AIGC 创意平台<br>体验<span class="accent">竞品分析</span></h1>
+    <p class="cover-sub">从普通创作者「想到 → 做出 → 分享」的完整旅程出发，对照即梦、可灵、Midjourney、TapNow 在 8 个关键触点上的设计取舍。</p>
+    <div class="cover-products">
+      <div class="prod-chip"><div class="prod-icon jm">即</div><div><div class="prod-name">即梦 Dreamina<small>ByteDance · Web/移动 · 图像+视频</small></div></div></div>
+      <div class="prod-chip"><div class="prod-icon kl">KL</div><div><div class="prod-name">可灵 Kling<small>Kuaishou · Web/移动 · 视频为主</small></div></div></div>
+      <div class="prod-chip"><div class="prod-icon mj">MJ</div><div><div class="prod-name">Midjourney<small>Midjourney Inc · Web · 图像+视频</small></div></div></div>
+      <div class="prod-chip corrected"><div class="prod-icon tn">TN</div><div><div class="prod-name">TapNow.ai<small>Web 桌面 · AI 创作画布 · 多模型聚合</small></div></div></div>
+    </div>
+    <div class="cover-cta">
+      <span>向下滚动 · 或按 ↓ 键</span>
+      <div class="cta-arrow"><svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+    </div>
+  </div>
+  <div class="cover-disclaimer">
+    <span>本报告为 Stage 4 渲染样本，用于测试可视化能力 · 内容基于公开印象推断，不构成事实分析</span>
+    <span>9 sections · 8 touchpoints · 8 highlights</span>
+  </div>
+</section>
+
+<!-- JOURNEY MAP -->
+<section class="section" id="journey" data-section="journey">
+  <div class="journey-head">
+    <div class="section-eyebrow">User Journey · 4-Row Structure</div>
+    <h2 class="section-title">用户旅程地图：从想法到分享</h2>
+    <p class="section-desc">5 个阶段、8 个关键触点。情绪曲线在「创作生成」与「编辑迭代」段落塌到 -1，是设计机会最密集的区间。点击触点 chip 可跳转至对比页。</p>
+  </div>
+  <div class="journey-grid">
+    <!-- header row: stage names -->
+    <div class="j-cell j-row-label" style="background:var(--fg);color:#fff">阶段</div>
+    <div class="j-cell j-stage-head"><div class="j-stage-num">S1</div><div class="j-stage-name">发现与上手</div></div>
+    <div class="j-cell j-stage-head"><div class="j-stage-num">S2</div><div class="j-stage-name">灵感与起点</div></div>
+    <div class="j-cell j-stage-head"><div class="j-stage-num">S3</div><div class="j-stage-name">创作生成</div></div>
+    <div class="j-cell j-stage-head"><div class="j-stage-num">S4</div><div class="j-stage-name">编辑迭代</div></div>
+    <div class="j-cell j-stage-head"><div class="j-stage-num">S5</div><div class="j-stage-name">导出与分享</div></div>
+
+    <!-- row 1: actions -->
+    <div class="j-cell j-row-label">用户行为</div>
+    <div class="j-cell j-actions">
+      <div>听说产品</div><div>访问官网</div><div>注册/登录</div><div>找到入口</div>
+    </div>
+    <div class="j-cell j-actions">
+      <div>浏览作品</div><div>收藏模板</div><div>形成意图</div><div>切入创作</div>
+    </div>
+    <div class="j-cell j-actions">
+      <div>输入 prompt</div><div>调整参数</div><div>提交生成</div><div>等待结果</div>
+    </div>
+    <div class="j-cell j-actions">
+      <div>对比候选</div><div>圈选区域</div><div>调风格强度</div><div>反复重生</div>
+    </div>
+    <div class="j-cell j-actions">
+      <div>选导出格式</div><div>处理水印</div><div>下载文件</div><div>跨平台分享</div>
+    </div>
+
+    <!-- row 2: touchpoints (clickable chips) -->
+    <div class="j-cell j-row-label">关键触点</div>
+    <div class="j-cell j-tps">
+      <span class="tp-chip" data-target="tp-01-a"><span class="id">tp-01-a</span> 落地页</span>
+      <span class="tp-chip" data-target="tp-01-b"><span class="id">tp-01-b</span> 首次引导</span>
+    </div>
+    <div class="j-cell j-tps">
+      <span class="tp-chip" data-target="tp-02-a"><span class="id">tp-02-a</span> 灵感广场</span>
+      <span class="tp-chip" data-target="tp-02-b"><span class="id">tp-02-b</span> Prompt 输入</span>
+    </div>
+    <div class="j-cell j-tps">
+      <span class="tp-chip" data-target="tp-03-a"><span class="id">tp-03-a</span> 生成等待</span>
+      <span class="tp-chip" data-target="tp-03-b"><span class="id">tp-03-b</span> 多结果选优</span>
+    </div>
+    <div class="j-cell j-tps">
+      <span class="tp-chip" data-target="tp-04-a"><span class="id">tp-04-a</span> 局部修改</span>
+    </div>
+    <div class="j-cell j-tps">
+      <span class="tp-chip" data-target="tp-05-a"><span class="id">tp-05-a</span> 导出与商用</span>
+    </div>
+
+    <!-- row 3: emotion (single SVG spanning 5 columns) -->
+    <div class="j-cell j-row-label">情绪曲线</div>
+    <div class="j-cell j-emotion" style="grid-column:span 5;padding:8px 0">
+      <svg viewBox="0 0 1000 120" preserveAspectRatio="none">
+        <!-- gridlines -->
+        <line x1="0" y1="20" x2="1000" y2="20" stroke="#E4E4E7" stroke-dasharray="2,3"/>
+        <line x1="0" y1="60" x2="1000" y2="60" stroke="#A1A1AA" stroke-dasharray="2,3"/>
+        <line x1="0" y1="100" x2="1000" y2="100" stroke="#E4E4E7" stroke-dasharray="2,3"/>
+        <text x="6" y="24" fill="#A1A1AA" font-size="10" font-family="JetBrains Mono">+2</text>
+        <text x="6" y="64" fill="#A1A1AA" font-size="10" font-family="JetBrains Mono">0</text>
+        <text x="6" y="104" fill="#A1A1AA" font-size="10" font-family="JetBrains Mono">-2</text>
+        <!-- vertical separators -->
+        <line x1="200" y1="0" x2="200" y2="120" stroke="#F4F4F5"/>
+        <line x1="400" y1="0" x2="400" y2="120" stroke="#F4F4F5"/>
+        <line x1="600" y1="0" x2="600" y2="120" stroke="#F4F4F5"/>
+        <line x1="800" y1="0" x2="800" y2="120" stroke="#F4F4F5"/>
+        <!-- area fill -->
+        <path d="M 100 60 Q 200 40, 300 40 Q 400 50, 500 80 Q 600 90, 700 80 Q 800 70, 900 40 L 900 120 L 100 120 Z" fill="url(#emotionGrad)" opacity=".35"/>
+        <defs>
+          <linearGradient id="emotionGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#834DF0"/>
+            <stop offset="100%" stop-color="#834DF0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- main curve -->
+        <path d="M 100 60 Q 200 40, 300 40 Q 400 50, 500 80 Q 600 90, 700 80 Q 800 70, 900 40" fill="none" stroke="#834DF0" stroke-width="2.5"/>
+        <!-- points -->
+        <circle cx="100" cy="60" r="4" fill="#834DF0"/>
+        <circle cx="300" cy="40" r="5" fill="#059669" stroke="#fff" stroke-width="2"/>
+        <circle cx="500" cy="80" r="5" fill="#DC2626" stroke="#fff" stroke-width="2"/>
+        <circle cx="700" cy="80" r="5" fill="#DC2626" stroke="#fff" stroke-width="2"/>
+        <circle cx="900" cy="40" r="4" fill="#834DF0"/>
+        <!-- labels -->
+        <text x="300" y="28" fill="#059669" font-size="10" font-family="JetBrains Mono" text-anchor="middle" font-weight="600">+1 兴奋</text>
+        <text x="500" y="100" fill="#DC2626" font-size="10" font-family="JetBrains Mono" text-anchor="middle" font-weight="600">−1 焦虑</text>
+        <text x="700" y="100" fill="#DC2626" font-size="10" font-family="JetBrains Mono" text-anchor="middle" font-weight="600">−1 反复疲劳</text>
+        <text x="900" y="28" fill="#059669" font-size="10" font-family="JetBrains Mono" text-anchor="middle" font-weight="600">+1 满意</text>
+      </svg>
+    </div>
+
+    <!-- row 4: friction + opportunity -->
+    <div class="j-cell j-row-label" style="border-bottom:none">摩擦 + 机会</div>
+    <div class="j-cell j-friction" style="border-bottom:none">
+      <div class="frict">不知道能做什么</div>
+      <div class="opp">用作品代替宣传</div>
+    </div>
+    <div class="j-cell j-friction" style="border-bottom:none">
+      <div class="frict">同质化模板信息过载</div>
+      <div class="opp">复刻链路即创作起点</div>
+    </div>
+    <div class="j-cell j-friction" style="border-bottom:none">
+      <div class="frict">等待无反馈</div>
+      <div class="frict">单结果命中率低</div>
+      <div class="opp">流式预览 + 多版本</div>
+    </div>
+    <div class="j-cell j-friction" style="border-bottom:none">
+      <div class="frict">局部不准要重整图</div>
+      <div class="frict">改 prompt 像写咒语</div>
+      <div class="opp">智能区域 + 对话改稿</div>
+    </div>
+    <div class="j-cell j-friction" style="border-bottom:none">
+      <div class="frict">商用授权不清</div>
+      <div class="opp">默认显示授权状态</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOUCHPOINT 01-A: 落地页 ============ -->
+<section class="section tp-section" id="tp-01-a" data-section="tp-01-a" data-stage="s1">
+  <div class="tp-header">
+    <span class="tp-id-tag">tp-01-a</span>
+    <h2 class="tp-name">落地页 / 价值主张呈现</h2>
+    <div class="tp-context">
+      <span>阶段 S1 · 发现与上手</span>
+      <span>维度：首屏视觉与价值传达</span>
+    </div>
+  </div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th class="row-label"></th>
+        <th><span class="ph-name"><span class="pbadge jm">即梦</span> Dreamina</span><span class="ph-sub">视频 Hero + 社区瀑布流</span></th>
+        <th><span class="ph-name"><span class="pbadge kl">可灵</span> Kling</span><span class="ph-sub">大字标语 + Demo 视频</span></th>
+        <th><span class="ph-name"><span class="pbadge mj">Midjourney</span></span><span class="ph-sub">极简画廊式</span></th>
+        <th class="corrected"><span class="ph-name"><span class="pbadge tn">TapNow.ai</span></span><span class="ph-sub">Hero+CTA "Your Agentic Creative Canvas"</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-mockup">
+        <th>界面形态</th>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">jimeng.jianying.com</div></div>
+            <div class="mwb">
+              <div style="height:60px;background:linear-gradient(135deg,#FF6A33,#FF3060);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:600">即梦 · 一句话生大片</div>
+              <div class="ui-grid-4" style="margin-top:5px"><div class="ui-thumb purple"></div><div class="ui-thumb orange"></div><div class="ui-thumb cyan"></div><div class="ui-thumb pink"></div></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">klingai.com</div></div>
+            <div class="mwb" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,#0AC2C2,#0B7AC2);color:#fff">
+              <div style="font-size:14px;font-weight:700">3 分钟出大片</div>
+              <div style="font-size:8px;opacity:.85;margin-top:2px">视频生成 · 大模型驱动</div>
+              <div style="margin-top:6px;padding:3px 8px;background:#fff;color:#0B7AC2;border-radius:3px;font-size:8px;font-weight:600">▶ 试一试</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">midjourney.com</div></div>
+            <div class="mwb" style="background:#000">
+              <div class="ui-grid-4" style="grid-template-columns:1fr 1fr 1fr;gap:2px"><div class="ui-thumb purple"></div><div class="ui-thumb cyan"></div><div class="ui-thumb pink"></div><div class="ui-thumb orange"></div><div class="ui-thumb purple"></div><div class="ui-thumb cyan"></div></div>
+            </div>
+          </div>
+        </td>
+        <td class="corrected">
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">tapnow.ai</div></div>
+            <div class="mwb" style="background:#0E0E10;color:#fff;display:flex;flex-direction:column;justify-content:center;padding:8px">
+              <div style="font-size:11px;font-weight:700;letter-spacing:-.3px">Your Agentic<br>Creative Canvas</div>
+              <div style="font-size:7.5px;color:#A1A1AA;margin-top:3px">Sora · Midjourney · Kling · Luma</div>
+              <div style="margin-top:5px;display:flex;gap:3px"><span style="padding:2px 6px;background:#7C3AED;color:#fff;font-size:7px;border-radius:3px;font-weight:600">Start</span><span style="padding:2px 6px;background:#27272A;color:#A1A1AA;font-size:7px;border-radius:3px">TapTV</span></div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row-mech">
+        <th>核心机制</th>
+        <td>用作品反向引出能力 — 滚动即看见，看见即能做</td>
+        <td>用结果许诺反向定锚 — 时长承诺即记忆点</td>
+        <td>美学吸引专业用户 — 调性即筛选机制</td>
+        <td class="corrected">用专业语汇 + 多模型 logo 直接筛选专业用户</td>
+      </tr>
+      <tr class="row-pros">
+        <th>优势</th>
+        <td><div>作品即营销，转化路径短</div><div>能力边界一眼可见</div></td>
+        <td><div>价值主张极清晰</div><div>视频用户对口</div></td>
+        <td><div>调性统一吸引同类用户</div><div>凝聚 prompt 文化</div></td>
+        <td class="corrected"><div>定位极精准</div><div>多模型聚合稀缺</div></td>
+      </tr>
+      <tr class="row-cons">
+        <th>劣势</th>
+        <td><div>信息密度高，新用户略晕</div><div>不解释"为什么用这个"</div></td>
+        <td><div>缺少作品广度展示</div><div>对图像创作者不友好</div></td>
+        <td><div>不解释能做什么</div><div>新手望而却步</div></td>
+        <td class="corrected"><div>"Agentic Canvas" 术语劝退新手</div><div>需懂多模型才能选</div></td>
+      </tr>
+      <tr class="row-summary">
+        <th>一句话</th>
+        <td>作品广场即落地页</td>
+        <td>视频能力的高速公路收费站</td>
+        <td>高墙花园，懂的人自来</td>
+        <td class="corrected">影视/广告专业户的"AI 工作站"</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tension-row">
+    <div><strong>核心张力</strong>能力广度展示 vs 决策门槛降低</div>
+    <div class="recom"><strong>推荐方向</strong>Hero 区做"3 个最近热门作品 + 一句话能做什么"，作品可点击直接进入复刻流程</div>
+  </div>
+  <div class="tp-disclaim">// mockup 为示意性渲染，非真实截图</div>
+</section>
+
+<!-- ============ TOUCHPOINT 01-B: 首次引导 ============ -->
+<section class="section tp-section" id="tp-01-b" data-section="tp-01-b" data-stage="s1">
+  <div class="tp-header">
+    <span class="tp-id-tag">tp-01-b</span>
+    <h2 class="tp-name">首次创作引导</h2>
+    <div class="tp-context">
+      <span>阶段 S1 · 发现与上手</span>
+      <span>维度：onboarding 模式</span>
+    </div>
+  </div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th class="row-label"></th>
+        <th><span class="ph-name"><span class="pbadge jm">即梦</span></span><span class="ph-sub">弹窗教学 + 高亮指引</span></th>
+        <th><span class="ph-name"><span class="pbadge kl">可灵</span></span><span class="ph-sub">"试一试"按钮 + 示例</span></th>
+        <th><span class="ph-name"><span class="pbadge mj">Midjourney</span></span><span class="ph-sub">文档式（无引导）</span></th>
+        <th class="corrected"><span class="ph-name"><span class="pbadge tn">TapNow.ai</span></span><span class="ph-sub">无引导，画布即工作台</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-mockup">
+        <th>界面形态</th>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">jimeng/onboard/1</div></div>
+            <div class="mwb" style="position:relative">
+              <div style="opacity:.4"><div class="ui-block w70"></div><div class="ui-block w50"></div><div class="ui-block w90"></div></div>
+              <div style="position:absolute;inset:auto 8px 8px 8px;background:#fff;border:2px solid #FF6A33;border-radius:4px;padding:6px;box-shadow:0 4px 12px rgba(0,0,0,.15)"><div style="font-size:9px;font-weight:600">第 1/4 步</div><div style="font-size:8px;color:#666;margin:2px 0">这里是输入框，描述你想要的画面</div><div style="display:flex;justify-content:flex-end;gap:4px"><div style="font-size:8px;color:#999">跳过</div><div style="font-size:8px;background:#FF6A33;color:#fff;padding:1px 6px;border-radius:2px">下一步</div></div></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">klingai.com/create</div></div>
+            <div class="mwb">
+              <div style="border:1px dashed #0B7AC2;border-radius:3px;padding:6px;margin-top:8px"><div style="font-size:8px;color:#0B7AC2;margin-bottom:3px">示例 prompt：</div><div style="font-size:9px">"夕阳下海边的少年，回头一笑"</div></div>
+              <div style="margin-top:6px;text-align:center"><div style="display:inline-block;padding:4px 12px;background:#0B7AC2;color:#fff;font-size:9px;border-radius:3px;font-weight:600">▶ 试一试</div></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mt mockup-cell">
+            <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mtt">midjourney — getting started</div></div>
+            <div class="mb">
+              <div><span class="td"># Welcome to Midjourney</span></div>
+              <div><span class="tw">Read the docs:</span></div>
+              <div><span class="tb">→ docs.midjourney.com</span></div>
+              <div style="margin-top:6px"><span class="td">$</span> <span class="tg">/imagine</span> <span class="tw">your prompt</span></div>
+              <div><span class="cur">❯</span> <span class="tw">_</span></div>
+            </div>
+          </div>
+        </td>
+        <td class="corrected">
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">tapnow.ai/canvas/new</div></div>
+            <div class="mwb" style="background:#0E0E10;color:#A1A1AA;padding:8px;display:flex;flex-direction:column">
+              <div style="font-size:9px;color:#71717A;font-family:JetBrains Mono">// blank canvas</div>
+              <div style="border:1px dashed #27272A;border-radius:3px;padding:10px;margin-top:5px;text-align:center;font-size:8px;color:#52525B">drag a node to start</div>
+              <div style="margin-top:5px;font-size:7px;color:#7C3AED;text-align:right">→ docs / TapTV</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row-mech">
+        <th>核心机制</th>
+        <td>主动教学 — 系统拉着用户看完每个功能</td>
+        <td>半引导半放手 — 给种子让你自己发芽</td>
+        <td>不引导 — 自学成才哲学</td>
+        <td class="corrected">空白画布 + 文档/TapTV 自学</td>
+      </tr>
+      <tr class="row-pros">
+        <th>优势</th>
+        <td><div>系统性，关键功能不漏</div><div>新手不会"从哪开始"</div></td>
+        <td><div>不打扰也不放任</div><div>降低 prompt 心理门槛</div></td>
+        <td><div>不打扰熟练用户</div><div>培养自学社区</div></td>
+        <td class="corrected"><div>不打扰专业用户</div><div>TapTV 有完整 workflow 可学</div></td>
+      </tr>
+      <tr class="row-cons">
+        <th>劣势</th>
+        <td><div>4 步弹窗易被关掉</div><div>流失教程后立即懵</div></td>
+        <td><div>仍需用户主动尝试</div><div>没有兜底解释</div></td>
+        <td><div>新手大量流失</div><div>需要外部教程支撑</div></td>
+        <td class="corrected"><div>非专业用户即刻流失</div><div>空白画布恐惧</div></td>
+      </tr>
+      <tr class="row-summary">
+        <th>一句话</th>
+        <td>像新手村 NPC</td>
+        <td>给个种子让你自己发芽</td>
+        <td>不教，你自己去看书</td>
+        <td class="corrected">扔进 ComfyUI 式画布自己摸索</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tension-row">
+    <div><strong>核心张力</strong>系统性教学 vs 即时上手</div>
+    <div class="recom"><strong>推荐方向</strong>双轨制 — 模板优先（消费侧）+ 可选进阶教程（专业侧），不强制弹窗</div>
+  </div>
+  <div class="tp-disclaim">// mockup 为示意性渲染，非真实截图</div>
+</section>
+
+<!-- ============ TOUCHPOINT 02-A: 灵感广场 ============ -->
+<section class="section tp-section" id="tp-02-a" data-section="tp-02-a" data-stage="s2">
+  <div class="tp-header">
+    <span class="tp-id-tag">tp-02-a</span>
+    <h2 class="tp-name">灵感广场 / 模板浏览</h2>
+    <div class="tp-context">
+      <span>阶段 S2 · 灵感与起点</span>
+      <span>维度：发现与定位机制</span>
+    </div>
+  </div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th class="row-label"></th>
+        <th><span class="ph-name"><span class="pbadge jm">即梦</span></span><span class="ph-sub">瀑布流 + tag 顶栏 + 一键复刻</span></th>
+        <th><span class="ph-name"><span class="pbadge kl">可灵</span></span><span class="ph-sub">视频卡片 + 频道侧栏</span></th>
+        <th><span class="ph-name"><span class="pbadge mj">Midjourney</span></span><span class="ph-sub">极简画廊（无标签）</span></th>
+        <th class="corrected"><span class="ph-name"><span class="pbadge tn">TapNow.ai</span></span><span class="ph-sub">TapTV 共享 workflow（不只 prompt）</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-mockup">
+        <th>界面形态</th>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">jimeng/explore</div></div>
+            <div class="mwb">
+              <div style="display:flex;gap:3px;font-size:8px;margin-bottom:4px;overflow:hidden;white-space:nowrap"><span style="padding:1px 5px;background:#FF6A33;color:#fff;border-radius:6px">全部</span><span style="padding:1px 5px;background:#F4F4F5;border-radius:6px">国风</span><span style="padding:1px 5px;background:#F4F4F5;border-radius:6px">赛博</span><span style="padding:1px 5px;background:#F4F4F5;border-radius:6px">人像</span></div>
+              <div class="ui-grid-4" style="grid-template-columns:1fr 1fr 1fr;gap:2px"><div class="ui-thumb purple"></div><div class="ui-thumb orange"></div><div class="ui-thumb cyan"></div><div class="ui-thumb pink"></div><div class="ui-thumb purple"></div><div class="ui-thumb orange"></div></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">klingai/discover</div></div>
+            <div class="mwb" style="display:flex;gap:4px">
+              <div style="width:28%;border-right:1px solid #eee;padding-right:3px"><div style="font-size:7px;color:#0B7AC2;font-weight:600">📺 频道</div><div style="font-size:7px;margin-top:2px">· 故事短片</div><div style="font-size:7px">· 动漫</div><div style="font-size:7px">· 写实</div></div>
+              <div style="flex:1"><div style="height:40px;background:linear-gradient(135deg,#0AC2C2,#0B7AC2);border-radius:2px;position:relative"><div style="position:absolute;bottom:2px;right:3px;background:#000;color:#fff;font-size:6px;padding:1px 3px;border-radius:1px">▶ 0:15</div></div><div style="height:40px;background:linear-gradient(135deg,#A78BFA,#834DF0);border-radius:2px;margin-top:2px;position:relative"><div style="position:absolute;bottom:2px;right:3px;background:#000;color:#fff;font-size:6px;padding:1px 3px;border-radius:1px">▶ 0:08</div></div></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">midjourney.com/explore</div></div>
+            <div class="mwb" style="background:#000;padding:4px">
+              <div class="ui-grid-4" style="grid-template-columns:1fr 1fr 1fr 1fr;gap:1px"><div class="ui-thumb purple"></div><div class="ui-thumb cyan"></div><div class="ui-thumb pink"></div><div class="ui-thumb orange"></div><div class="ui-thumb purple"></div><div class="ui-thumb cyan"></div><div class="ui-thumb pink"></div><div class="ui-thumb orange"></div><div class="ui-thumb purple"></div><div class="ui-thumb cyan"></div><div class="ui-thumb pink"></div><div class="ui-thumb orange"></div></div>
+            </div>
+          </div>
+        </td>
+        <td class="corrected">
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">taptv · trending workflows</div></div>
+            <div class="mwb" style="background:#0E0E10;padding:6px;font-size:8px">
+              <div style="display:flex;gap:3px;margin-bottom:4px"><span style="padding:1px 5px;background:#7C3AED;color:#fff;border-radius:6px;font-size:7px">All</span><span style="padding:1px 5px;background:#27272A;color:#A1A1AA;border-radius:6px;font-size:7px">TVC</span><span style="padding:1px 5px;background:#27272A;color:#A1A1AA;border-radius:6px;font-size:7px">MV</span></div>
+              <div style="height:14px;background:linear-gradient(90deg,#7C3AED,#22D3EE);border-radius:2px;margin-bottom:2px;position:relative"><span style="position:absolute;right:3px;top:1px;font-size:6px;color:#fff;font-family:JetBrains Mono">47 forks</span></div>
+              <div style="height:14px;background:linear-gradient(90deg,#FF6A33,#FBBF24);border-radius:2px;margin-bottom:2px;position:relative"><span style="position:absolute;right:3px;top:1px;font-size:6px;color:#fff;font-family:JetBrains Mono">31 forks</span></div>
+              <div style="height:14px;background:linear-gradient(90deg,#0B7AC2,#A78BFA);border-radius:2px;position:relative"><span style="position:absolute;right:3px;top:1px;font-size:6px;color:#fff;font-family:JetBrains Mono">88 forks</span></div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row-mech">
+        <th>核心机制</th>
+        <td>复刻已有作品的 prompt — 看见就能做</td>
+        <td>视频内容沉浸式浏览 — 频道找类型</td>
+        <td>看图找美学共鸣 — 不强制结构化筛选</td>
+        <td class="corrected">浏览整套 workflow（节点图）— 不只是看作品</td>
+      </tr>
+      <tr class="row-pros">
+        <th>优势</th>
+        <td><div>复刻链路最短，2 次点击启动</div><div>触发"我也想做"</div></td>
+        <td><div>视频沉浸感强</div><div>频道分类适配视频心智</div></td>
+        <td><div>美学纯粹无干扰</div><div>培养品味识别</div></td>
+        <td class="corrected"><div>能学完整制作流程</div><div>workflow 可整体 fork</div></td>
+      </tr>
+      <tr class="row-cons">
+        <th>劣势</th>
+        <td><div>信息过载，刷不完</div><div>同质化严重</div></td>
+        <td><div>难以快速定位特定类型</div><div>视频加载耗带宽</div></td>
+        <td><div>无法精准搜索</div><div>新人定位难</div></td>
+        <td class="corrected"><div>节点图比作品抽象</div><div>需理解多模型才能 fork</div></td>
+      </tr>
+      <tr class="row-summary">
+        <th>一句话</th>
+        <td>Pinterest 级海洋</td>
+        <td>短视频版 Vimeo</td>
+        <td>Instagram 元祖版</td>
+        <td class="corrected">AIGC 版 GitHub trending</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tension-row">
+    <div><strong>核心张力</strong>广度发现 vs 高效定位</div>
+    <div class="recom"><strong>推荐方向</strong>Tag 必备 + 一键复刻 + "改 prompt"接力机制（不重写）</div>
+  </div>
+  <div class="tp-disclaim">// mockup 为示意性渲染，非真实截图</div>
+</section>
+
+<!-- ============ TOUCHPOINT 02-B: Prompt 输入 ============ -->
+<section class="section tp-section" id="tp-02-b" data-section="tp-02-b" data-stage="s2">
+  <div class="tp-header">
+    <span class="tp-id-tag">tp-02-b</span>
+    <h2 class="tp-name">Prompt 输入与参数控制</h2>
+    <div class="tp-context">
+      <span>阶段 S2 · 灵感与起点</span>
+      <span>维度：表达自由度 vs 学习曲线</span>
+    </div>
+  </div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th class="row-label"></th>
+        <th><span class="ph-name"><span class="pbadge jm">即梦</span></span><span class="ph-sub">大输入框 + 侧栏参数面板</span></th>
+        <th><span class="ph-name"><span class="pbadge kl">可灵</span></span><span class="ph-sub">输入框 + 模式 Tab</span></th>
+        <th><span class="ph-name"><span class="pbadge mj">Midjourney</span></span><span class="ph-sub">极简文本 + parameters 后缀</span></th>
+        <th class="corrected"><span class="ph-name"><span class="pbadge tn">TapNow.ai</span></span><span class="ph-sub">画布节点编排 · 多模型选择</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-mockup">
+        <th>界面形态</th>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">jimeng/create</div></div>
+            <div class="mwb" style="display:flex;gap:4px">
+              <div style="flex:1"><div style="border:1px solid #ddd;border-radius:3px;padding:4px;font-size:9px;height:60px">"夕阳下海边的少年..."</div><div style="margin-top:3px;background:#FF6A33;color:#fff;text-align:center;padding:3px;font-size:9px;border-radius:3px;font-weight:600">生成</div></div>
+              <div style="width:38%;background:#F4F4F5;padding:4px;border-radius:3px;font-size:7.5px"><div style="font-weight:600">📐 比例</div><div style="margin:2px 0">9:16  16:9</div><div style="font-weight:600;margin-top:3px">🎨 风格</div><div style="margin:2px 0">写实/动漫/油画</div></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">klingai/video</div></div>
+            <div class="mwb">
+              <div style="display:flex;gap:2px;border-bottom:1px solid #ddd;padding-bottom:3px;font-size:8px"><span style="font-weight:600;color:#0B7AC2">文生视频</span><span style="color:#999">图生视频</span><span style="color:#999">视频改视频</span></div>
+              <div style="border:1px solid #ddd;border-radius:3px;padding:4px;margin-top:4px;font-size:9px;height:38px">描述你想要的画面...</div>
+              <div style="display:flex;gap:3px;margin-top:3px;font-size:7px;color:#666">⏱5s  10s  📐16:9</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mt mockup-cell">
+            <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mtt">midjourney — /imagine</div></div>
+            <div class="mb">
+              <div><span class="tg">/imagine</span> <span class="tw">prompt:</span></div>
+              <div style="margin-left:10px"><span class="tw">cinematic portrait, golden hour</span></div>
+              <div style="margin-left:10px"><span class="ty">--ar 16:9 --v 7 --stylize 250</span></div>
+              <div style="margin-top:6px"><span class="cur">❯</span> <span class="tw">_</span></div>
+            </div>
+          </div>
+        </td>
+        <td class="corrected">
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">tapnow.ai/canvas</div></div>
+            <div class="mwb" style="background:#0E0E10;padding:6px;font-size:8px;color:#F4F4F5">
+              <div style="border:1px solid #27272A;border-radius:3px;padding:4px;margin-bottom:3px"><span style="color:#7C3AED;font-family:JetBrains Mono">[Sora]</span> generate base...</div>
+              <div style="text-align:center;color:#71717A;font-size:7px">↓</div>
+              <div style="border:1px solid #27272A;border-radius:3px;padding:4px;margin-bottom:3px"><span style="color:#22D3EE;font-family:JetBrains Mono">[MJ V8.1]</span> stylize keyframes</div>
+              <div style="text-align:center;color:#71717A;font-size:7px">↓</div>
+              <div style="border:1px solid #27272A;border-radius:3px;padding:4px"><span style="color:#FBBF24;font-family:JetBrains Mono">[Kling]</span> animate</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row-mech">
+        <th>核心机制</th>
+        <td>GUI 参数 + 文本结合 — 显式可见</td>
+        <td>模式切换为主，参数为辅</td>
+        <td>全部以文本为单一输入通道</td>
+        <td class="corrected">每节点 = 一个模型实例 + 输入 prompt</td>
+      </tr>
+      <tr class="row-pros">
+        <th>优势</th>
+        <td><div>参数可见，新手友好</div><div>侧栏不干扰主流程</div></td>
+        <td><div>模式清晰，意图明确</div><div>视频参数贴合需求</div></td>
+        <td><div>极致简洁，专业高效</div><div>命令行式精确控制</div></td>
+        <td class="corrected"><div>同画布并行测多模型</div><div>节点可复用、可链接</div></td>
+      </tr>
+      <tr class="row-cons">
+        <th>劣势</th>
+        <td><div>参数多反成干扰</div><div>双区域分散注意力</div></td>
+        <td><div>参数面板不够全面</div><div>切模式状态易丢失</div></td>
+        <td><div>新手不知道写什么</div><div>参数后缀像咒语</div></td>
+        <td class="corrected"><div>要管画布拓扑</div><div>选模型本身是负担</div></td>
+      </tr>
+      <tr class="row-summary">
+        <th>一句话</th>
+        <td>仪表盘式输入</td>
+        <td>拍片前的对讲机</td>
+        <td>终端命令行</td>
+        <td class="corrected">AI 模型的 ComfyUI（更友好版）</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tension-row">
+    <div><strong>核心张力</strong>表达自由度 vs 学习曲线</div>
+    <div class="recom"><strong>推荐方向</strong>默认极简文本框，参数可展开；提供"基于示例改"模式 — 不写 prompt 也能上手</div>
+  </div>
+  <div class="tp-disclaim">// mockup 为示意性渲染，非真实截图</div>
+</section>
+
+<!-- ============ TOUCHPOINT 03-A: 生成等待 ============ -->
+<section class="section tp-section" id="tp-03-a" data-section="tp-03-a" data-stage="s3">
+  <div class="tp-header">
+    <span class="tp-id-tag">tp-03-a</span>
+    <h2 class="tp-name">生成等待反馈</h2>
+    <div class="tp-context">
+      <span>阶段 S3 · 创作生成</span>
+      <span>维度：感知速度 vs 算力开销</span>
+    </div>
+  </div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th class="row-label"></th>
+        <th><span class="ph-name"><span class="pbadge jm">即梦</span></span><span class="ph-sub">进度条 + 模糊预览（流式）</span></th>
+        <th><span class="ph-name"><span class="pbadge kl">可灵</span></span><span class="ph-sub">队列位置 + 估算时间</span></th>
+        <th><span class="ph-name"><span class="pbadge mj">Midjourney</span></span><span class="ph-sub">Discord/Web 异步通知</span></th>
+        <th class="corrected"><span class="ph-name"><span class="pbadge tn">TapNow.ai</span></span><span class="ph-sub">画布节点状态 + Tapies 计费</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-mockup">
+        <th>界面形态</th>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">jimeng/generating</div></div>
+            <div class="mwb" style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+              <div style="width:80px;height:60px;background:linear-gradient(135deg,#A78BFA,#FF6A33);border-radius:4px;filter:blur(2px);opacity:.6;position:relative"></div>
+              <div style="width:90%;height:3px;background:#F4F4F5;border-radius:2px;margin-top:8px;overflow:hidden"><div style="width:62%;height:100%;background:#FF6A33"></div></div>
+              <div style="font-size:8px;color:#666;margin-top:3px;font-family:JetBrains Mono">62% · 12s left</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">klingai/queue</div></div>
+            <div class="mwb" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+              <div style="font-size:24px;color:#0B7AC2;font-weight:700;font-family:JetBrains Mono">#3</div>
+              <div style="font-size:9px;color:#666">排队中</div>
+              <div style="font-size:8px;color:#999;margin-top:3px;font-family:JetBrains Mono">预计 ~2:30</div>
+              <div style="margin-top:6px;font-size:7px;color:#0B7AC2">▶ 后台运行，完成会推送</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mt mockup-cell">
+            <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mtt">discord — #imagine-channel</div></div>
+            <div class="mb">
+              <div><span class="tp">@you</span> <span class="td">— 13:42</span></div>
+              <div style="margin-left:8px"><span class="tg">/imagine</span> cinematic portrait...</div>
+              <div style="margin-top:4px"><span class="ty">⠋</span> <span class="tw">Job queued (1/4)</span></div>
+              <div><span class="ty">⠙</span> <span class="tw">Generating... 24%</span></div>
+              <div style="margin-top:3px"><span class="td">// you can close this tab</span></div>
+            </div>
+          </div>
+        </td>
+        <td class="corrected">
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">canvas · running</div></div>
+            <div class="mwb" style="background:#0E0E10;padding:6px;font-size:7.5px;color:#F4F4F5;font-family:JetBrains Mono">
+              <div style="border:1px solid #7C3AED;border-radius:3px;padding:4px;margin-bottom:3px;display:flex;justify-content:space-between"><span><span style="color:#34D399">✓</span> Sora gen</span><span style="color:#71717A">-12 ⓣ</span></div>
+              <div style="border:1px solid #FBBF24;border-radius:3px;padding:4px;margin-bottom:3px;display:flex;justify-content:space-between;background:rgba(251,191,36,.05)"><span><span style="color:#FBBF24">⠋</span> MJ stylize 47%</span><span style="color:#FBBF24">-3 ⓣ</span></div>
+              <div style="border:1px solid #27272A;border-radius:3px;padding:4px;display:flex;justify-content:space-between;color:#71717A"><span>⊘ Kling waiting</span><span>~ 8 ⓣ</span></div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row-mech">
+        <th>核心机制</th>
+        <td>实时流式预览 — 边生成边显示</td>
+        <td>队列状态透明化 — 让等待可估</td>
+        <td>异步消息 — 通知机制取代等待</td>
+        <td class="corrected">异步节点执行 + Tapies 实时计费可见</td>
+      </tr>
+      <tr class="row-pros">
+        <th>优势</th>
+        <td><div>心理上感觉快</div><div>可提前判断方向是否对</div></td>
+        <td><div>知道还要多久</div><div>排队可承受</div></td>
+        <td><div>不打扰，可继续做事</div><div>多任务并行</div></td>
+        <td class="corrected"><div>多节点并行不阻塞</div><div>算力成本透明</div></td>
+      </tr>
+      <tr class="row-cons">
+        <th>劣势</th>
+        <td><div>流式预览算力开销大</div><div>低端机延迟</div></td>
+        <td><div>高峰期等待长</div><div>队列冷漠不友好</div></td>
+        <td><div>切回 Discord 不顺</div><div>新手不知去哪看</div></td>
+        <td class="corrected"><div>等待感分散在画布各处</div><div>Tapies 计费让人焦虑</div></td>
+      </tr>
+      <tr class="row-summary">
+        <th>一句话</th>
+        <td>边煎边看的牛排</td>
+        <td>高速公路 ETA</td>
+        <td>后厨忙着，你随便</td>
+        <td class="corrected">画布上跑出租车计费表</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tension-row">
+    <div><strong>核心张力</strong>感知速度 vs 实际算力开销</div>
+    <div class="recom"><strong>推荐方向</strong>流式预览首选 + 队列透明化兜底；避免无信息黑屏</div>
+  </div>
+  <div class="tp-disclaim">// mockup 为示意性渲染，非真实截图</div>
+</section>
+
+<!-- ============ TOUCHPOINT 03-B: 多结果选优 ============ -->
+<section class="section tp-section" id="tp-03-b" data-section="tp-03-b" data-stage="s3">
+  <div class="tp-header">
+    <span class="tp-id-tag">tp-03-b</span>
+    <h2 class="tp-name">多结果选优</h2>
+    <div class="tp-context">
+      <span>阶段 S3 · 创作生成</span>
+      <span>维度：选择丰富度 vs 算力效率</span>
+    </div>
+  </div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th class="row-label"></th>
+        <th><span class="ph-name"><span class="pbadge jm">即梦</span></span><span class="ph-sub">4 张并列 + "改这张"按钮</span></th>
+        <th><span class="ph-name"><span class="pbadge kl">可灵</span></span><span class="ph-sub">单视频 + 重生按钮</span></th>
+        <th><span class="ph-name"><span class="pbadge mj">Midjourney</span></span><span class="ph-sub">4-grid + U/V 升级变体</span></th>
+        <th class="corrected"><span class="ph-name"><span class="pbadge tn">TapNow.ai</span></span><span class="ph-sub">同一画布并排多模型结果</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-mockup">
+        <th>界面形态</th>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">jimeng/result</div></div>
+            <div class="mwb">
+              <div class="ui-grid-4" style="gap:3px"><div class="ui-thumb purple" style="position:relative"><div style="position:absolute;top:2px;right:2px;background:#FF6A33;color:#fff;font-size:6px;padding:0 3px;border-radius:1px">改</div></div><div class="ui-thumb orange"></div><div class="ui-thumb cyan"></div><div class="ui-thumb pink"></div></div>
+              <div style="display:flex;gap:3px;margin-top:4px;justify-content:flex-end;font-size:7px;color:#666">↻重生  ⬇下载</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">klingai/result</div></div>
+            <div class="mwb" style="display:flex;flex-direction:column;align-items:center">
+              <div style="width:90%;height:60px;background:linear-gradient(135deg,#0AC2C2,#0B7AC2);border-radius:3px;position:relative"><div style="position:absolute;bottom:3px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#fff;font-size:6px;padding:1px 5px;border-radius:8px">▶ 0:10</div></div>
+              <div style="display:flex;gap:4px;margin-top:4px;font-size:8px"><span style="padding:2px 6px;background:#0B7AC2;color:#fff;border-radius:3px">下载</span><span style="padding:2px 6px;background:#F4F4F5;border-radius:3px">↻重生</span></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mt mockup-cell">
+            <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mtt">midjourney result</div></div>
+            <div class="mb" style="padding:6px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:4px"><div style="aspect-ratio:1;background:linear-gradient(135deg,#A78BFA,#834DF0);border-radius:1px"></div><div style="aspect-ratio:1;background:linear-gradient(135deg,#FBBF24,#F59E0B);border-radius:1px"></div><div style="aspect-ratio:1;background:linear-gradient(135deg,#22D3EE,#0891B2);border-radius:1px"></div><div style="aspect-ratio:1;background:linear-gradient(135deg,#F472B6,#DB2777);border-radius:1px"></div></div>
+              <div style="display:flex;gap:2px;font-size:8px"><span class="tg">U1</span><span class="tg">U2</span><span class="tg">U3</span><span class="tg">U4</span><span class="tp">V1</span><span class="tp">V2</span><span class="tp">V3</span><span class="tp">V4</span></div>
+            </div>
+          </div>
+        </td>
+        <td class="corrected">
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">canvas · compare</div></div>
+            <div class="mwb" style="background:#0E0E10;padding:6px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px"><div><div style="aspect-ratio:1;background:linear-gradient(135deg,#A78BFA,#7C3AED);border-radius:2px"></div><div style="font-size:6.5px;color:#A78BFA;font-family:JetBrains Mono;margin-top:1px">Sora</div></div><div><div style="aspect-ratio:1;background:linear-gradient(135deg,#22D3EE,#0B7AC2);border-radius:2px"></div><div style="font-size:6.5px;color:#22D3EE;font-family:JetBrains Mono;margin-top:1px">Kling</div></div><div><div style="aspect-ratio:1;background:linear-gradient(135deg,#FBBF24,#F59E0B);border-radius:2px"></div><div style="font-size:6.5px;color:#FBBF24;font-family:JetBrains Mono;margin-top:1px">Luma</div></div><div><div style="aspect-ratio:1;background:linear-gradient(135deg,#F472B6,#DB2777);border-radius:2px;border:1.5px solid #34D399"></div><div style="font-size:6.5px;color:#34D399;font-family:JetBrains Mono;margin-top:1px">MJ ✓</div></div></div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row-mech">
+        <th>核心机制</th>
+        <td>横向对比择优 — 一次出 4 张</td>
+        <td>单一结果择优 — 视频高算力场景</td>
+        <td>经典 4-grid + 升级/变体两路</td>
+        <td class="corrected">多个模型同 prompt 横向对比 — 真实 A/B</td>
+      </tr>
+      <tr class="row-pros">
+        <th>优势</th>
+        <td><div>可比较，命中率高</div><div>选择丰富</div></td>
+        <td><div>适合视频高算力场景</div><div>避免浪费</div></td>
+        <td><div>经典模式，用户已习惯</div><div>U/V 路径清晰</div></td>
+        <td class="corrected"><div>跨模型真实可比较</div><div>不限于单模型抽卡</div></td>
+      </tr>
+      <tr class="row-cons">
+        <th>劣势</th>
+        <td><div>4 张同样烂时尴尬</div><div>算力成本 4x</div></td>
+        <td><div>不能横向比较</div><div>挑剔用户重生多次</div></td>
+        <td><div>U/V 操作非直觉</div><div>新手不懂区别</div></td>
+        <td class="corrected"><div>成本是单模型 N 倍</div><div>画布拓扑越发复杂</div></td>
+      </tr>
+      <tr class="row-summary">
+        <th>一句话</th>
+        <td>同时煎 4 块牛排让你挑</td>
+        <td>一次一道菜</td>
+        <td>经典 4 选 1 套路</td>
+        <td class="corrected">让 4 个 AI 同台竞技</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tension-row">
+    <div><strong>核心张力</strong>选择丰富度 vs 算力效率</div>
+    <div class="recom"><strong>推荐方向</strong>默认 4 张并列，紧资源场景退化为 1 张；选中后"基于这张继续"</div>
+  </div>
+  <div class="tp-disclaim">// mockup 为示意性渲染，非真实截图</div>
+</section>
+
+<!-- ============ TOUCHPOINT 04-A: 局部修改 ============ -->
+<section class="section tp-section" id="tp-04-a" data-section="tp-04-a" data-stage="s4">
+  <div class="tp-header">
+    <span class="tp-id-tag">tp-04-a</span>
+    <h2 class="tp-name">局部修改 / 重绘机制</h2>
+    <div class="tp-context">
+      <span>阶段 S4 · 编辑迭代</span>
+      <span>维度：局部精度 vs 操作复杂度</span>
+    </div>
+  </div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th class="row-label"></th>
+        <th><span class="ph-name"><span class="pbadge jm">即梦</span></span><span class="ph-sub">蒙版圈选 + 文字描述</span></th>
+        <th><span class="ph-name"><span class="pbadge kl">可灵</span></span><span class="ph-sub">视频时间段重生</span></th>
+        <th><span class="ph-name"><span class="pbadge mj">Midjourney</span></span><span class="ph-sub">Vary Region 圈选</span></th>
+        <th class="corrected"><span class="ph-name"><span class="pbadge tn">TapNow.ai</span></span><span class="ph-sub">画布节点重连 + 影视级控制</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-mockup">
+        <th>界面形态</th>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">jimeng/edit</div></div>
+            <div class="mwb">
+              <div style="position:relative;width:100%;height:60px;background:linear-gradient(135deg,#A78BFA,#834DF0);border-radius:3px"><div style="position:absolute;left:30%;top:20%;width:30%;height:50%;border:1.5px dashed #fff;background:rgba(255,255,255,.2)"></div></div>
+              <div style="border:1px solid #ddd;border-radius:2px;padding:3px;margin-top:3px;font-size:8px;color:#666">"换成红色花朵"</div>
+              <div style="margin-top:3px;background:#FF6A33;color:#fff;text-align:center;padding:2px;font-size:8px;border-radius:2px">重绘选中区域</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">klingai/edit</div></div>
+            <div class="mwb">
+              <div style="width:100%;height:32px;background:linear-gradient(135deg,#0AC2C2,#0B7AC2);border-radius:2px;position:relative"></div>
+              <div style="position:relative;width:100%;height:14px;background:#F4F4F5;margin-top:5px;border-radius:1px"><div style="position:absolute;left:30%;width:25%;height:100%;background:#0B7AC2;border-radius:1px"></div></div>
+              <div style="font-size:7px;color:#666;text-align:center;margin-top:3px;font-family:JetBrains Mono">3.2s — 5.7s · 重生这段</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mt mockup-cell">
+            <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mtt">vary region</div></div>
+            <div class="mb">
+              <div><span class="tg">▢ Vary (Region)</span></div>
+              <div style="margin-top:3px"><span class="td">// drag to select area</span></div>
+              <div style="margin-top:3px"><span class="tw">prompt:</span> <span class="ty">red flower instead</span></div>
+              <div style="margin-top:3px"><span class="tg">✔</span> <span class="tw">submit</span></div>
+              <div style="margin-top:4px"><span class="td">// regenerates only marked region</span></div>
+            </div>
+          </div>
+        </td>
+        <td class="corrected">
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">canvas · branch edit</div></div>
+            <div class="mwb" style="background:#0E0E10;padding:6px;font-size:7.5px;color:#F4F4F5;font-family:JetBrains Mono">
+              <div style="border:1px solid #27272A;border-radius:3px;padding:3px;margin-bottom:3px"><span style="color:#A78BFA">[gen-1]</span> original</div>
+              <div style="text-align:center;color:#71717A">↓ branch</div>
+              <div style="border:1px solid #34D399;border-radius:3px;padding:3px;margin-bottom:3px;background:rgba(52,211,153,.05)"><span style="color:#34D399">[gen-2]</span> + inpaint mask</div>
+              <div style="text-align:center;color:#71717A">↓</div>
+              <div style="border:1px dashed #27272A;border-radius:3px;padding:3px;color:#71717A">[gen-3] pending...</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row-mech">
+        <th>核心机制</th>
+        <td>区域 inpaint — 圈选 + 文字描述</td>
+        <td>时间段 inpaint — 重生指定秒</td>
+        <td>区域 inpaint — 拖框圈选 + 完整 prompt</td>
+        <td class="corrected">通过节点拓扑修改 — 旧版本保留为分支</td>
+      </tr>
+      <tr class="row-pros">
+        <th>优势</th>
+        <td><div>改局部不重整图</div><div>节省算力</div></td>
+        <td><div>视频局部重生稀缺</div><div>极具竞争力</div></td>
+        <td><div>经典工作流</div><div>精度高</div></td>
+        <td class="corrected"><div>修改可追溯（git 思维）</div><div>原始链路保留可回退</div></td>
+      </tr>
+      <tr class="row-cons">
+        <th>劣势</th>
+        <td><div>圈选精度依赖鼠标</div><div>蒙版边缘易出问题</div></td>
+        <td><div>视频重生算力大</div><div>时间段精度难</div></td>
+        <td><div>必须重新写完整 prompt</div><div>反复尝试成本高</div></td>
+        <td class="corrected"><div>每次小改都涉及节点变动</div><div>认知开销大</div></td>
+      </tr>
+      <tr class="row-summary">
+        <th>一句话</th>
+        <td>Photoshop 的 AI 蒙版</td>
+        <td>视频版 inpaint，前沿但贵</td>
+        <td>老牌 Vary Region 经典</td>
+        <td class="corrected">用 git 思维改 AI 作品</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tension-row">
+    <div><strong>核心张力</strong>局部精度 vs 操作复杂度</div>
+    <div class="recom"><strong>推荐方向</strong>智能区域识别（点哪改哪） + 显式蒙版（专业用户备选）</div>
+  </div>
+  <div class="tp-disclaim">// mockup 为示意性渲染，非真实截图</div>
+</section>
+
+<!-- ============ TOUCHPOINT 05-A: 导出与商用 ============ -->
+<section class="section tp-section" id="tp-05-a" data-section="tp-05-a" data-stage="s5">
+  <div class="tp-header">
+    <span class="tp-id-tag">tp-05-a</span>
+    <h2 class="tp-name">导出与商用授权</h2>
+    <div class="tp-context">
+      <span>阶段 S5 · 导出与分享</span>
+      <span>维度：商用清晰度 vs 操作摩擦</span>
+    </div>
+  </div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th class="row-label"></th>
+        <th><span class="ph-name"><span class="pbadge jm">即梦</span></span><span class="ph-sub">导出对话框 + 商用提示</span></th>
+        <th><span class="ph-name"><span class="pbadge kl">可灵</span></span><span class="ph-sub">导出按钮 + 水印开关</span></th>
+        <th><span class="ph-name"><span class="pbadge mj">Midjourney</span></span><span class="ph-sub">直接下载（无对话框）</span></th>
+        <th class="corrected"><span class="ph-name"><span class="pbadge tn">TapNow.ai</span></span><span class="ph-sub">订阅级商用授权（Tapies 制）</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-mockup">
+        <th>界面形态</th>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">jimeng/export</div></div>
+            <div class="mwb">
+              <div style="border:1px solid #ddd;border-radius:3px;padding:5px;font-size:8px"><div style="font-weight:600;margin-bottom:3px">导出</div><div style="margin:2px 0">○ 个人用 (PNG)</div><div style="margin:2px 0;color:#FF6A33;font-weight:600">● 商用 (含授权)</div><div style="margin-top:4px;background:#FF6A33;color:#fff;text-align:center;padding:2px;border-radius:2px">下载</div></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">klingai/export</div></div>
+            <div class="mwb" style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+              <div style="display:flex;align-items:center;gap:4px;font-size:8px;margin-bottom:4px">水印 <div style="position:relative;width:24px;height:12px;background:#0B7AC2;border-radius:6px"><div style="position:absolute;right:1px;top:1px;width:10px;height:10px;background:#fff;border-radius:50%"></div></div></div>
+              <div style="background:#0B7AC2;color:#fff;padding:3px 12px;font-size:9px;border-radius:3px;font-weight:600">下载 MP4</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="mt mockup-cell">
+            <div class="mtbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mtt">midjourney</div></div>
+            <div class="mb">
+              <div><span class="tg">U1</span> <span class="td">→</span> <span class="tw">image saved</span></div>
+              <div style="margin-top:3px"><span class="td">// usage rights:</span></div>
+              <div style="margin-left:8px"><span class="ty">→ docs.midjourney.com/terms</span></div>
+              <div style="margin-top:4px"><span class="tg">✔</span> <span class="tw">downloaded</span></div>
+            </div>
+          </div>
+        </td>
+        <td class="corrected">
+          <div class="mw mockup-cell">
+            <div class="mwbar"><div class="mdt r"></div><div class="mdt y"></div><div class="mdt g"></div><div class="mwurl">export</div></div>
+            <div class="mwb" style="background:#0E0E10;padding:6px;font-size:7.5px;color:#F4F4F5;font-family:JetBrains Mono">
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid #27272A;padding-bottom:3px;margin-bottom:3px"><span>Plan: <span style="color:#7C3AED">Pro</span></span><span style="color:#34D399">商用 ✓</span></div>
+              <div style="color:#71717A">resolution: 4K</div>
+              <div style="color:#71717A">format: MP4 / PNG</div>
+              <div style="margin-top:4px;background:#7C3AED;color:#fff;text-align:center;padding:3px;border-radius:2px;font-size:8px;font-weight:600">Export · −24 ⓣ</div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr class="row-mech">
+        <th>核心机制</th>
+        <td>显式商用授权选择 — 强制二选一</td>
+        <td>水印作为付费分界 — 简单二元</td>
+        <td>隐式（看订阅级别） — 文档自查</td>
+        <td class="corrected">订阅级别决定商用上限 + Tapies 即用即结算</td>
+      </tr>
+      <tr class="row-pros">
+        <th>优势</th>
+        <td><div>商用边界清晰</div><div>用户自我教育</div></td>
+        <td><div>简单二元化</div><div>付费转化路径明确</div></td>
+        <td><div>简洁，0 阻力</div><div>适合个人用户</div></td>
+        <td class="corrected"><div>商用范围与定价绑定明确</div><div>专业级分辨率/格式</div></td>
+      </tr>
+      <tr class="row-cons">
+        <th>劣势</th>
+        <td><div>弹窗多步骤</div><div>商用项需付费暴露</div></td>
+        <td><div>灰色商用模糊</div><div>有水印≠不可商用</div></td>
+        <td><div>商用范围不明显</div><div>法律风险用户承担</div></td>
+        <td class="corrected"><div>高产用户成本快速攀升</div><div>商用需 Pro+ 订阅</div></td>
+      </tr>
+      <tr class="row-summary">
+        <th>一句话</th>
+        <td>像合同签署</td>
+        <td>二选一开关</td>
+        <td>自己看条款</td>
+        <td class="corrected">订阅级别 = 商用上限</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tension-row">
+    <div><strong>核心张力</strong>商用清晰度 vs 操作摩擦</div>
+    <div class="recom"><strong>推荐方向</strong>默认显示授权状态 chip（个人/商用/署名），点击展开详情；不强制弹窗</div>
+  </div>
+  <div class="tp-disclaim">// mockup 为示意性渲染，非真实截图</div>
+</section>
+
+<!-- ============ HIGHLIGHTS OVERVIEW ============ -->
+<section class="section hl-overview" id="hl-overview" data-section="hl-overview">
+  <div class="journey-head">
+    <div class="section-eyebrow">Design Highlights · 8 Cross-Touchpoint Insights</div>
+    <h2 class="section-title">设计亮点：8 个值得抄作业的细节</h2>
+    <p class="section-desc">从 8 个触点对比中提炼出的跨产品亮点。每条都满足三条标准：解决了关键摩擦点 / 与竞品有明显差异 / 背后有可解释的设计原理。点击卡片查看详细分析。</p>
+  </div>
+  <div class="hl-grid">
+    <div class="hl-card corrected" data-target="hl-01"><div class="hl-num">01</div><div class="hl-title">Style Explorer + sref 系统 — MJ 把"风格"提升为一等对象</div><div class="hl-prod">MJ · tp-02-b</div></div>
+    <div class="hl-card corrected" data-target="hl-02"><div class="hl-num">02</div><div class="hl-title">Motion Brush — Kling 用画笔控制物体运动路径</div><div class="hl-prod">KL · tp-02-b</div></div>
+    <div class="hl-card" data-target="hl-03"><div class="hl-num">03</div><div class="hl-title">剧本-分镜-成片工作流 — 即梦的视频拆解</div><div class="hl-prod">JM · tp-03-a</div></div>
+    <div class="hl-card corrected" data-target="hl-04"><div class="hl-num">04</div><div class="hl-title">TapTV 开源 workflow 共享 — 共享完整画布而非 prompt</div><div class="hl-prod">TN · tp-02-a</div></div>
+    <div class="hl-card corrected" data-target="hl-05"><div class="hl-num">05</div><div class="hl-title">--sref + --sw 风格权重系统 — MJ V8.1 (0-1000)</div><div class="hl-prod">MJ · tp-02-b</div></div>
+    <div class="hl-card" data-target="hl-06"><div class="hl-num">06</div><div class="hl-title">角色一致性 — Kling 抬高 AI 视频叙事天花板</div><div class="hl-prod">KL · tp-04-a</div></div>
+    <div class="hl-card" data-target="hl-07"><div class="hl-num">07</div><div class="hl-title">对话式 AI 改稿 — 即梦把"修改"降级为"指着说"</div><div class="hl-prod">JM · tp-04-a</div></div>
+    <div class="hl-card corrected" data-target="hl-08"><div class="hl-num">08</div><div class="hl-title">多模型聚合画布 — TapNow 同时调度 Sora / MJ / Kling / Luma</div><div class="hl-prod">TN · tp-02-b</div></div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT 01 ============ -->
+<section class="section hl-detail" id="hl-01" data-section="hl-01">
+  <div class="hl-detail-head">
+    <div class="hl-detail-num">01</div>
+    <div class="hl-detail-title-block">
+      <div class="hl-detail-eyebrow corrected">Midjourney · tp-02-a/02-b · Stage 2 重新定位</div>
+      <h2 class="hl-detail-title">Style Explorer + sref 系统 — 把"风格"提升为可索引、可保存、可混合的一等对象</h2>
+      <p class="hl-detail-why">渲染样本 v1 把这个亮点写成"作品即 prompt"，但<strong>"做同款"在即梦/可灵都已普遍存在</strong>，这个差异化已被稀释。Midjourney 的真正护城河是 <strong>Style Explorer</strong>——一个独立的"风格浏览器"，把每个 sref code（视觉风格指纹）作为可点赞、可收藏、可在 prompt 中混用的对象。你可以用 <code style="background:var(--acc-bg);padding:1px 5px;border-radius:3px;font-family:var(--font-mono)">--sref 12345 67890</code> 混合两种风格，再用 <code style="background:var(--acc-bg);padding:1px 5px;border-radius:3px;font-family:var(--font-mono)">--sw 0-1000</code> 调权重——这是把"美学"工程化的方式，超越了"看见就能复刻"的层级。</p>
+    </div>
+  </div>
+  <div class="hl-states">
+    <div class="hl-state">
+      <div class="hl-state-label">浏览风格<span class="badge-state">Browse</span></div>
+      <div class="hl-state-mockup">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px"><div class="ui-thumb purple" style="aspect-ratio:1;border-radius:3px"></div><div class="ui-thumb cyan" style="aspect-ratio:1;border-radius:3px"></div><div class="ui-thumb pink" style="aspect-ratio:1;border-radius:3px"></div><div class="ui-thumb orange" style="aspect-ratio:1;border-radius:3px"></div></div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--fg-2);margin-top:6px;text-align:center">Style Explorer · 按风格点赞 / 收藏</div>
+      </div>
+      <div class="hl-state-cap">每个 sref code 是独立可索引对象</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">混合风格<span class="badge-state" style="background:var(--bl)">Mix</span></div>
+      <div class="hl-state-mockup">
+        <div style="font-family:var(--font-mono);font-size:10px;line-height:2;color:var(--fg-2)">
+          <div>--sref <span style="color:var(--acc);font-weight:600">12345</span> <span style="color:var(--acc);font-weight:600">67890</span></div>
+          <div>--sw <span style="color:var(--g);font-weight:600">650</span> <span style="color:var(--fg-3)">(0-1000)</span></div>
+        </div>
+      </div>
+      <div class="hl-state-cap">两个 sref + 权重 0-1000，任意组合</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">可复用<span class="badge-state" style="background:var(--g)">Reuse</span></div>
+      <div class="hl-state-mockup">
+        <div class="ui-thumb purple" style="aspect-ratio:1;border-radius:6px;background:linear-gradient(135deg,#A78BFA 0%,#22D3EE 50%,#FBBF24 100%)"></div>
+      </div>
+      <div class="hl-state-cap">同一 sref 跨 prompt 保持视觉一致</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT 02 ============ -->
+<section class="section hl-detail" id="hl-02" data-section="hl-02">
+  <div class="hl-detail-head">
+    <div class="hl-detail-num">02</div>
+    <div class="hl-detail-title-block">
+      <div class="hl-detail-eyebrow corrected">Kling · tp-02-b · Stage 2 主语修正</div>
+      <h2 class="hl-detail-title">Motion Brush — 用画笔直接控制画面中物体的运动路径</h2>
+      <p class="hl-detail-why">渲染样本 v1 把这个亮点说成"图形化<strong>运镜</strong>路径"，但<strong>核查后发现 Motion Brush 控制的是画面中物体（人/物）的运动路径，不是镜头运镜</strong>。运镜在 Kling 里是另一套——6 种预设方案（推进拉远 / 水平摇镜 / 垂直运镜等）。但这个亮点的核心洞察依然成立：<strong>"画路径"比"用文字描述运动"更直观</strong>——只是把它从"运镜控制"修正为"物体运动控制"。值得抄作业的是这个图形优先于文字的决策，而不是它具体控制了什么。</p>
+    </div>
+  </div>
+  <div class="hl-states">
+    <div class="hl-state">
+      <div class="hl-state-label">默认态<span class="badge-state">Idle</span></div>
+      <div class="hl-state-mockup">
+        <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#0AC2C2,#0B7AC2);border-radius:4px;position:relative"></div>
+      </div>
+      <div class="hl-state-cap">未启用运镜控制时为静态构图</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">绘制中<span class="badge-state" style="background:var(--y)">Drawing</span></div>
+      <div class="hl-state-mockup">
+        <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#0AC2C2,#0B7AC2);border-radius:4px;position:relative">
+          <svg viewBox="0 0 100 56" style="position:absolute;inset:0;width:100%;height:100%"><path d="M 20 45 Q 50 30, 80 15" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="3,2"/><polygon points="80,15 73,18 75,11" fill="#fff"/><circle cx="20" cy="45" r="2" fill="#fff"/></svg>
+        </div>
+      </div>
+      <div class="hl-state-cap">用户在预览图上拖出物体运动路径，箭头表示终点方向</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">应用态<span class="badge-state" style="background:var(--g)">Applied</span></div>
+      <div class="hl-state-mockup">
+        <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#0AC2C2,#0B7AC2);border-radius:4px;position:relative">
+          <svg viewBox="0 0 100 56" style="position:absolute;inset:0;width:100%;height:100%"><path d="M 20 45 Q 50 30, 80 15" fill="none" stroke="#34D399" stroke-width="2"/><polygon points="80,15 73,18 75,11" fill="#34D399"/></svg>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--g);background:var(--g-bg);padding:4px 8px;border-radius:3px;margin-top:6px">物体沿路径运动 · 0 → 5s</div>
+      </div>
+      <div class="hl-state-cap">路径转译为该物体的 AI 可执行运动指令</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT 03 ============ -->
+<section class="section hl-detail" id="hl-03" data-section="hl-03">
+  <div class="hl-detail-head">
+    <div class="hl-detail-num">03</div>
+    <div class="hl-detail-title-block">
+      <div class="hl-detail-eyebrow">即梦 Dreamina · tp-03-a 创作生成</div>
+      <h2 class="hl-detail-title">剧本-分镜-成片 — 把"做视频"拆成可控的工序</h2>
+      <p class="hl-detail-why">直接"输入 prompt → 出视频"是黑盒，用户失败了不知道哪错了。即梦把流程<strong>显式拆为剧本（文字）→ 分镜（关键帧）→ 成片（合成）</strong>，每一步都可干预。这<strong>符合视频创作者的心智模型</strong>——他们本来就是这样工作的。本质上是"把 AI 的内部工作流外化成用户的工作流"，让黑盒变成可调试的流水线。</p>
+    </div>
+  </div>
+  <div class="hl-states">
+    <div class="hl-state">
+      <div class="hl-state-label">Step 1<span class="badge-state">Script</span></div>
+      <div class="hl-state-mockup">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--fg-2);line-height:1.5;background:var(--bg-2);padding:8px;border-radius:3px">第 1 幕：海边日落<br>少年走向海面<br>回头一笑<br>━━━━━━━<br>第 2 幕：浪花特写</div>
+      </div>
+      <div class="hl-state-cap">用文字写好剧本结构，AI 自动断幕</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">Step 2<span class="badge-state" style="background:var(--bl)">Storyboard</span></div>
+      <div class="hl-state-mockup">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px"><div style="aspect-ratio:16/9;background:linear-gradient(135deg,#FBBF24,#F472B6);border-radius:2px;position:relative"><div style="position:absolute;bottom:1px;left:2px;font-size:7px;color:#fff;font-family:var(--font-mono)">幕1</div></div><div style="aspect-ratio:16/9;background:linear-gradient(135deg,#22D3EE,#3B82F6);border-radius:2px;position:relative"><div style="position:absolute;bottom:1px;left:2px;font-size:7px;color:#fff;font-family:var(--font-mono)">幕2</div></div></div>
+      </div>
+      <div class="hl-state-cap">每幕生成关键帧，可单独重生/微调</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">Step 3<span class="badge-state" style="background:var(--g)">Render</span></div>
+      <div class="hl-state-mockup">
+        <div style="aspect-ratio:16/9;background:linear-gradient(135deg,#A78BFA,#834DF0);border-radius:4px;position:relative"><div style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#fff;font-size:8px;padding:1px 6px;border-radius:6px;font-family:var(--font-mono)">▶ 0:00 / 0:15</div></div>
+      </div>
+      <div class="hl-state-cap">关键帧间补帧 + 衔接，输出成片</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT 04 ============ -->
+<section class="section hl-detail" id="hl-04" data-section="hl-04">
+  <div class="hl-detail-head">
+    <div class="hl-detail-num">04</div>
+    <div class="hl-detail-title-block">
+      <div class="hl-detail-eyebrow corrected">TapNow.ai · tp-02-a · Stage 2 整体重写</div>
+      <h2 class="hl-detail-title">TapTV — 开源 workflow 社区，共享的不是 prompt 是完整画布流程</h2>
+      <p class="hl-detail-why">渲染样本 v1 把这个亮点写成"模板优先反向链路"，但 <strong>TapNow.ai 根本不是模板优先工具，而是面向专业用户的画布编排平台</strong>。它真正稀缺的是 <strong>TapTV</strong>——号称"世界首个开源 AI 视觉创作社区"，共享的不是单个作品或 prompt，而是<strong>完整的 Tapflow 画布工作流</strong>：从剧本节点→分镜节点→图像模型→视频模型→后期节点的整条流水线，可整体被另一个用户 fork 与改造。这是把"GitHub 模式"应用到 AIGC 创作的尝试——比"做同款 prompt"高一个抽象层级。</p>
+    </div>
+  </div>
+  <div class="hl-states">
+    <div class="hl-state">
+      <div class="hl-state-label">浏览 workflow<span class="badge-state">Browse</span></div>
+      <div class="hl-state-mockup">
+        <div style="display:flex;flex-direction:column;gap:4px"><div style="height:14px;background:linear-gradient(90deg,#7C3AED,#22D3EE);border-radius:2px;position:relative"><div style="position:absolute;right:3px;top:1px;font-size:7px;color:#fff;font-family:var(--font-mono)">Ad TVC · 47 forks</div></div><div style="height:14px;background:linear-gradient(90deg,#FF6A33,#FBBF24);border-radius:2px;position:relative"><div style="position:absolute;right:3px;top:1px;font-size:7px;color:#fff;font-family:var(--font-mono)">Animation · 31 forks</div></div><div style="height:14px;background:linear-gradient(90deg,#0B7AC2,#A78BFA);border-radius:2px;position:relative"><div style="position:absolute;right:3px;top:1px;font-size:7px;color:#fff;font-family:var(--font-mono)">Music MV · 88 forks</div></div></div>
+      </div>
+      <div class="hl-state-cap">每个项目展示完整流程而非作品</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">查看节点图<span class="badge-state" style="background:var(--bl)">Inspect</span></div>
+      <div class="hl-state-mockup">
+        <div style="font-family:var(--font-mono);font-size:9px;line-height:1.7;color:var(--fg-2)">
+          <div>📝 script → <span style="color:var(--acc)">Sora</span></div>
+          <div style="margin-left:14px">↓</div>
+          <div>🎨 storyboard → <span style="color:var(--acc)">Midjourney V8</span></div>
+          <div style="margin-left:14px">↓</div>
+          <div>🎬 anim → <span style="color:var(--acc)">Kling 3.0</span></div>
+          <div style="margin-left:14px">↓</div>
+          <div>🎵 audio → <span style="color:var(--acc)">Luma</span></div>
+        </div>
+      </div>
+      <div class="hl-state-cap">完整 workflow 可见、可复制</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">Fork 改造<span class="badge-state" style="background:var(--g)">Fork</span></div>
+      <div class="hl-state-mockup">
+        <div style="text-align:center;padding:14px 0"><div style="font-family:var(--font-mono);font-size:24px;color:var(--g);font-weight:700">⑂</div><div style="font-size:11px;color:var(--fg-2);margin-top:4px">Fork to my canvas</div><div style="font-size:9px;color:var(--fg-3);margin-top:3px;font-family:var(--font-mono)">+ swap models / + add nodes</div></div>
+      </div>
+      <div class="hl-state-cap">整套流程被 fork 后可任意改造</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT 05 ============ -->
+<section class="section hl-detail" id="hl-05" data-section="hl-05">
+  <div class="hl-detail-head">
+    <div class="hl-detail-num">05</div>
+    <div class="hl-detail-title-block">
+      <div class="hl-detail-eyebrow corrected">Midjourney · tp-02-b · Stage 2 数据修正</div>
+      <h2 class="hl-detail-title">--sref + --sw 系统 — 把"风格"从黑盒提示词变成可量化的旋钮</h2>
+      <p class="hl-detail-why">用文字描述"我想要这张图的色调 + 那张图的构图 + 第三张图的光影"几乎不可能写得精确。Midjourney 的 <code style="background:var(--acc-bg);padding:1px 5px;border-radius:3px;font-family:var(--font-mono)">--sref</code> 让用户<strong>把若干张参考图（或 sref code）按权重组合输入</strong>，AI 在隐空间里做加权平均。这把"风格"从黑盒提示词变成<strong>可视化、可量化的旋钮</strong>。<br><br><span style="background:var(--y-bg);color:var(--y);padding:2px 6px;border-radius:3px;font-size:11px;font-family:var(--font-mono);font-weight:600">Stage 2 修正</span> 当前 Midjourney 默认是 <strong>V8.1</strong>（不是 v1 中的 V7），<code style="background:var(--acc-bg);padding:1px 5px;border-radius:3px;font-family:var(--font-mono)">--sw</code> 权重范围是 <strong>0-1000</strong>（默认 100），不是 v1 mockup 里写的 1-10。<a href="https://docs.midjourney.com/hc/en-us/articles/32180011136653-Style-Reference" style="color:var(--bl);border-bottom:1px dashed var(--bl)">来源：MJ 官方 Style Reference 文档</a></p>
+    </div>
+  </div>
+  <div class="hl-states">
+    <div class="hl-state">
+      <div class="hl-state-label">输入<span class="badge-state">Refs</span></div>
+      <div class="hl-state-mockup">
+        <div style="display:flex;gap:6px;margin-bottom:8px"><div class="ui-thumb purple" style="width:32px;height:32px;border-radius:4px"></div><div class="ui-thumb cyan" style="width:32px;height:32px;border-radius:4px"></div><div class="ui-thumb orange" style="width:32px;height:32px;border-radius:4px"></div></div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--fg-2)">--sref ref1 ref2 ref3</div>
+      </div>
+      <div class="hl-state-cap">3 张图片或 sref code 作为风格参考</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label corrected">权重调节<span class="badge-state" style="background:var(--bl)">--sw 0-1000</span></div>
+      <div class="hl-state-mockup">
+        <div style="font-size:10px;line-height:2;font-family:var(--font-mono)">
+          <div>--sw <span style="color:var(--acc);font-weight:600">100</span> <span style="color:var(--fg-3)">(默认)</span></div>
+          <div>--sw <span style="color:var(--acc);font-weight:600">650</span> <span style="color:var(--fg-3)">(强)</span></div>
+          <div>--sw <span style="color:var(--acc);font-weight:600">25</span>  <span style="color:var(--fg-3)">(弱)</span></div>
+          <div style="margin-top:6px;color:var(--y);font-size:9px">范围 0-1000</div>
+        </div>
+      </div>
+      <div class="hl-state-cap">权重默认 100，0 弱化 / 1000 强化</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">输出<span class="badge-state" style="background:var(--g)">V8.1</span></div>
+      <div class="hl-state-mockup">
+        <div class="ui-thumb purple" style="aspect-ratio:1;border-radius:6px;background:linear-gradient(135deg,#A78BFA 0%,#22D3EE 60%,#FBBF24 100%)"></div>
+      </div>
+      <div class="hl-state-cap">风格按权重融合，可重复可调（V8.1）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT 06 ============ -->
+<section class="section hl-detail" id="hl-06" data-section="hl-06">
+  <div class="hl-detail-head">
+    <div class="hl-detail-num">06</div>
+    <div class="hl-detail-title-block">
+      <div class="hl-detail-eyebrow">Kling · tp-04-a 编辑迭代</div>
+      <h2 class="hl-detail-title">角色一致性 — 跨镜头保持人物外观稳定</h2>
+      <p class="hl-detail-why">"AI 视频每一秒长得都不一样"是叙事内容的死结——观众无法把不同镜头里的"同一个人"识别为同一个人。Kling 用<strong>角色锚定 + 跨帧约束</strong>把这个问题部分解决了，让<strong>AI 视频从"片段美学"向"叙事内容"迈出一步</strong>。这不是炫技，是一个能不能商用的分水岭。</p>
+    </div>
+  </div>
+  <div class="hl-states">
+    <div class="hl-state">
+      <div class="hl-state-label">无约束<span class="badge-state" style="background:var(--r)">Without</span></div>
+      <div class="hl-state-mockup">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px"><div class="ui-thumb purple" style="aspect-ratio:1;border-radius:3px"></div><div class="ui-thumb pink" style="aspect-ratio:1;border-radius:3px"></div><div class="ui-thumb cyan" style="aspect-ratio:1;border-radius:3px"></div></div>
+        <div style="font-size:10px;color:var(--r);margin-top:8px;text-align:center">3 个镜头 = 3 个不同的人</div>
+      </div>
+      <div class="hl-state-cap">每帧独立生成，外观漂移</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">锚定基准<span class="badge-state" style="background:var(--y)">Anchor</span></div>
+      <div class="hl-state-mockup">
+        <div class="ui-thumb purple" style="aspect-ratio:1;border-radius:4px;width:60%;margin:0 auto"></div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--fg-2);margin-top:6px;text-align:center">character_ref = ./hero.png</div>
+      </div>
+      <div class="hl-state-cap">指定一张基准图作为角色锚</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">有约束<span class="badge-state" style="background:var(--g)">With</span></div>
+      <div class="hl-state-mockup">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px"><div class="ui-thumb purple" style="aspect-ratio:1;border-radius:3px"></div><div class="ui-thumb purple" style="aspect-ratio:1;border-radius:3px;filter:hue-rotate(15deg)"></div><div class="ui-thumb purple" style="aspect-ratio:1;border-radius:3px;filter:hue-rotate(-15deg)"></div></div>
+        <div style="font-size:10px;color:var(--g);margin-top:8px;text-align:center">3 个镜头 = 同一个人</div>
+      </div>
+      <div class="hl-state-cap">跨帧约束保持外观一致</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT 07 ============ -->
+<section class="section hl-detail" id="hl-07" data-section="hl-07">
+  <div class="hl-detail-head">
+    <div class="hl-detail-num">07</div>
+    <div class="hl-detail-title-block">
+      <div class="hl-detail-eyebrow">即梦 Dreamina · tp-04-a 编辑迭代</div>
+      <h2 class="hl-detail-title">对话式 AI 改稿 — 把"修改"从重写 prompt 降级为"指着说"</h2>
+      <p class="hl-detail-why">传统流程：用户想改局部，得重新组织一整段 prompt 描述"原图什么样 + 哪里改 + 改成什么样"——比第一次还累。即梦让用户<strong>用自然语言对话</strong>："把左边的人换成女性 / 颜色再深一点 / 背景虚化"。AI 维护上下文记忆，<strong>对话即编辑</strong>。这把修改的认知成本拉到了和真人沟通同一水平。</p>
+    </div>
+  </div>
+  <div class="hl-states">
+    <div class="hl-state">
+      <div class="hl-state-label">原图<span class="badge-state">Origin</span></div>
+      <div class="hl-state-mockup">
+        <div class="ui-thumb cyan" style="aspect-ratio:1;border-radius:6px"></div>
+      </div>
+      <div class="hl-state-cap">第一轮生成的结果</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">对话<span class="badge-state" style="background:var(--bl)">Chat</span></div>
+      <div class="hl-state-mockup">
+        <div style="font-size:11px;line-height:1.5">
+          <div style="background:var(--acc);color:#fff;padding:5px 10px;border-radius:10px 10px 2px 10px;display:inline-block;margin-bottom:6px">背景换成黄昏</div>
+          <div style="background:var(--bg-2);padding:5px 10px;border-radius:10px 10px 10px 2px;display:inline-block;color:var(--fg-2)">好的，正在调整...</div>
+        </div>
+      </div>
+      <div class="hl-state-cap">自然语言描述需要的修改</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">结果<span class="badge-state" style="background:var(--g)">Result</span></div>
+      <div class="hl-state-mockup">
+        <div class="ui-thumb orange" style="aspect-ratio:1;border-radius:6px"></div>
+      </div>
+      <div class="hl-state-cap">主体保持，仅背景按要求改变</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT 08 ============ -->
+<section class="section hl-detail" id="hl-08" data-section="hl-08">
+  <div class="hl-detail-head">
+    <div class="hl-detail-num">08</div>
+    <div class="hl-detail-title-block">
+      <div class="hl-detail-eyebrow corrected">TapNow.ai · tp-02-b · Stage 2 整体重写</div>
+      <h2 class="hl-detail-title">多模型聚合画布 — 在一个工作台同时调度 Sora、Midjourney、Kling、Luma</h2>
+      <p class="hl-detail-why">渲染样本 v1 把这个亮点写成"零 prompt 风格化 / 真正消费级 AIGC"，但<strong>这是把 TapNow 当成另一个产品了</strong>。真实的 TapNow.ai 走完全相反方向：它面向<strong>专业用户</strong>，提供一个能<strong>同时调度多个顶级 AI 模型</strong>的画布——同一个项目里可以让 Sora 出视频底版、Midjourney 出关键帧、Kling 做运动、Luma 做扩展，全部在一个工作流里编排。这是把"AI 模型从单点工具变为可组合资源"的尝试，对应的是 ComfyUI 美学，但抽象层级更高（不需要懂底层节点）。</p>
+    </div>
+  </div>
+  <div class="hl-states">
+    <div class="hl-state">
+      <div class="hl-state-label">单模型困境<span class="badge-state" style="background:var(--r)">Before</span></div>
+      <div class="hl-state-mockup">
+        <div style="font-size:10px;line-height:1.7;color:var(--fg-2)">
+          <div style="color:var(--r);font-family:var(--font-mono)">传统：</div>
+          <div>需要导演 → 用 MJ 出图</div>
+          <div>需要动画 → 切到 Kling</div>
+          <div>需要长视频 → 切到 Sora</div>
+          <div>需要补音 → 切到 Suno</div>
+          <div style="margin-top:6px;color:var(--r);font-size:9px">→ 4 个订阅 / 4 个工作流</div>
+        </div>
+      </div>
+      <div class="hl-state-cap">每个模型一个孤岛</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">画布聚合<span class="badge-state" style="background:var(--bl)">Canvas</span></div>
+      <div class="hl-state-mockup">
+        <div style="font-family:var(--font-mono);font-size:9px;line-height:1.6">
+          <div style="display:inline-block;padding:1px 5px;background:#7C3AED;color:#fff;border-radius:2px;margin:1px">Sora</div>
+          <div style="display:inline-block;padding:1px 5px;background:#27272A;color:#fff;border-radius:2px;margin:1px">MJ V8.1</div>
+          <div style="display:inline-block;padding:1px 5px;background:#0B7AC2;color:#fff;border-radius:2px;margin:1px">Kling 3</div>
+          <div style="display:inline-block;padding:1px 5px;background:#FF6A33;color:#fff;border-radius:2px;margin:1px">Luma</div>
+          <div style="display:inline-block;padding:1px 5px;background:#22D3EE;color:#fff;border-radius:2px;margin:1px">Flux</div>
+          <div style="display:inline-block;padding:1px 5px;background:#FBBF24;color:#fff;border-radius:2px;margin:1px">Suno</div>
+          <div style="margin-top:6px;color:var(--g);font-size:9px">→ 一个画布 / Tapies 通吃</div>
+        </div>
+      </div>
+      <div class="hl-state-cap">同一画布并排调度多模型</div>
+    </div>
+    <div class="hl-state">
+      <div class="hl-state-label">市场含义<span class="badge-state" style="background:var(--g)">Insight</span></div>
+      <div class="hl-state-mockup">
+        <div style="font-size:10px;line-height:1.6;color:var(--fg-2)">
+          这种产品<strong style="color:var(--fg)">不和单模型竞争</strong>，而是变成<strong style="color:var(--fg)">多模型的元层（meta-layer）</strong>。
+          <div style="margin-top:8px;padding:6px 8px;background:var(--g-bg);color:var(--g);border-radius:4px;font-size:10px">谁的模型更强，TapNow 接入它就更值钱</div>
+        </div>
+      </div>
+      <div class="hl-state-cap">站在所有模型肩膀上的工作台</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAGE 2 VERIFICATION LOG ============ -->
+<section class="section verify" id="verify" data-section="verify">
+  <div class="journey-head">
+    <div class="section-eyebrow">Stage 2 Verification Log · 核查与修正</div>
+    <h2 class="section-title">核查后的修正记录</h2>
+    <p class="section-desc">本次 Stage 2 核查覆盖：8 个亮点 + 4 产品基础定位 + tp-03-a 生成等待 + tp-05-a 商用授权 + 关键 UI 截图。共发起 8 次 web_search + 4 次 image_search。下方按严重度排序展示所有修正点。</p>
+  </div>
+
+  <div class="verify-grid">
+
+    <!-- TapNow 整体重写 -->
+    <div class="verify-card severe">
+      <div class="verify-head">
+        <div class="verify-head-l"><span class="verify-tag">tp-01 → tp-05 · hl-04 · hl-08</span><span class="verify-title">TapNow 产品定位整体错误</span></div>
+        <span class="verify-status severe">SEVERE</span>
+      </div>
+      <div class="verify-row before"><span class="lbl">v1</span><span class="txt">移动 App · AI 写真/风格化 · 模板优先 · 零 prompt 消费级</span></div>
+      <div class="verify-row after"><span class="lbl">v2</span><span class="txt">Web 桌面 · AI 创作画布（Tapflow Board）· 多模型聚合（Sora/MJ/Kling/Luma）· 面向广告/电影专业用户 · TapTV 开源 workflow 共享社区</span></div>
+      <div class="verify-source">原因：把同名社交 App "TapNow"（Sango Tech）和真正 AIGC 工具 "TapNow.ai" 混淆 · 来源：<a href="https://docs.tapnow.ai/en/docs">官方文档</a></div>
+    </div>
+
+    <!-- 亮点 01 -->
+    <div class="verify-card medium">
+      <div class="verify-head">
+        <div class="verify-head-l"><span class="verify-tag">hl-01 · Midjourney</span><span class="verify-title">"作品即 prompt" 差异化已被稀释</span></div>
+        <span class="verify-status medium">RELOCATED</span>
+      </div>
+      <div class="verify-row before"><span class="lbl">v1</span><span class="txt">作品即 prompt · 社区共享机制是 MJ 护城河</span></div>
+      <div class="verify-row after"><span class="lbl">v2</span><span class="txt">即梦"做同款" / 可灵"创意圈一键复刻" 都已普遍存在 · MJ 真正差异化是 Style Explorer + sref code 系统（把"风格"作为可索引/保存/混合的对象）</span></div>
+      <div class="verify-source">来源：<a href="https://docs.midjourney.com/hc/en-us/articles/33329460426765-Website-Overview">MJ Website Overview</a> · <a href="https://ai-bot.cn/sites/13002.html">可灵创意圈"做同款"</a></div>
+    </div>
+
+    <!-- 亮点 02 -->
+    <div class="verify-card medium">
+      <div class="verify-head">
+        <div class="verify-head-l"><span class="verify-tag">hl-02 · Kling Motion Brush</span><span class="verify-title">运镜 / 物体运动 主语错位</span></div>
+        <span class="verify-status medium">RELABELED</span>
+      </div>
+      <div class="verify-row before"><span class="lbl">v1</span><span class="txt">Motion Brush = 图形化运镜路径（控制镜头如何动）</span></div>
+      <div class="verify-row after"><span class="lbl">v2</span><span class="txt">Motion Brush = 物体运动路径（控制画面中物体如何动）· 运镜在 Kling 是 6 种预设方案（推进拉远/水平摇镜等），不是 Motion Brush</span></div>
+      <div class="verify-source">来源：<a href="https://www.aigc.cn/kling-ai">Kling 官方介绍</a> · <a href="https://aiposthub.com/kling-1-5">Motion Brush 1.5 评测</a></div>
+    </div>
+
+    <!-- 亮点 05 -->
+    <div class="verify-card medium">
+      <div class="verify-head">
+        <div class="verify-head-l"><span class="verify-tag">hl-05 · Midjourney 版本与权重</span><span class="verify-title">版本号过期 + 权重范围错</span></div>
+        <span class="verify-status medium">DATA FIX</span>
+      </div>
+      <div class="verify-row before"><span class="lbl">v1</span><span class="txt">Midjourney V7 · 权重范围 1-10</span></div>
+      <div class="verify-row after"><span class="lbl">v2</span><span class="txt">Midjourney V8.1（默认）· --sw 权重范围 0-1000（默认 100） · sv 6 是 V7 之后新的 sref 系统</span></div>
+      <div class="verify-source">来源：<a href="https://docs.midjourney.com/hc/en-us/articles/32180011136653-Style-Reference">MJ Style Reference 文档</a></div>
+    </div>
+
+    <!-- 亮点 03 / 07 加强 -->
+    <div class="verify-card ok">
+      <div class="verify-head">
+        <div class="verify-head-l"><span class="verify-tag">hl-03 + hl-07 · 即梦</span><span class="verify-title">对话式叙事能力比 v1 描述更强</span></div>
+        <span class="verify-status ok">VERIFIED+</span>
+      </div>
+      <div class="verify-row before"><span class="lbl">v1</span><span class="txt">"剧本-分镜-成片"工作流 + "对话式 AI 改稿"（两个独立亮点）</span></div>
+      <div class="verify-row after"><span class="lbl">v2</span><span class="txt">实际上即梦有完整的 <strong>Octo "Vibe Create"</strong> 对话式叙事产品 + 即梦 Agent（含上下文记忆 + MCP 一键安装）+ 指令编辑功能 — 三层叠加，比 v1 描述系统得多</span></div>
+      <div class="verify-source">来源：<a href="https://ai-bot.cn/octo/">Octo 官方介绍</a> · <a href="https://www.pingwest.com/a/299974">指令编辑功能上线报道</a></div>
+    </div>
+
+    <!-- 亮点 06 验证 -->
+    <div class="verify-card ok">
+      <div class="verify-head">
+        <div class="verify-head-l"><span class="verify-tag">hl-06 · Kling 角色一致性</span><span class="verify-title">论点准确，技术名修正</span></div>
+        <span class="verify-status ok">VERIFIED</span>
+      </div>
+      <div class="verify-row before"><span class="lbl">v1</span><span class="txt">"角色锚定 + 跨帧约束"（自创术语）</span></div>
+      <div class="verify-row after"><span class="lbl">v2</span><span class="txt">官方术语是 "主体参考" / "主体锚定"（character_ref）· Kling 3.0 引入"智能分镜"自动调度机位</span></div>
+      <div class="verify-source">来源：<a href="https://zhuanlan.zhihu.com/p/2004988563100566106">Kling O3 评测</a></div>
+    </div>
+
+    <!-- tp-05-a 商用授权 -->
+    <div class="verify-card medium">
+      <div class="verify-head">
+        <div class="verify-head-l"><span class="verify-tag">tp-05-a · 商用授权</span><span class="verify-title">4 家差异比 v1 写得小</span></div>
+        <span class="verify-status medium">TENSION FIX</span>
+      </div>
+      <div class="verify-row before"><span class="lbl">v1</span><span class="txt">核心张力："商用清晰度 vs 操作摩擦" · 暗示即梦清晰、MJ 模糊</span></div>
+      <div class="verify-row after"><span class="lbl">v2</span><span class="txt">实际：4 家都是"付费即可商用，免费版受限" · MJ 年收入 &gt; $1M 公司必须 Pro · 即梦/可灵免费版有水印 · 真实差异是水印强弱 + 订阅级别决定商用范围，不是"清晰度"</span></div>
+      <div class="verify-source">来源：<a href="https://www.shejidaren.com/midjourney-de-ai-hui-hua-zuo-pin-ke-yi-shang-yong-ma.html">MJ 商用规则</a> · <a href="https://www.shejidaren.com/ai-sheng-cheng-tu-xiang-ban-quan-gui-shui.html">国产平台版权对比</a></div>
+    </div>
+
+    <!-- 截图采集 -->
+    <div class="verify-card ok">
+      <div class="verify-head">
+        <div class="verify-head-l"><span class="verify-tag">Round 3 · 截图采集</span><span class="verify-title">已采集 4 产品 × 3 张代表性截图</span></div>
+        <span class="verify-status ok">COLLECTED</span>
+      </div>
+      <div class="verify-row before"><span class="lbl">注</span><span class="txt">image_search 返回的截图作为视觉证据已展示给查阅者，但工具不返回可嵌入的 URL，HTML 内 mockup 仍保留示意性渲染</span></div>
+      <div class="verify-row after"><span class="lbl">补</span><span class="txt">本次报告内每个 .corrected 标识旁的 mockup 已根据真实 UI 调整形态（TapNow 从移动→Web 桌面，副标题术语贴近官方）。如需嵌入真实截图请进入 Round 5 手动下载</span></div>
+      <div class="verify-source">采集图源：即梦智能画布 · Kling Motion Brush · MJ Style Explorer · TapNow Tapflow Board</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:20px;padding:14px 16px;background:var(--fg);color:#fff;border-radius:8px;font-size:11px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div><strong style="color:#FBBF24;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-right:8px">核查总结</strong>共 8 个亮点中：3 个完全验证 / 2 个数据修正 / 2 个论点重新定位 / 1 个整体重写。涉及 TapNow 的 8 个触点 + 2 个亮点重写完毕。</div>
+    <div style="font-family:var(--font-mono);color:#A1A1AA">⏰ 信息时效：2026-05-10 · 6 个月内有效</div>
+  </div>
+</section>
+
+<!-- ============ REAL SCREENSHOTS (Round 3+5) ============ -->
+<section class="section shots" id="shots" data-section="shots">
+  <div class="journey-head">
+    <div class="section-eyebrow">Real UI Screenshots · 真实截图证据</div>
+    <h2 class="section-title">从官方网站拉取的真实 UI 素材</h2>
+    <p class="section-desc">通过 web_fetch 直接从产品官方域抓取的截图与视觉资源，覆盖 4 产品中的 3 家。Midjourney 因官网/文档防爬未能采集到（已标识缺失）。每张图附原始来源 URL，可直接核对。</p>
+  </div>
+
+  <div class="shots-grid">
+
+    <!-- 即梦：智能画布 -->
+    <div class="shot-card">
+      <img class="shot-img" src="https://lf3-lv-buz.vlabstatic.com/obj/image-lvweb-buz/growth/jimeng/landing_page/static/image/board.50b0813e.png" alt="即梦智能画布" loading="lazy">
+      <div class="shot-meta">
+        <div class="shot-meta-head"><span class="shot-meta-title">即梦 · 智能画布</span><span class="shot-meta-pbadge" style="background:#FF6A33">JM</span></div>
+        <div class="shot-meta-desc">官方落地页中"智能画布"功能的视觉呈现 — 多图层编辑、精细化控制</div>
+        <a class="shot-meta-source" href="https://jimeng.jianying.com/" target="_blank">jimeng.jianying.com → board.50b0813e.png</a>
+      </div>
+    </div>
+
+    <!-- 即梦：作品示例 1 -->
+    <div class="shot-card">
+      <img class="shot-img" src="https://lf3-lv-buz.vlabstatic.com/obj/image-lvweb-buz/growth/jimeng/landing_page/static/image/1.727df331.jpg" alt="即梦作品示例 - 3D 游戏人物" loading="lazy">
+      <div class="shot-meta">
+        <div class="shot-meta-head"><span class="shot-meta-title">即梦 · 作品示例（3D 游戏人物）</span><span class="shot-meta-pbadge" style="background:#FF6A33">JM</span></div>
+        <div class="shot-meta-desc">官方首页展示作品："3D 游戏人物风格，戴夸张耳饰的民族风少女"</div>
+        <a class="shot-meta-source" href="https://jimeng.jianying.com/" target="_blank">jimeng.jianying.com → 1.727df331.jpg</a>
+      </div>
+    </div>
+
+    <!-- 即梦：作品示例 2 -->
+    <div class="shot-card">
+      <img class="shot-img" src="https://lf3-lv-buz.vlabstatic.com/obj/image-lvweb-buz/growth/jimeng/landing_page/static/image/2.cb6917b0.jpg" alt="即梦作品示例 - 插画风格" loading="lazy">
+      <div class="shot-meta">
+        <div class="shot-meta-head"><span class="shot-meta-title">即梦 · 作品示例（插画/太空）</span><span class="shot-meta-pbadge" style="background:#FF6A33">JM</span></div>
+        <div class="shot-meta-desc">"插画风格，太空飞行器在粉色星球低空飞行"</div>
+        <a class="shot-meta-source" href="https://jimeng.jianying.com/" target="_blank">jimeng.jianying.com → 2.cb6917b0.jpg</a>
+      </div>
+    </div>
+
+    <!-- 即梦：作品示例 3 -->
+    <div class="shot-card">
+      <img class="shot-img" src="https://lf3-lv-buz.vlabstatic.com/obj/image-lvweb-buz/growth/jimeng/landing_page/static/image/3.abaef3cc.jpg" alt="即梦作品示例 - 未来风" loading="lazy">
+      <div class="shot-meta">
+        <div class="shot-meta-head"><span class="shot-meta-title">即梦 · 作品示例（未来风）</span><span class="shot-meta-pbadge" style="background:#FF6A33">JM</span></div>
+        <div class="shot-meta-desc">"未来风，女性机械人形 AI"</div>
+        <a class="shot-meta-source" href="https://jimeng.jianying.com/" target="_blank">jimeng.jianying.com → 3.abaef3cc.jpg</a>
+      </div>
+    </div>
+
+    <!-- 可灵：Omni Hero 背景 1 -->
+    <div class="shot-card">
+      <img class="shot-img" src="https://p1-kling.klingai.com/kcdn/cdn-kcdn112452/kling-website/omni-bg-part-1.png" alt="Kling Omni 背景" loading="lazy">
+      <div class="shot-meta">
+        <div class="shot-meta-head"><span class="shot-meta-title">可灵 · Omni 多模态创作工具</span><span class="shot-meta-pbadge" style="background:#0B7AC2">KL</span></div>
+        <div class="shot-meta-desc">官方首页 Hero 区背景图（Omni 是可灵的多模态创作产品入口）</div>
+        <a class="shot-meta-source" href="https://klingai.com/" target="_blank">klingai.com → omni-bg-part-1.png</a>
+      </div>
+    </div>
+
+    <!-- 可灵：Omni Hero 背景 2 -->
+    <div class="shot-card">
+      <img class="shot-img" src="https://p1-kling.klingai.com/kcdn/cdn-kcdn112452/kling-website/omni-bg-part-2.png" alt="Kling Omni 背景" loading="lazy">
+      <div class="shot-meta">
+        <div class="shot-meta-head"><span class="shot-meta-title">可灵 · Omni 创意能力展示</span><span class="shot-meta-pbadge" style="background:#0B7AC2">KL</span></div>
+        <div class="shot-meta-desc">辅助视觉资产，配合"图片生成 / 视频生成 / 动作控制 / 灵动画布 Agent / 数字人 2.0"展开</div>
+        <a class="shot-meta-source" href="https://klingai.com/" target="_blank">klingai.com → omni-bg-part-2.png</a>
+      </div>
+    </div>
+
+    <!-- TapNow：官方 og:image -->
+    <div class="shot-card">
+      <img class="shot-img" src="https://files.tapnow.top/api/conversation/storage/uploads/7c48019f-e492-477f-8cbf-09baa94317c1" alt="TapNow.ai 官方宣传图" loading="lazy">
+      <div class="shot-meta">
+        <div class="shot-meta-head"><span class="shot-meta-title">TapNow.ai · Agentic Creative Canvas</span><span class="shot-meta-pbadge" style="background:#7C3AED">TN</span></div>
+        <div class="shot-meta-desc">官方社交分享卡缩略图（1200×630）— 直接证实"AI 创作画布 / 多模型聚合"定位，不是消费级移动 App</div>
+        <a class="shot-meta-source" href="https://www.tapnow.ai/" target="_blank">tapnow.ai → og:image</a>
+      </div>
+    </div>
+
+    <!-- Midjourney 缺失槽位 -->
+    <div class="shot-missing">
+      <div class="missing-num">∅</div>
+      <div class="shot-meta-head" style="justify-content:center;width:100%"><span class="shot-meta-title" style="color:#F87171">Midjourney · 未采集</span><span class="shot-meta-pbadge" style="background:#27272A">MJ</span></div>
+      <div class="missing-msg">midjourney.com 在权限白名单外（403）<br>docs.midjourney.com 防爬（403）<br>本轮无法直接 web_fetch 真实截图</div>
+      <a class="shot-meta-source" href="https://docs.midjourney.com/hc/en-us/articles/33329460426765-Website-Overview" target="_blank" style="color:#60A5FA;border:none;padding:0">→ 手动核对：MJ Website Overview 文档</a>
+    </div>
+
+  </div>
+
+  <div style="margin-top:18px;padding:14px 16px;background:#18181B;border:1px solid #27272A;border-radius:8px;font-size:11px;color:#A1A1AA">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <div><strong style="color:#34D399;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-right:8px">采集说明</strong>所有图片直接从产品官方域加载（lf3-lv-buz.vlabstatic.com / p1-kling.klingai.com / files.tapnow.top）。</div>
+      <div style="color:#71717A;font-family:var(--font-mono);font-size:10px">⚠ 若图片加载失败，可能因 CDN 防盗链或链接失效</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="v2-banner" onclick="document.getElementById('main').scrollTo({top:document.getElementById('verify').offsetTop, behavior:'smooth'})">
+  <span class="dot-r"></span>
+  <span>查看 Stage 2 核查日志 →</span>
+</div>
+
+<script>
+(function(){
+  const main = document.getElementById('main');
+  const sections = Array.from(document.querySelectorAll('.section'));
+  const tabs1 = Array.from(document.querySelectorAll('.tab1'));
+  const tabs2El = document.getElementById('tabs2');
+  const dotsEl = document.getElementById('dots');
+
+  // touchpoint structure: stage → touchpoints
+  const stagesData = {
+    s1:[{id:'tp-01-a',label:'落地页'},{id:'tp-01-b',label:'首次引导'}],
+    s2:[{id:'tp-02-a',label:'灵感广场'},{id:'tp-02-b',label:'Prompt 输入'}],
+    s3:[{id:'tp-03-a',label:'生成等待'},{id:'tp-03-b',label:'多结果选优'}],
+    s4:[{id:'tp-04-a',label:'局部修改'}],
+    s5:[{id:'tp-05-a',label:'导出与商用'}]
+  };
+
+  // build dots
+  sections.forEach((s,i)=>{
+    const d = document.createElement('button');
+    d.className='dot';
+    d.title = s.dataset.section;
+    d.addEventListener('click',()=>scrollTo(s));
+    dotsEl.appendChild(d);
+  });
+
+  function scrollTo(target){
+    main.scrollTo({top:target.offsetTop, behavior:'smooth'});
+  }
+
+  // tabs1 click
+  tabs1.forEach(t=>{
+    t.addEventListener('click',()=>{
+      const target = t.dataset.target;
+      const stage = t.dataset.stage;
+      if(target){
+        const el = document.getElementById(target);
+        if(el) scrollTo(el);
+      } else if(stage){
+        const first = stagesData[stage][0];
+        const el = document.getElementById(first.id);
+        if(el) scrollTo(el);
+      }
+    });
+  });
+
+  // chip clicks (journey + highlights overview)
+  document.querySelectorAll('[data-target]').forEach(el=>{
+    if(el.classList.contains('tab1')) return; // already handled
+    el.addEventListener('click',(e)=>{
+      const target = el.dataset.target;
+      const targetEl = document.getElementById(target);
+      if(targetEl) scrollTo(targetEl);
+    });
+  });
+
+  // current section detection (rAF)
+  let currentSection = null;
+  function updateActive(){
+    const scrollTop = main.scrollTop;
+    const vh = window.innerHeight;
+    let idx = Math.round(scrollTop / vh);
+    if(idx < 0) idx = 0;
+    if(idx >= sections.length) idx = sections.length - 1;
+    const newSection = sections[idx];
+    if(newSection !== currentSection){
+      currentSection = newSection;
+      onSectionChange(currentSection, idx);
+    }
+  }
+  main.addEventListener('scroll',()=>{
+    requestAnimationFrame(updateActive);
+  },{passive:true});
+
+  function onSectionChange(section, idx){
+    // dots
+    Array.from(dotsEl.children).forEach((d,i)=>d.classList.toggle('active', i===idx));
+
+    // top tab1
+    const id = section.dataset.section;
+    const stage = section.dataset.stage;
+    tabs1.forEach(t=>{
+      const tTarget = t.dataset.target;
+      const tStage = t.dataset.stage;
+      let active = false;
+      if(tTarget === id) active = true;
+      else if(tStage && tStage === stage) active = true;
+      else if(tTarget === 'hl-overview' && id && id.startsWith('hl-')) active = true;
+      t.classList.toggle('active', active);
+    });
+
+    // tab2 — show touchpoints for current stage, or hide
+    if(stage && stagesData[stage]){
+      tabs2El.innerHTML = '';
+      stagesData[stage].forEach(tp=>{
+        const t = document.createElement('div');
+        t.className = 'tab2' + (tp.id === id ? ' active' : '');
+        t.innerHTML = `<span class="tp-id">${tp.id}</span>${tp.label}`;
+        t.addEventListener('click',()=>{
+          const el = document.getElementById(tp.id);
+          if(el) scrollTo(el);
+        });
+        tabs2El.appendChild(t);
+      });
+    } else if(id && id.startsWith('hl-')){
+      // highlights nav — show all 8 highlight chips
+      tabs2El.innerHTML = '';
+      const hls = ['hl-overview','hl-01','hl-02','hl-03','hl-04','hl-05','hl-06','hl-07','hl-08'];
+      const hlLabels = ['总览','01 作品即prompt','02 图形运镜','03 分镜工作流','04 模板优先','05 参考权重','06 角色一致','07 对话改稿','08 零prompt'];
+      hls.forEach((h,i)=>{
+        const t = document.createElement('div');
+        t.className = 'tab2' + (h === id ? ' active' : '');
+        t.innerHTML = hlLabels[i];
+        t.addEventListener('click',()=>{
+          const el = document.getElementById(h);
+          if(el) scrollTo(el);
+        });
+        tabs2El.appendChild(t);
+      });
+    } else {
+      tabs2El.innerHTML = '<span style="font-size:11px;color:var(--fg-3);font-family:var(--font-mono);padding-left:4px">— 滚动到任意阶段查看触点导航 —</span>';
+    }
+  }
+
+  // keyboard nav
+  document.addEventListener('keydown',(e)=>{
+    if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const idx = sections.indexOf(currentSection);
+    if(e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'j'){
+      e.preventDefault();
+      if(idx < sections.length - 1) scrollTo(sections[idx+1]);
+    } else if(e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'k'){
+      e.preventDefault();
+      if(idx > 0) scrollTo(sections[idx-1]);
+    } else if(e.key === 'Home'){
+      e.preventDefault();
+      scrollTo(sections[0]);
+    } else if(e.key === 'End'){
+      e.preventDefault();
+      scrollTo(sections[sections.length-1]);
+    }
+  });
+
+  // init
+  updateActive();
+})();
+</script>
+
+</body>
+</html>
