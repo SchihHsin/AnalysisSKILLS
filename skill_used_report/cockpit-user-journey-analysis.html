@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>无线网络智能体与鸿蒙智行智能座舱用户旅程竞品分析</title>
+  <style>
+    :root {
+      --bg: #eef3f1;
+      --ink: #14231f;
+      --muted: #62756d;
+      --line: #dce8e2;
+      --surface: #ffffff;
+      --surface-2: #f7faf8;
+      --teal: #078f85;
+      --blue: #2878c8;
+      --green: #26955a;
+      --amber: #d58a18;
+      --red: #c64242;
+      --violet: #7655c8;
+      --shadow: 0 18px 42px rgba(34, 50, 45, 0.12);
+      font-family: "Inter", "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(7, 143, 133, 0.11), transparent 34%),
+        linear-gradient(225deg, rgba(40, 120, 200, 0.10), transparent 42%),
+        var(--bg);
+    }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+
+    .deck {
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+    }
+
+    .section {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      padding: 34px;
+      display: grid;
+      align-content: center;
+    }
+
+    .wrap {
+      width: min(1240px, calc(100vw - 68px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 980px;
+      font-size: 52px;
+      line-height: 1.06;
+      letter-spacing: 0;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 34px;
+      line-height: 1.16;
+      margin-bottom: 16px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 15px;
+    }
+
+    .lead {
+      max-width: 880px;
+      color: #3f514b;
+      font-size: 18px;
+      line-height: 1.72;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-panel,
+    .card,
+    .journey-board,
+    .table-card,
+    .mock-panel {
+      border: 1px solid rgba(20, 35, 31, 0.09);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      min-height: 470px;
+      padding: 18px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 14px;
+    }
+
+    .split-title {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .product-chip {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-2);
+      padding: 12px;
+    }
+
+    .product-chip b {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .product-chip span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .cockpit-mock {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.44) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.44) 1px, transparent 1px),
+        #dfe9e5;
+      background-size: 54px 54px;
+    }
+
+    .road {
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      top: 50%;
+      height: 18px;
+      border-radius: 999px;
+      transform: rotate(-10deg);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.42);
+    }
+
+    .river {
+      position: absolute;
+      top: -10%;
+      left: 54%;
+      width: 70px;
+      height: 120%;
+      transform: rotate(15deg);
+      border-radius: 999px;
+      background: rgba(81, 174, 194, 0.60);
+      box-shadow: 0 0 0 18px rgba(255,255,255,.54);
+    }
+
+    .heat {
+      position: absolute;
+      left: 58%;
+      top: 25%;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(198,66,66,.58), transparent 69%);
+      mix-blend-mode: multiply;
+    }
+
+    .voice-card,
+    .event-card {
+      position: absolute;
+      border: 1px solid rgba(20, 35, 31, 0.10);
+      border-radius: 8px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 16px 30px rgba(34,50,45,.16);
+      padding: 12px;
+    }
+
+    .voice-card {
+      left: 30px;
+      top: 28px;
+      width: 270px;
+    }
+
+    .event-card {
+      right: 38px;
+      bottom: 40px;
+      width: 270px;
+      border-color: rgba(198, 66, 66, 0.28);
+    }
+
+    .voice-card b,
+    .event-card b {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .voice-card span,
+    .event-card span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .site {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--teal);
+      box-shadow: 0 0 0 7px rgba(7,143,133,.16);
+    }
+
+    .s1 { left: 44%; top: 56%; }
+    .s2 { left: 64%; top: 42%; border-color: var(--red); box-shadow: 0 0 0 7px rgba(198,66,66,.16); }
+    .s3 { left: 72%; top: 60%; border-color: var(--amber); box-shadow: 0 0 0 7px rgba(213,138,24,.16); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      padding: 18px;
+      min-height: 174px;
+    }
+
+    .card .num {
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .journey-board {
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: 112px repeat(6, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .journey-cell,
+    .journey-head,
+    .row-head {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      min-height: 102px;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .journey-head {
+      min-height: 58px;
+      background: #f1f7f4;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .row-head {
+      background: #f8fbfa;
+      color: var(--ink);
+      font-weight: 800;
+      display: grid;
+      place-items: center start;
+    }
+
+    .journey-cell b {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .journey-cell span {
+      color: var(--muted);
+    }
+
+    .journey-cell .friction {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .journey-cell .opportunity {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .curve {
+      height: 128px;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px;
+    }
+
+    .curve text {
+      fill: var(--muted);
+      font-size: 11px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 13px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.56;
+    }
+
+    th {
+      background: #f1f7f4;
+      font-size: 13px;
+    }
+
+    .product-name {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .product-sub {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .good { color: var(--green); font-weight: 800; }
+    .risk { color: var(--red); font-weight: 800; }
+    .note { color: var(--violet); font-weight: 800; }
+
+    .recommend-grid {
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .mock-panel {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px;
+      background: var(--surface-2);
+      font-size: 13px;
+    }
+
+    .flow-row span {
+      color: var(--muted);
+    }
+
+    .badge {
+      height: 24px;
+      border-radius: 999px;
+      padding: 0 9px;
+      display: inline-flex;
+      align-items: center;
+      color: #fff;
+      background: var(--teal);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .sources {
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 1160px) {
+      .hero-grid,
+      .recommend-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="section">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Competitive Analysis · 用户旅程专题</div>
+          <h1>无线网络智能体与鸿蒙智行智能座舱的跨域用户旅程对标</h1>
+          <p class="lead">本报告把“车主在智能座舱中完成出行任务”的旅程，映射到“运维人员在无线网络智能体中完成网络健康闭环”的旅程。两者场景不同，但核心机制相似：用户表达目标，系统理解并持续执行，关键风险出现时让人接管，最终沉淀为可解释的结果。</p>
+        </div>
+        <div class="hero-panel">
+          <div class="split-title">
+            <div class="product-chip">
+              <b>鸿蒙智行智能座舱</b>
+              <span>以小艺、车机地图、座舱提醒、车控与 ADS 辅助驾驶为核心的出行协作界面。</span>
+            </div>
+            <div class="product-chip">
+              <b>无线网络智能体</b>
+              <span>以意图输入、指标监控、GIS 态势、事件接管和日报复盘为核心的运维协作界面。</span>
+            </div>
+          </div>
+          <div class="cockpit-mock">
+            <div class="river"></div>
+            <div class="road"></div>
+            <div class="heat"></div>
+            <div class="site s1"></div>
+            <div class="site s2"></div>
+            <div class="site s3"></div>
+            <div class="voice-card"><b>自然意图入口</b><span>“帮我把重点区域健康度稳定到 98 分”对应座舱里的“带我去最近的充电站”。</span></div>
+            <div class="event-card"><b>风险接管提示</b><span>陆家嘴容量均衡策略需人工确认，对应座舱中驾驶员随时接管的责任边界。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">01 · 核心结论</div>
+        <h2>它们不是同品类竞品，但共享同一种“智能副驾”产品范式</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="num">A</div>
+            <h3>相似的起点：用户不再点菜单，而是表达目标</h3>
+            <p>鸿蒙座舱通过小艺承接导航、车控、娱乐、问答等自然语言任务；无线智能体应承接“网络健康度、弱覆盖、质差、投诉、节能”等业务目标。</p>
+          </div>
+          <div class="card">
+            <div class="num">B</div>
+            <h3>相似的过程：系统持续感知环境变化</h3>
+            <p>座舱感知路况、座舱状态、驾驶风险；无线智能体感知 KPI/KQI、投诉、工单、站点和区域态势。差异只在“路况”变成了“网络状态”。</p>
+          </div>
+          <div class="card">
+            <div class="num">C</div>
+            <h3>相似的责任：自动化必须保留人工接管</h3>
+            <p>ADS 是辅助驾驶，驾驶员仍需保持注意；无线智能体也只能自动处理低风险动作，高风险策略、派单和外部干扰仍需人确认。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">02 · 双泳道用户旅程图</div>
+        <h2>从“出行副驾”到“网络运维副驾”的旅程映射</h2>
+        <div class="journey-board">
+          <div class="journey-grid">
+            <div class="journey-head">角色 / 阶段</div>
+            <div class="journey-head">1. 启动任务</div>
+            <div class="journey-head">2. 表达意图</div>
+            <div class="journey-head">3. 系统执行</div>
+            <div class="journey-head">4. 风险提醒</div>
+            <div class="journey-head">5. 人工接管</div>
+            <div class="journey-head">6. 复盘沉淀</div>
+
+            <div class="row-head">鸿蒙座舱用户</div>
+            <div class="journey-cell"><b>上车 / 唤醒座舱</b><span>车主进入车内，座舱加载账号、车辆状态、导航和娱乐环境。</span></div>
+            <div class="journey-cell"><b>对小艺说目标</b><span>例如找目的地、规划路线、调节车控、处理复杂问答。</span></div>
+            <div class="journey-cell"><b>导航与车控执行</b><span>系统结合地图、车况和用户指令执行，并在屏幕/语音上反馈。</span></div>
+            <div class="journey-cell"><b>主动提醒</b><span>安全、天气、胎压、座舱环境、驾驶辅助边界等被主动提示。</span></div>
+            <div class="journey-cell"><b>驾驶员干预</b><span>辅助驾驶不能替代驾驶员，用户需要随时关注并接管。</span></div>
+            <div class="journey-cell"><b>行程完成</b><span>目的地到达、能耗/里程/导航历史沉淀为下一次服务上下文。</span></div>
+
+            <div class="row-head">无线运维用户</div>
+            <div class="journey-cell"><b>打开驾驶舱</b><span>运维人员进入 PC 页面，看到 4 个意图、指标卡、GIS 态势和事件流。</span></div>
+            <div class="journey-cell"><b>输入网络目标</b><span>例如“上海重点区域健康度 98 分”“降低投诉热点”。</span></div>
+            <div class="journey-cell"><b>智能体监控处置</b><span>系统拆解区域、指标、阈值和策略，持续监控并执行低风险动作。</span></div>
+            <div class="journey-cell"><b>事件卡 + GIS 气泡</b><span>新异常进入左侧事件流，同时在上海 GIS 上出现定位气泡。</span></div>
+            <div class="journey-cell"><b>人工接管确认</b><span>高风险参数、派单、外部干扰、容量保障需要运维人员确认。</span></div>
+            <div class="journey-cell"><b>日报邮件复盘</b><span>智能体汇总今天做了什么、网络提升多少、还有哪些待跟进。</span></div>
+
+            <div class="row-head">关键触点</div>
+            <div class="journey-cell"><b>个性化上下文</b><span>座舱账号 / 运维角色、区域权限、日报订阅。</span></div>
+            <div class="journey-cell"><b>自然语言意图</b><span>从命令式操作升级为目标式表达。</span></div>
+            <div class="journey-cell"><b>过程透明</b><span>系统必须告诉用户正在做什么、为什么这样做。</span></div>
+            <div class="journey-cell"><b>主动唤醒</b><span>从“用户找问题”变成“系统把问题带到用户面前”。</span></div>
+            <div class="journey-cell"><b>责任边界</b><span>可自动 / 需确认 / 禁止自动要清晰分层。</span></div>
+            <div class="journey-cell"><b>证据链</b><span>结果必须可解释、可追溯、可汇报。</span></div>
+
+            <div class="row-head">摩擦与机会</div>
+            <div class="journey-cell"><span class="friction">摩擦：入口像监控台</span><br><span class="opportunity">机会：做成任务驾驶舱</span></div>
+            <div class="journey-cell"><span class="friction">摩擦：意图可能模糊</span><br><span class="opportunity">机会：自动生成可编辑意图胶囊</span></div>
+            <div class="journey-cell"><span class="friction">摩擦：黑盒自动化不可信</span><br><span class="opportunity">机会：展示思考态与依据</span></div>
+            <div class="journey-cell"><span class="friction">摩擦：告警疲劳</span><br><span class="opportunity">机会：只推需决策事件</span></div>
+            <div class="journey-cell"><span class="friction">摩擦：责任不清</span><br><span class="opportunity">机会：接管原因 + 风险提示</span></div>
+            <div class="journey-cell"><span class="friction">摩擦：日报容易流水账</span><br><span class="opportunity">机会：按目标呈现成效</span></div>
+          </div>
+          <svg class="curve" viewBox="0 0 1120 128" preserveAspectRatio="none" aria-label="情绪曲线">
+            <text x="10" y="22">情绪 / 信任曲线</text>
+            <path d="M90 84 C190 46 268 50 340 64 C440 84 494 36 580 42 C680 48 730 98 812 92 C910 84 988 46 1080 36" fill="none" stroke="#078f85" stroke-width="4"/>
+            <path d="M90 96 C190 74 268 78 340 86 C438 98 500 60 580 58 C680 58 730 104 812 100 C910 96 982 64 1080 52" fill="none" stroke="#2878c8" stroke-width="4" stroke-dasharray="10 9"/>
+            <circle cx="730" cy="98" r="6" fill="#c64242"/>
+            <text x="690" y="120">接管压力峰值</text>
+            <text x="970" y="28">复盘建立信任</text>
+            <text x="130" y="42">意图被理解</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">03 · 触点对比表</div>
+        <h2>重点比较鸿蒙智行与本产品的相似功能点</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>UX 触点</th>
+              <th><span class="product-name">鸿蒙智行 / 鸿蒙座舱</span><span class="product-sub">车主出行场景</span></th>
+              <th><span class="product-name">无线网络智能体</span><span class="product-sub">运维闭环场景</span></th>
+              <th>对本产品的启发</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>意图入口</b></td>
+              <td>小艺承接导航、车控、娱乐、问答等自然语言任务，且新一代座舱强调聊天式跨域交互。</td>
+              <td>运维人员输入“健康度 98 分”“降低投诉热点”等目标，智能体拆解为指标、区域、策略和周期。</td>
+              <td><span class="good">做“意图胶囊”</span><br>把自然语言自动结构化为区域、目标值、指标、截止时间，并允许人工编辑。</td>
+            </tr>
+            <tr>
+              <td><b>智能体思考态</b></td>
+              <td>车载小艺可区分快思考和慢思考，复杂任务会出现思考中样式，再输出结果。</td>
+              <td>当前产品需要告诉用户智能体正在关联哪些网络证据，如 MR、KQI、投诉、工单、参数历史。</td>
+              <td><span class="good">展示推理进度</span><br>例如“正在定位质差根因：上行干扰 62% / 容量拥塞 28%”。</td>
+            </tr>
+            <tr>
+              <td><b>态势地图</b></td>
+              <td>座舱导航把路线、环境、驾驶辅助状态整合为驾驶员的主视图。</td>
+              <td>GIS 应整合指标热力、站点扇区、事件气泡和成效图层，是运维人员的主视图。</td>
+              <td><span class="good">地图要成为任务画布</span><br>指标卡切换图层，事件卡定位风险，日报回放今日处置轨迹。</td>
+            </tr>
+            <tr>
+              <td><b>主动提醒</b></td>
+              <td>座舱可围绕安全、舒适、环境和车控状态给出主动提醒或建议。</td>
+              <td>左侧待接管事件与右侧 GIS 气泡就是主动提醒的运维版本。</td>
+              <td><span class="good">少而准</span><br>只推“需要人决策”的事件，避免把页面变成传统告警列表。</td>
+            </tr>
+            <tr>
+              <td><b>接管机制</b></td>
+              <td>ADS 明确是辅助驾驶，驾驶员需要保持注意并随时干预。</td>
+              <td>高风险参数、派单、跨区域影响、用户投诉升级等必须人工接管。</td>
+              <td><span class="risk">接管原因必须显性</span><br>每条事件标明“为什么不能自动处理”“接管后推荐动作”“不处理后果”。</td>
+            </tr>
+            <tr>
+              <td><b>多屏 / 多区域协同</b></td>
+              <td>鸿蒙座舱强调多媒体多屏流转和座舱应用生态。</td>
+              <td>PC 驾驶舱需要左侧意图与事件、右侧 GIS、日报邮件之间的信息流转。</td>
+              <td><span class="good">做跨模块联动</span><br>点击意图切换默认地图图层；点击事件定位气泡；点击日报条目回看证据。</td>
+            </tr>
+            <tr>
+              <td><b>安全与权限</b></td>
+              <td>鸿蒙智行强调数据安全、权限提醒、敏感权限记录和多用户隔离。</td>
+              <td>网络运维涉及位置栅格、投诉、工单和策略操作，更需要权限透明与操作留痕。</td>
+              <td><span class="note">引入“数据来源与权限标签”</span><br>日报和事件详情显示数据来源、脱敏状态、操作者与审批链。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap recommend-grid">
+        <div>
+          <div class="eyebrow">04 · 推荐方向</div>
+          <h2>将无线网络智能体定位为“网络运维智能座舱”</h2>
+          <p>不要把它定义成“指标看板 + 告警列表”。它更接近智能座舱：用户给目标，系统在后台持续运行，关键时刻把需要人决策的事情推到前台，并在任务结束后给出可汇报、可审计、可追溯的结果。</p>
+        </div>
+        <div class="mock-panel">
+          <div class="flow-row"><b>意图胶囊</b><span>上海重点区域 · 健康度 98 分 · 今日 18:30 前</span><span class="badge">可编辑</span></div>
+          <div class="flow-row"><b>思考态</b><span>正在关联 MR 弱覆盖、投诉、PRB、参数历史和工单</span><span class="badge" style="background: var(--blue)">分析中</span></div>
+          <div class="flow-row"><b>主动事件</b><span>陆家嘴容量均衡可能影响高价值用户，需要人工确认</span><span class="badge" style="background: var(--red)">接管</span></div>
+          <div class="flow-row"><b>GIS 联动</b><span>事件气泡定位到站点扇区，展示影响用户和建议动作</span><span class="badge" style="background: var(--violet)">定位</span></div>
+          <div class="flow-row"><b>日报复盘</b><span>今天自动处置 21 项，健康度 +3.4，剩余 4 项待跟进</span><span class="badge" style="background: var(--green)">已生成</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">05 · 设计机会优先级</div>
+        <h2>下一版界面最值得补强的 6 个点</h2>
+        <div class="cards">
+          <div class="card"><div class="num">01</div><h3>意图确认层</h3><p>提交意图后先生成结构化摘要，让用户确认目标、区域、指标和周期，降低误解风险。</p></div>
+          <div class="card"><div class="num">02</div><h3>智能体过程透明</h3><p>借鉴小艺慢思考的反馈方式，用步骤化状态展示系统正在检索、诊断和执行什么。</p></div>
+          <div class="card"><div class="num">03</div><h3>事件优先级解释</h3><p>接管事件必须标注影响用户、风险等级、置信度、建议动作和不处理后果。</p></div>
+          <div class="card"><div class="num">04</div><h3>地图图层标准化</h3><p>指标卡与 GIS 图层一一对应，形成健康度、覆盖、质差、节能、投诉的固定视觉语法。</p></div>
+          <div class="card"><div class="num">05</div><h3>人工接管责任边界</h3><p>明确自动处置、建议处置、禁止自动处置三类动作，避免黑盒自动化带来信任风险。</p></div>
+          <div class="card"><div class="num">06</div><h3>日报证据链</h3><p>日报不仅说“提升了多少”，还要能回溯到事件、地图位置、策略动作和指标变化。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">06 · 资料来源</div>
+        <h2>本次调研依据</h2>
+        <div class="sources">
+          <div>1. <a href="https://hima.auto/" target="_blank">鸿蒙智行官网</a>：说明 HIMA 是鸿蒙智能汽车技术生态联盟，并描述智能座舱、多屏流转、小艺和智能车控等能力。</div>
+          <div>2. <a href="https://auto.huawei.com/cn/harmonyspace" target="_blank">华为乾崑智能汽车解决方案 · 鸿蒙座舱</a>：介绍鸿蒙座舱 HarmonySpace、车载智慧屏、车载音响、人机交互和座舱生态，同时提示 ADS 为辅助驾驶。</div>
+          <div>3. <a href="https://consumer.huawei.com/cn/support/content/zh-cn16043756/" target="_blank">华为小艺深度思考</a>：说明车载小艺基于盘古大模型，明确任务可快速响应，复杂场景可进入慢思考模式。</div>
+          <div>4. <a href="https://consumer.huawei.com/cn/mobileservices/celia/" target="_blank">华为小艺官网</a>：说明小艺可融合语音、图像与手势等输入，并具备协作与工具调度能力。</div>
+          <div>5. <a href="https://hima.auto/privacy/" target="_blank">鸿蒙智行隐私保护及数据安全</a>：用于对标本产品的数据权限、敏感信息和操作留痕设计。</div>
+          <div>6. <a href="https://auto.huawei.com/cn/news/2026/2026-04-23-jishu" target="_blank">华为乾崑技术发布信息</a>：提及鸿蒙座舱 HarmonySpace 6、小艺智能体和全场景跨域交互方向。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
