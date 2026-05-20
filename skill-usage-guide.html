@@ -173,34 +173,62 @@
 <section class="floor" id="cover">
   <div class="kicker">Skill Usage Guide · competitive-analysis-merged</div>
   <h1>竞品分析 Skill<br>使用指南</h1>
-  <p class="lead">一个帮你完成竞品分析全流程的 AI Skill：从搜集资料、生成洞察，到输出可交付的 HTML 报告。你负责提方向和做决策，AI 负责执行。</p>
+  <p class="lead">告诉 AI 分析什么，它负责搜集、分析、输出——你只需要在关键节点做决策。</p>
 
-  <div class="metrics">
-    <div class="metric"><div class="num">4</div><div class="label">分析阶段</div></div>
-    <div class="metric"><div class="num">5</div><div class="label">分析视角</div></div>
-    <div class="metric"><div class="num">10</div><div class="label">Human-in-the-Loop 检查点</div></div>
-    <div class="metric"><div class="num">5</div><div class="label">HTML 报告骨架类型</div></div>
-    <div class="metric"><div class="num">10</div><div class="label">可视化表达模式</div></div>
+  <!-- 三种使用模式 -->
+  <div style="display:flex;flex-direction:column;gap:12px;margin:36px 0 40px;">
+
+    <div style="display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+      <div style="width:4px;background:var(--primary-g);flex-shrink:0;"></div>
+      <div style="flex:1;padding:20px 24px;display:flex;gap:24px;align-items:center;">
+        <div style="flex:0 0 160px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">模式 A</div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink);">快速摸底</div>
+          <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">15–30 分钟</div>
+        </div>
+        <div style="flex:1;font-size:14px;color:var(--ink-2);line-height:1.6;">初步了解某个领域，快速准备会议素材。不写完整报告，直接给出结构化结论。</div>
+        <div style="flex:0 0 120px;text-align:right;font-size:12px;color:var(--ink-3);line-height:1.8;">输出：结论文字<br>不创建文件</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+      <div style="width:4px;background:var(--primary-g);flex-shrink:0;"></div>
+      <div style="flex:1;padding:20px 24px;display:flex;gap:24px;align-items:center;">
+        <div style="flex:0 0 160px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">模式 B</div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink);">标准分析</div>
+          <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">1–3 小时</div>
+        </div>
+        <div style="flex:1;font-size:14px;color:var(--ink-2);line-height:1.6;">做设计决策、给团队汇报、产品规划参考。完整流程，含用户旅程、触点对比、洞察与建议。</div>
+        <div style="flex:0 0 120px;text-align:right;font-size:12px;color:var(--ink-3);line-height:1.8;">输出：Markdown 报告<br>tracking/ + reports/</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+      <div style="width:4px;background:var(--primary-g);flex-shrink:0;"></div>
+      <div style="flex:1;padding:20px 24px;display:flex;gap:24px;align-items:center;">
+        <div style="flex:0 0 160px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">模式 C</div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink);">完整可视化</div>
+          <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">3–6 小时</div>
+        </div>
+        <div style="flex:1;font-size:14px;color:var(--ink-2);line-height:1.6;">对外分享、高管评审、长期参考资产。在标准分析基础上额外生成多页 HTML 可视化报告。</div>
+        <div style="flex:0 0 120px;text-align:right;font-size:12px;color:var(--ink-3);line-height:1.8;">输出：Markdown + HTML<br>可在浏览器打开</div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="callout">
-    <strong>三种使用方式：</strong>方式 A · Claude Code CLI（斜杠命令）、方式 B · IDE 插件（VS Code / JetBrains 内置 Chat）、方式 C · Claude.ai 网页版（Project 知识库，个人用）。三种方式 Skill 能力相同，触发方式不同。
+  <!-- 底部：关键数字 + 入口 -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:var(--bg-card);border:1px solid var(--line);border-radius:12px;">
+    <div style="display:flex;gap:32px;">
+      <div><span style="font-size:22px;font-weight:800;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">4</span><span style="font-size:13px;color:var(--ink-3);margin-left:6px;">分析阶段</span></div>
+      <div><span style="font-size:22px;font-weight:800;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">5</span><span style="font-size:13px;color:var(--ink-3);margin-left:6px;">分析视角</span></div>
+      <div><span style="font-size:22px;font-weight:800;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10</span><span style="font-size:13px;color:var(--ink-3);margin-left:6px;">Human-in-the-Loop 检查点</span></div>
+    </div>
+    <a href="#setup" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;text-decoration:none;background:var(--primary-g);padding:10px 20px;border-radius:8px;">开始配置 →</a>
   </div>
 
-  <div class="grid-3" style="margin-top:32px;">
-    <div class="card">
-      <h4>快速摸底</h4>
-      <p style="font-size:13px;">15–30 分钟，直接给结论，不写完整报告。适合准备会议素材或初步了解某个领域。</p>
-    </div>
-    <div class="card">
-      <h4>标准分析</h4>
-      <p style="font-size:13px;">1–3 小时，完整 Markdown 报告含用户旅程、触点对比、洞察与建议。适合设计决策和团队汇报。</p>
-    </div>
-    <div class="card">
-      <h4>完整可视化</h4>
-      <p style="font-size:13px;">3–6 小时，Markdown 报告 + 多页 HTML 网页版。适合对外分享、高管评审、长期参考资产。</p>
-    </div>
-  </div>
 </section>
 
 <!-- ② SETUP -->
