@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>竞品分析 Skill 改进工作报告</title>
+  <style>
+    :root {
+      --bg:        #0a0a0a;
+      --bg-soft:   #161616;
+      --bg-card:   #111111;
+      --ink:       #f0f0f0;
+      --ink-2:     #a0a0a8;
+      --ink-3:     #606068;
+      --line:      #2a2a2a;
+      --primary:   #a78bfa;
+      --primary-g: linear-gradient(135deg, #60a5fa, #a855f7);
+      --primary-s: rgba(167,139,250,0.12);
+      --g:         #4ade80;
+      --g-s:       rgba(74,222,128,0.10);
+      --r:         #f87171;
+      --r-s:       rgba(248,113,113,0.10);
+      --b:         #60a5fa;
+      --b-s:       rgba(96,165,250,0.10);
+      --y:         #facc15;
+      --nav-h:     56px;
+      --font: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+      --cn: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-family: var(--font), var(--cn);
+      background: var(--bg);
+      color: var(--ink);
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-h);
+    }
+
+    body { overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(10,10,10,0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .nav-brand { font-weight: 700; font-size: 14px; color: var(--ink); letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a {
+      font-size: 13px; color: var(--ink-2); text-decoration: none;
+      padding: 5px 12px; border-radius: 6px; white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .nav-links a:hover, .nav-links a.active { background: var(--bg-soft); color: var(--ink); }
+
+    /* FLOOR */
+    .floor {
+      min-height: 100dvh;
+      padding: calc(var(--nav-h) + 60px) 80px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .floor-narrow { max-width: 960px; }
+
+    /* TYPOGRAPHY */
+    .kicker {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 16px;
+      background: var(--primary-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    h1 { font-size: clamp(36px, 5vw, 60px); line-height: 1.05; margin-bottom: 24px; font-weight: 800; }
+    h2 { font-size: clamp(24px, 3vw, 36px); line-height: 1.15; margin-bottom: 20px; font-weight: 700; }
+    h3 { font-size: 18px; line-height: 1.3; margin-bottom: 10px; font-weight: 600; }
+    h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--ink); }
+    p { font-size: 15px; line-height: 1.75; color: var(--ink-2); max-width: 720px; }
+    p + p { margin-top: 12px; }
+
+    .lead { font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 780px; margin-bottom: 40px; }
+
+    /* METRICS ROW */
+    .metrics { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+    .metric {
+      background: var(--bg-card); border: 1px solid var(--line);
+      border-radius: 12px; padding: 20px 28px; min-width: 140px;
+    }
+    .metric .num {
+      font-size: 36px; font-weight: 800; line-height: 1; margin-bottom: 6px;
+      background: var(--primary-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .metric .label { font-size: 13px; color: var(--ink-3); }
+
+    /* CARDS */
+    .card {
+      background: var(--bg-card); border: 1px solid var(--line);
+      border-radius: 12px; padding: 24px;
+    }
+    .card h3 { margin-bottom: 12px; }
+    .card p { font-size: 14px; }
+
+    /* GRID */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+    /* TAGS */
+    .tag {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 3px 8px; border-radius: 4px; letter-spacing: 0.04em;
+    }
+    .tag-g { background: var(--primary-g); color: #fff; }
+    .tag-r { background: var(--r-s); color: var(--r); }
+    .tag-b { background: var(--b-s); color: var(--b); }
+    .tag-y { background: var(--primary-g); color: #fff; }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 16px; }
+    th { text-align: left; padding: 10px 14px; background: var(--bg-soft); color: var(--ink); font-weight: 600; font-size: 13px; }
+    td { padding: 10px 14px; border-top: 1px solid var(--line); color: var(--ink-2); vertical-align: top; }
+    td:first-child { font-weight: 500; color: var(--ink); white-space: nowrap; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+
+    /* COMPARISON TABLE */
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .cmp-table th.row-label { width: 130px; }
+    .cmp-table th { padding: 12px 16px; background: var(--bg-soft); font-weight: 600; font-size: 13px; text-align: left; border: 1px solid var(--line); }
+    .cmp-table td { padding: 12px 16px; border: 1px solid var(--line); vertical-align: top; font-size: 13px; color: var(--ink-2); }
+    .cmp-table .ph-name { display: block; font-weight: 700; color: var(--ink); font-size: 14px; margin-bottom: 2px; }
+    .cmp-table .ph-sub { display: block; color: var(--ink-3); font-size: 12px; }
+    .cmp-table tr.pros td { background: var(--primary-s); }
+    .cmp-table tr.cons td { background: var(--r-s); }
+    .cmp-table tr.summary td { background: var(--primary-s); font-style: italic; font-weight: 500; color: var(--ink); }
+
+    /* CHANGE BLOCK */
+    .change-block {
+      border-left: 3px solid transparent;
+      padding: 20px 24px;
+      background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                  var(--primary-g) border-box;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 16px;
+    }
+    .change-block .change-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; color: var(--ink); }
+    .change-block .change-what { font-size: 14px; color: var(--ink-2); margin-bottom: 12px; line-height: 1.6; }
+    .change-block .change-why { font-size: 13px; color: var(--ink-3); line-height: 1.6; }
+    .change-block .change-why::before { content: '为什么 · '; font-weight: 600; color: var(--ink-3); }
+
+    /* CALLOUT */
+    .callout {
+      background: var(--primary-s);
+      border-left: 3px solid transparent;
+      background: var(--primary-s) padding-box, var(--primary-g) border-box;
+      padding: 14px 18px; border-radius: 0 8px 8px 0;
+      font-size: 14px; color: var(--ink-2); line-height: 1.65;
+      margin-top: 16px;
+    }
+
+    .callout-g {
+      border-left: 3px solid transparent;
+      background: var(--primary-s) padding-box, var(--primary-g) border-box;
+      padding: 14px 18px; border-radius: 0 8px 8px 0;
+      font-size: 14px; color: var(--ink-2); line-height: 1.65;
+      margin-top: 16px;
+    }
+
+    /* FLOW DIAGRAM */
+    .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+    .flow-step {
+      background: var(--bg-card); border: 1px solid var(--line);
+      border-radius: 8px; padding: 10px 16px;
+      font-size: 13px; font-weight: 500; color: var(--ink);
+      white-space: nowrap;
+    }
+    .flow-step.highlight { background: var(--primary-g); color: #fff; border-color: transparent; }
+    .flow-step.new { background: var(--primary-g); border-color: transparent; color: #fff; font-weight: 600; }
+    .flow-step.merged { background: var(--b-s); border-color: var(--b); color: var(--b); }
+    .flow-arrow { color: var(--ink-3); font-size: 16px; }
+
+    /* BEFORE/AFTER */
+    .ba-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .ba-col { }
+    .ba-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 6px 12px; border-radius: 6px 6px 0 0;
+      display: inline-block;
+    }
+    .ba-label.before { background: var(--r-s); color: var(--r); }
+    .ba-label.after { background: var(--primary-g); color: #fff; }
+    .ba-box {
+      background: var(--bg-card); border: 1px solid var(--line);
+      border-radius: 0 8px 8px 8px; padding: 16px 20px;
+    }
+    .ba-box ul { padding-left: 16px; }
+    .ba-box li { font-size: 14px; color: var(--ink-2); line-height: 1.7; margin-bottom: 4px; }
+
+    /* ROLE TABLE */
+    .role-row { display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 0; }
+    .role-cell {
+      padding: 12px 14px; border: 1px solid var(--line);
+      font-size: 13px; color: var(--ink-2);
+    }
+    .role-cell.head { background: var(--bg-soft); font-weight: 600; color: var(--ink); font-size: 12px; }
+    .role-cell.name { font-weight: 700; color: var(--ink); background: var(--bg-card); }
+
+    /* HIGHLIGHT NUMBER */
+    .hl-num {
+      font-size: 80px; font-weight: 800; color: var(--primary);
+      opacity: 0.12; line-height: 1; position: absolute; top: 20px; right: 32px;
+      font-variant-numeric: tabular-nums;
+    }
+    .hl-wrap { position: relative; }
+
+    /* ISSUE CARD */
+    .issue-card {
+      background: var(--bg-card); border: 1px solid var(--line);
+      border-radius: 12px; padding: 20px 24px;
+      border-top: 3px solid transparent;
+      background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                  var(--primary-g) border-box;
+    }
+    .issue-card h4 {
+      background: var(--primary-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--line); margin: 32px 0; }
+
+    /* LIST */
+    ul.clean { list-style: none; padding: 0; }
+    ul.clean li { font-size: 14px; color: var(--ink-2); padding: 8px 0; border-bottom: 1px solid var(--line); line-height: 1.6; }
+    ul.clean li:last-child { border-bottom: none; }
+    ul.clean li::before {
+      content: '·'; margin-right: 10px; font-weight: 700;
+      background: var(--primary-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* TENSION FOOTER */
+    .tension {
+      margin-top: auto; padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 13px; color: var(--ink-3);
+    }
+    .tension strong { color: var(--ink); }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 80px;
+      border-top: 1px solid var(--line);
+      font-size: 13px; color: var(--ink-3);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">竞品分析 Skill 改进报告</div>
+  <div class="nav-links">
+    <a href="#cover">概览</a>
+    <a href="#background">源版本</a>
+    <a href="#strategy">融合策略</a>
+    <a href="#changes">核心改动</a>
+    <a href="#flow">流程对比</a>
+    <a href="#demo">使用对比</a>
+    <a href="#effect">效果</a>
+    <a href="#remaining">遗留问题</a>
+  </div>
+</nav>
+
+<!-- ① COVER -->
+<section class="floor" id="cover">
+  <div class="kicker">Skill Improvement Report · 2026-05</div>
+  <h1>竞品分析 Skill<br>融合改进工作报告</h1>
+  <p class="lead">本次工作将两个独立开发的竞品分析 Skill 进行融合优化，以流程控制版本的过程结构为骨架，以可视化输出版本的视觉规格为血肉，产出一份覆盖多视角、流程可控、输出高质量的通用竞品分析 Skill。</p>
+  <div class="metrics">
+    <div class="metric"><div class="num">2</div><div class="label">源版本融合</div></div>
+    <div class="metric"><div class="num">5</div><div class="label">核心改动点</div></div>
+    <div class="metric"><div class="num">3→3</div><div class="label">Stage 1 步骤简化（5步→3步）</div></div>
+    <div class="metric"><div class="num">5</div><div class="label">分析视角（显性选择）</div></div>
+    <div class="metric"><div class="num">10</div><div class="label">Human-in-the-Loop 检查点</div></div>
+  </div>
+  <div class="callout">
+    核心判断：两版 Skill 不是竞争关系，而是互补关系。流程控制版解决了「过程怎么走」，可视化输出版解决了「报告怎么做」。融合的本质是让好的过程产生好的结果。
+  </div>
+</section>
+
+<!-- ② BACKGROUND -->
+<section class="floor" id="background">
+  <div class="kicker">源版本分析</div>
+  <h2>两个版本各自做对了什么</h2>
+  <p class="lead">在融合之前，先理解两个版本各自的核心贡献，避免在合并时把各自的优势磨掉。</p>
+
+  <div class="grid-2" style="margin-bottom:24px;">
+    <div class="card">
+      <h3>可视化输出版（original_skill）</h3>
+      <p style="margin-bottom:12px;">基于真实的 AI CLI 工具竞品分析项目（5 产品 × 20 触点）提炼，有充分的实践验证。</p>
+      <h4 style="color:var(--primary);margin-top:16px;">核心优势</h4>
+      <ul class="clean">
+        <li>HTML 报告视觉规格极具体：Snap Scroll 楼层、两层 Tab 导航、SVG 图标系统、CSS Token</li>
+        <li>触点对比表格式规范清晰：列标题双层结构（产品名主 + 做法副）</li>
+        <li>TypeScript 开发规格格式（接口 + 状态机 + 事件响应），开发可直接落地</li>
+        <li>协作模式参考表，明确 Human 和 AI 各自做什么</li>
+      </ul>
+      <h4 style="color:var(--r);margin-top:16px;">核心局限</h4>
+      <ul class="clean">
+        <li>单一 UX 视角，PM/Tech/Strategy 场景无法覆盖</li>
+        <li>5 阶段线性流程，用户无法中途调整或跳过</li>
+        <li>没有 Human-in-the-Loop 检查点，过程不可控</li>
+        <li>信息搜集方法论粗糙，没有图文采集、视频工作流、失败处理等细节</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>流程控制版（competitive-analysis-bufan）</h3>
+      <p style="margin-bottom:12px;">4 阶段模块化设计，配套完整的 references 方法论文档，工程化程度更高。原版仅支持 Markdown/对话流输出，可视化能力在融合后引入。</p>
+      <h4 style="color:var(--primary);margin-top:16px;">核心优势</h4>
+      <ul class="clean">
+        <li>Human-in-the-Loop：10 个明确的等待确认检查点，过程完全可控</li>
+        <li>图文采集协议：视觉验证、视频工作流、链接下钻、失败处理成体系</li>
+        <li>长期跟踪支持：tracking/ + context/ 业务积累层，支持持续运营</li>
+        <li>Markdown 报告可独立交付，不强依赖 HTML 可视化阶段</li>
+      </ul>
+      <h4 style="color:var(--r);margin-top:16px;">核心局限</h4>
+      <ul class="clean">
+        <li>原版无 HTML 可视化报告能力，仅以对话流/Markdown 形式输出</li>
+        <li>分析视角隐式切换（AI 自主判断），用户无感知、无掌控</li>
+        <li>Stage 1 5 步骤中"目标"和"视角"重叠，"场景"和"维度"相邻且相关性高</li>
+        <li>Stage 3 分析步骤以 UX 旅程图为起点，对 PM/Tech/Strategy 视角不友好</li>
+      </ul>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>维度</th>
+        <th>可视化输出版</th>
+        <th>流程控制版</th>
+        <th>融合取舍</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>流程结构</td><td>5 阶段线性</td><td>4 阶段模块化</td><td>取卜凡的模块化结构</td></tr>
+      <tr><td>分析视角</td><td>UX 单一</td><td>5 视角隐式切换</td><td>5 视角 + Stage 1 显性确认</td></tr>
+      <tr><td>过程控制</td><td>无检查点</td><td>10 个 ⏸ 检查点</td><td>完整保留卜凡的检查点</td></tr>
+      <tr><td>信息搜集</td><td>基础描述</td><td>完整方法论</td><td>取卜凡的，加入"找独特数据点"原则</td></tr>
+      <tr><td>报告骨架</td><td>单一 UX 骨架</td><td>无可视化（Markdown/对话流输出）</td><td>在 UX 骨架基础上扩展为 5 视角骨架（S1-S5）</td></tr>
+      <tr><td>表达模式</td><td>以 P1 对比表为主</td><td>无（Markdown 输出）</td><td>在 P1 对比表基础上扩展为内容驱动 10 种模式（P1-P10）</td></tr>
+      <tr><td>对比表格式</td><td>列标题双层结构（详细）</td><td>有描述但不如前者具体</td><td>取时昕昱版的具体规格</td></tr>
+      <tr><td>开发规格</td><td>TypeScript 接口格式（详细）</td><td>概念性描述</td><td>取时昕昱版的格式</td></tr>
+      <tr><td>设计系统</td><td>深色主题默认（紫）</td><td>浅色主题默认（暖白）</td><td>浅色为默认，深色为显式可选</td></tr>
+      <tr><td>Mockup 变体</td><td>含 Terminal Mockup</td><td>Browser/Mobile/Component</td><td>去掉 Terminal（领域特定），保留三种通用变体</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ③ STRATEGY -->
+<section class="floor" id="strategy">
+  <div class="kicker">融合策略</div>
+  <h2>为什么这样融合</h2>
+  <p class="lead">融合不是把两个文件合并，而是弄清楚「谁的问题意识更准确」，然后以此为判断标准取舍。</p>
+
+  <div style="margin-bottom:32px;">
+    <h3 style="margin-bottom:16px;">核心判断框架</h3>
+    <div class="grid-3">
+      <div class="card">
+        <div class="tag tag-b" style="margin-bottom:10px;">过程结构</div>
+        <h4>流程控制版更优</h4>
+        <p>模块化的四阶段流水线解决了「用户不知道进行到哪了」的问题。10 个检查点让用户始终在掌控中。单一线性流程没有这个能力。</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-b" style="margin-bottom:10px;">可视化框架</div>
+        <h4>可视化输出版更优</h4>
+        <p>单一 UX HTML 骨架 + P1 对比表是可视化能力的起点，融合版在此基础上扩展为 5 种视角骨架（S1-S5）和 10 种内容驱动的表达模式（P1-P10）。流程控制版原版无可视化能力。</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-b" style="margin-bottom:10px;">信息搜集</div>
+        <h4>流程控制版更优</h4>
+        <p>图文必备要求、视觉验证协议、视频工作流、失败链接处理，这些细节决定了搜集结果的可追溯性。可视化输出版只有原则描述，没有落地操作规程。</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-r" style="margin-bottom:10px;">输出规格</div>
+        <h4>可视化输出版更优</h4>
+        <p>对比表的列标题格式（产品名主 + 做法副）、TypeScript 开发规格格式，这些具体规格从真实项目里提炼，比流程控制版的概念性描述更落地。</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-r" style="margin-bottom:10px;">协作模式</div>
+        <h4>可视化输出版更优</h4>
+        <p>Human 做「为什么」/ AI 做「怎么做」的协作模式参考表，帮助用户知道如何高效使用 Skill，是流程控制版原版所没有的。</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-y" style="margin-bottom:10px;">视角机制</div>
+        <h4>两版都不足</h4>
+        <p>可视化输出版无视角概念；流程控制版有视角但隐式切换。用户不知道当前以什么角度在分析，结论的视角偏差难以被察觉。需要新设计：显性确认 + 贯穿全程。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    一句话总结融合思路：<strong>以流程控制版为骨架（过程管控、方法论），以可视化输出版补血肉（HTML 规格、协作模式），以新设计修补两版的共同盲点（视角显性化）。</strong>
+  </div>
+</section>
+
+<!-- ④ CHANGES -->
+<section class="floor" id="changes">
+  <div class="kicker">核心改动</div>
+  <h2>改了什么，为什么这样改</h2>
+
+  <div class="change-block">
+    <div class="change-title">
+      <span class="tag tag-g" style="margin-right:8px;">改动 01</span>
+      分析视角从隐式切换改为 Stage 1 显性确认
+    </div>
+    <div class="change-what">
+      Stage 1.1 里，AI 在复述目标时同步推断并提出分析视角（UX/PM/UI/Tech/Strategy），等用户确认后贯穿全程。视角一旦确认，Stage 3 的分析步骤、Stage 4 的骨架类型都自动跟随，不再重新选型。同时去掉了"次视角"的概念——AI 内部可以引入其他视角的局部分析，但不向用户暴露这个决策。
+    </div>
+    <div class="change-why">
+      早期流程中的"按需切换"对用户是黑盒。用户在看报告时不知道某个结论是从 PM 角度还是 UX 角度得出的，难以判断结论的适用边界。显性确认视角后，用户有掌控感，也可以在 Stage 1 就纠正方向，避免做完一整个分析才发现角度不对。去掉次视角是因为它会让 Stage 1 变复杂，而用户关心的是「报告能不能回答我的问题」，不是「用了哪些骨架组合」。
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-title">
+      <span class="tag tag-g" style="margin-right:8px;">改动 02</span>
+      Stage 1 从 5 步压缩为 3 步
+    </div>
+    <div class="change-what">
+      原来 5 步：目标确认 → 竞品名单 → 场景 → 维度 → 规划。改为 3 步：<br>
+      Step 1.1 目标 + 视角（合并） → Step 1.2 竞品 + 场景 + 维度（合并） → Step 1.3 生成规划。<br>
+      两次合并的逻辑：目标和视角同时呈现更自然；场景和维度高度相关（场景定了，视角下的维度基本跟着来），分开问反而让用户觉得在重复表达同一件事。
+    </div>
+    <div class="change-why">
+      5 步 Stage 1 会产生 5 次往返，用户还没开始分析就已经疲惫。每一步的信息本身没有问题，但是切分粒度过细会让每个检查点的决策量太小，用户反而不重视。3 步保持了必要的确认节奏，同时每一步的决策量都足够有意义。
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-title">
+      <span class="tag tag-g" style="margin-right:8px;">改动 03</span>
+      Stage 4 骨架选型改为自动推荐，不重新决策
+    </div>
+    <div class="change-what">
+      Stage 4.1 不再展示"五种骨架类型让你选"的完整菜单。而是直接说：「基于你在 Stage 1 确认的 UX 视角，报告使用 S1 体验旅程型骨架，以下是具体页面方案……」用户确认页面方案，而不是重新选骨架类型。AI 在此处可以说明是否引入了其他视角的局部页面，但骨架主体已定。
+    </div>
+    <div class="change-why">
+      用户在 Stage 1 已经做了视角决策，到 Stage 4 再面对一张"五种骨架"的选择表，会产生「我不是已经说过了吗」的疲惫感。骨架类型是对用户透明的实现细节，用户真正需要确认的是「这份报告的页面结构合不合理」，而不是「选哪个骨架」。
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-title">
+      <span class="tag tag-g" style="margin-right:8px;">改动 04</span>
+      加入"找独特数据点"的信息搜集原则
+    </div>
+    <div class="change-what">
+      在 Stage 2 的核心原则里增加：「主动探寻独特数据点——搜集时特别留意竞品披露的具体数字（如用户数、效率提升百分比、功能使用率），这类数据在对比时极有价值。」
+    </div>
+    <div class="change-why">
+      来自真实项目的实践经验。例如「Warp 数据显示 96% 的 diff 直接 Accept」这类数字，不是普通功能描述，而是能直接量化某个设计决策效果的证据。早期版本的搜集原则里没有对这类数据的专项提示，容易被忽略。
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-title">
+      <span class="tag tag-g" style="margin-right:8px;">改动 05</span>
+      明确图片优先级：真实截图 > Mockup > 链接，强调图文对照
+    </div>
+    <div class="change-what">
+      在 Stage 2 核心原则里新增「图片优先，图文对照」条目，明确视觉证据的优先级：<strong>真实产品截图 > Mockup 复刻 > 来源链接</strong>。截图是一手证据，不依赖读者想象；Mockup 是截图不可得时的次选；纯链接最弱，需要读者自行点进去验证。同时要求最终报告做到图文对照——每条关键结论旁配对应图片，两者相互印证。在输出规范里也加入这条硬约束。
+    </div>
+    <div class="change-why">
+      竞品分析报告里常见的问题是"文字说得有理，但读者不知道说的是哪个界面"。截图能让结论立刻可验证——读者扫一眼就知道你在说哪里、有没有夸张。纯 Mockup 是 AI 自己画的，可能和真实产品有偏差；纯链接要求读者配合打开验证，摩擦极高。这条原则把视觉证据的质量预期说清楚，避免用 Logo 图、媒体配图凑数。
+    </div>
+  </div>
+
+  <div class="change-block">
+    <div class="change-title">
+      <span class="tag tag-g" style="margin-right:8px;">改动 06</span>
+      加入协作模式参考表 + 去掉 Terminal Mockup
+    </div>
+    <div class="change-what">
+      在主 SKILL.md 末尾加入协作模式参考表，明确 Human 和 AI 在维度拆解、批量修正、内容填补、结构重构、合成升华五种模式下各做什么。<br>
+      同时去掉 Terminal Mockup，理由是它只在 CLI / 终端产品分析时有用，放进通用 Skill 会增加噪音，需要时在领域特定扩展里单独加回来。
+    </div>
+    <div class="change-why">
+      协作模式表帮助用户知道「怎么用这个 Skill 效率最高」，而不是靠试错摸索。Terminal Mockup 是在 AI CLI 研究项目背景下产生的领域特定产物，通用化后价值不大，保留反而会让用户在不适用的场景里尝试它。
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ FLOW -->
+<section class="floor" id="flow">
+  <div class="kicker">流程对比</div>
+  <h2>改动前后的流程变化</h2>
+
+  <div class="ba-wrap" style="margin-bottom:40px;">
+    <div class="ba-col">
+      <div class="ba-label before">改动前（original_skill 版）</div>
+      <div class="ba-box">
+        <div class="flow" style="flex-direction:column;align-items:flex-start;gap:4px;">
+          <div class="flow-step">Phase 1 · 产品搜集与信息建立</div>
+          <div class="flow-arrow" style="padding-left:12px;">↓</div>
+          <div class="flow-step">Phase 2 · 用户旅程地图（UX 固定）</div>
+          <div class="flow-arrow" style="padding-left:12px;">↓</div>
+          <div class="flow-step">Phase 3 · 触点对比分析（以 P1 对比表为主）</div>
+          <div class="flow-arrow" style="padding-left:12px;">↓</div>
+          <div class="flow-step">Phase 4 · 设计亮点提炼</div>
+          <div class="flow-arrow" style="padding-left:12px;">↓</div>
+          <div class="flow-step">Phase 5 · 开发规格文档</div>
+        </div>
+        <div style="margin-top:16px;">
+          <ul class="clean">
+            <li>线性，不可跳过，不可中途调整</li>
+            <li>用户视角固定为 UX，无法切换</li>
+            <li>没有等待确认节点，全程 AI 自动推进</li>
+            <li>HTML 报告是唯一交付形式</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-label after">改动后（融合版）</div>
+      <div class="ba-box">
+        <div class="flow" style="flex-direction:column;align-items:flex-start;gap:4px;">
+          <div class="flow-step merged">Stage 1 · 规划（3 步，目标+视角显性确认）</div>
+          <div class="flow-arrow" style="padding-left:12px;">↓ ⏸</div>
+          <div class="flow-step merged">Stage 2 · 信息搜集（图文采集 + 失败处理）</div>
+          <div class="flow-arrow" style="padding-left:12px;">↓ ⏸</div>
+          <div class="flow-step merged">Stage 3 · 洞察分析 → Markdown 报告（可独立交付）</div>
+          <div class="flow-arrow" style="padding-left:12px;">↓ ⏸（可选）</div>
+          <div class="flow-step merged">Stage 4 · 可视化 HTML 报告（骨架自动跟视角）</div>
+        </div>
+        <div style="margin-top:16px;">
+          <ul class="clean">
+            <li>模块化，每阶段可单独运行或跳过</li>
+            <li>Stage 1 显性确认视角（UX/PM/UI/Tech/Strategy）</li>
+            <li>10 个 ⏸ 检查点，用户始终在掌控中</li>
+            <li>Markdown 报告和 HTML 报告相互独立</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:16px;">Stage 1 步骤压缩详情</h3>
+  <div class="ba-wrap">
+    <div class="ba-col">
+      <div class="ba-label before">改动前（competitive-analysis-bufan Stage 1）</div>
+      <div class="ba-box">
+        <div class="flow" style="flex-direction:column;align-items:flex-start;gap:4px;">
+          <div class="flow-step">Step 1.1 · 明确分析目标 ⏸</div>
+          <div class="flow-step">Step 1.2 · 圈定竞品名单 ⏸</div>
+          <div class="flow-step">Step 1.3 · 确定分析场景 ⏸</div>
+          <div class="flow-step">Step 1.4 · 确定分析维度 ⏸</div>
+          <div class="flow-step">Step 1.5 · 生成分析规划 ⏸</div>
+        </div>
+        <p style="margin-top:12px;font-size:13px;">5 次往返，目标和视角分离，场景和维度相邻但分开确认</p>
+      </div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-label after">改动后（融合版 Stage 1）</div>
+      <div class="ba-box">
+        <div class="flow" style="flex-direction:column;align-items:flex-start;gap:4px;">
+          <div class="flow-step new">Step 1.1 · 明确目标 + 推断视角 ⏸</div>
+          <div class="flow-step new">Step 1.2 · 竞品 + 场景 + 维度（一次性给出）⏸</div>
+          <div class="flow-step new">Step 1.3 · 生成分析规划 ⏸</div>
+        </div>
+        <p style="margin-top:12px;font-size:13px;">3 次往返，视角在第一步显性确认，场景和维度合并为一次决策</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤·5 DEMO -->
+<section class="floor" id="demo">
+  <div class="kicker">使用效果对比</div>
+  <h2>同一个任务，两版 Skill 的实际差异</h2>
+  <p class="lead">以「帮我对比 Notion、Linear、Jira 的任务管理产品功能」为例，展示两版 Skill 在交互流程和报告结构上的实际差异。这是一个典型的 PM 视角需求。</p>
+
+  <style>
+    .chat { background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; font-size: 13px; }
+    .chat-head { padding: 10px 16px; background: var(--bg-soft); border-bottom: 1px solid var(--line); font-weight: 600; font-size: 12px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; }
+    .chat-body { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .msg { display: flex; gap: 10px; align-items: flex-start; }
+    .msg-avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .msg-avatar.user { background: var(--bg-soft); color: var(--ink-3); }
+    .msg-avatar.ai { background: var(--primary-g); color: #fff; }
+    .msg-avatar.ai-new { background: var(--primary-g); color: #fff; }
+    .msg-bubble { background: var(--bg-soft); border-radius: 0 8px 8px 8px; padding: 10px 14px; line-height: 1.6; color: var(--ink-2); max-width: 600px; }
+    .msg-bubble.user { background: var(--b-s); border-radius: 8px 0 8px 8px; color: var(--ink); }
+    .msg-bubble strong { color: var(--ink); }
+    .msg-bubble .warn { color: var(--r); }
+    .msg-bubble .good {
+      background: var(--primary-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .msg-bubble code { font-family: var(--mono); font-size: 12px; background: rgba(0,0,0,0.06); padding: 1px 4px; border-radius: 3px; }
+    .msg { }
+    .msg.right { flex-direction: row-reverse; }
+    .msg.right .msg-bubble { border-radius: 8px 0 8px 8px; }
+
+    .report-preview { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; font-size: 13px; }
+    .rp-bar { background: var(--bg-soft); padding: 8px 14px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--ink-3); font-weight: 500; }
+    .rp-nav { display: flex; gap: 4px; padding: 8px 12px; border-bottom: 1px solid var(--line); background: var(--bg-card); overflow-x: auto; }
+    .rp-tab { font-size: 11px; padding: 4px 10px; border-radius: 5px; background: var(--bg-soft); color: var(--ink-3); white-space: nowrap; }
+    .rp-tab.active { background: var(--primary-g); color: #fff; }
+    .rp-body { padding: 16px; background: var(--bg-card); }
+    .rp-section { margin-bottom: 16px; }
+    .rp-section h5 { font-size: 12px; font-weight: 700; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .rp-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+    .rp-chip { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: var(--bg-soft); color: var(--ink-2); border: 1px solid var(--line); }
+    .rp-chip.r { background: var(--r-s); color: var(--r); border-color: transparent; }
+    .rp-chip.g { background: var(--primary-g); color: #fff; border-color: transparent; }
+    .rp-chip.y { background: var(--primary-g); color: #fff; border-color: transparent; }
+    .rp-missing { color: var(--r); font-size: 12px; font-style: italic; }
+    .rp-ok {
+      font-size: 12px;
+      background: var(--primary-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .demo-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+    .demo-label.old { color: var(--r); }
+    .demo-label.new {
+      background: var(--primary-g);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+  </style>
+
+  <!-- 对比 1：交互流程 -->
+  <h3 style="margin-bottom:16px;">对比 A · Stage 1 交互流程</h3>
+  <div class="vs-grid">
+    <div>
+      <span class="demo-label old">原始 Skill（original_skill 版）</span>
+      <div class="chat">
+        <div class="chat-head">对话过程</div>
+        <div class="chat-body">
+          <div class="msg right">
+            <div class="msg-avatar user">U</div>
+            <div class="msg-bubble user">帮我对比 Notion、Linear、Jira 的任务管理产品功能</div>
+          </div>
+          <div class="msg">
+            <div class="msg-avatar ai">AI</div>
+            <div class="msg-bubble">好的，我来帮你做竞品分析。<br><br>开始搜集 Notion 的产品信息……<br>开始搜集 Linear 的产品信息……<br>开始搜集 Jira 的产品信息……<br><br>生成用户旅程地图（注册 → 创建任务 → 分配 → 追踪 → 完成）……<br><br><span class="warn">⚠️ 用户旅程图对 PM 视角的分析价值有限，但 Skill 固定从这里开始</span></div>
+          </div>
+          <div class="msg">
+            <div class="msg-avatar ai">AI</div>
+            <div class="msg-bubble">触点 01：任务创建入口<br>触点 02：看板视图<br>触点 03：任务详情页<br>……<br><br><span class="warn">⚠️ 所有触点都用 P1 对比表，没有功能覆盖矩阵、定价对比等 PM 最需要的内容</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="demo-label new">融合版 Skill</span>
+      <div class="chat">
+        <div class="chat-head">对话过程</div>
+        <div class="chat-body">
+          <div class="msg right">
+            <div class="msg-avatar user">U</div>
+            <div class="msg-bubble user">帮我对比 Notion、Linear、Jira 的任务管理产品功能</div>
+          </div>
+          <div class="msg">
+            <div class="msg-avatar ai-new">AI</div>
+            <div class="msg-bubble">好的，我理解你的目标是：<strong>对比三款任务管理工具的产品功能覆盖和设计取向</strong>。<br><br>这次以 <strong>PM 视角</strong>为主——你的需求聚焦在功能范围、定价、产品差异化，而不是具体的交互流程。对吗？</div>
+          </div>
+          <div class="msg right">
+            <div class="msg-avatar user">U</div>
+            <div class="msg-bubble user">对，重点看功能和定价</div>
+          </div>
+          <div class="msg">
+            <div class="msg-avatar ai-new">AI</div>
+            <div class="msg-bubble"><strong>竞品名单建议：</strong>Notion / Linear / Jira（直接竞品）+ Asana（体验标杆）<br><br><strong>核心场景：</strong><br>1. 小团队（5-20人）任务管理全流程<br>2. 跨职能项目协作与进度追踪<br><br><strong>分析维度：</strong>功能覆盖广度 · 定价档位与免费配额 · 团队协作能力 · 企业级功能 · 生态集成<br><br>有要调整的吗？</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对比 2：报告结构 -->
+  <h3 style="margin-bottom:16px;">对比 B · 生成的报告结构</h3>
+  <div class="vs-grid">
+    <div>
+      <span class="demo-label old">原始 Skill · 输出结构</span>
+      <div class="report-preview">
+        <div class="rp-bar">report/ · UX 旅程型（固定）</div>
+        <div class="rp-nav">
+          <div class="rp-tab active">index.html</div>
+          <div class="rp-tab">tp-create.html</div>
+          <div class="rp-tab">tp-assign.html</div>
+          <div class="rp-tab">tp-track.html</div>
+        </div>
+        <div class="rp-body">
+          <div class="rp-section">
+            <h5>index.html 主脊</h5>
+            <div class="rp-row">
+              <div class="rp-chip">用户旅程地图（UX 固定）</div>
+            </div>
+            <p class="rp-missing">× 无产品概要对比矩阵</p>
+            <p class="rp-missing">× 无定价对比页</p>
+            <p class="rp-missing">× 无功能覆盖矩阵</p>
+          </div>
+          <div class="rp-section">
+            <h5>触点页（所有页面格式相同）</h5>
+            <div class="rp-row">
+              <div class="rp-chip">P1 对比表</div>
+              <div class="rp-chip">P1 对比表</div>
+              <div class="rp-chip">P1 对比表</div>
+            </div>
+            <p class="rp-missing">× 无 P4 功能覆盖矩阵</p>
+            <p class="rp-missing">× 无 P3 市场定位图谱</p>
+          </div>
+          <div class="rp-section">
+            <h5>结论</h5>
+            <div class="rp-row">
+              <div class="rp-chip r">UX 视角的亮点提炼</div>
+            </div>
+            <p class="rp-missing">× 没有 PM 决策洞察</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="demo-label new">融合版 Skill · 输出结构（PM 视角）</span>
+      <div class="report-preview">
+        <div class="rp-bar">reports/notion-linear-jira-2026-05-visual/ · S2 功能全景型</div>
+        <div class="rp-nav">
+          <div class="rp-tab active">index.html</div>
+          <div class="rp-tab">cat-core.html</div>
+          <div class="rp-tab">cat-collab.html</div>
+          <div class="rp-tab">cat-pricing.html</div>
+          <div class="rp-tab">highlights.html</div>
+        </div>
+        <div class="rp-body">
+          <div class="rp-section">
+            <h5>index.html 主脊（S2 骨架）</h5>
+            <div class="rp-row">
+              <div class="rp-chip g">产品概要对比矩阵（定位/用户/价值/商业模式）</div>
+            </div>
+          </div>
+          <div class="rp-section">
+            <h5>功能域页面（内容驱动选格式）</h5>
+            <div class="rp-row">
+              <div class="rp-chip g">P4 功能覆盖矩阵</div>
+              <div class="rp-chip g">P1 深度对比表</div>
+            </div>
+            <div class="rp-row">
+              <div class="rp-chip g">P3 定价定位图谱</div>
+            </div>
+          </div>
+          <div class="rp-section">
+            <h5>综合页</h5>
+            <div class="rp-row">
+              <div class="rp-chip g">P8 PM 决策洞察卡片</div>
+              <div class="rp-chip g">P9 功能差距机会建议</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对比 3：具体内容质量 -->
+  <h3 style="margin-bottom:16px;">对比 C · 定价分析内容质量</h3>
+  <div class="vs-grid">
+    <div>
+      <span class="demo-label old">原始 Skill · 定价相关内容</span>
+      <div class="chat">
+        <div class="chat-head">报告内容（截取）</div>
+        <div class="chat-body">
+          <div class="msg">
+            <div class="msg-avatar ai">AI</div>
+            <div class="msg-bubble">触点 03：付费转化入口<br><br>Notion：免费版 → Plus $10/月<br>Linear：免费版 → Business $8/月<br>Jira：免费版 → Standard $7.75/月<br><br><span class="warn">⚠️ 定价信息混在 UX 触点对比表里，与交互流程分析放在一起，结论不集中<br>⚠️ 没有「什么功能才触发付费」的深度分析，只有价格数字</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="demo-label new">融合版 Skill · 定价分析（cat-pricing.html）</span>
+      <div class="chat">
+        <div class="chat-head">报告内容（截取）</div>
+        <div class="chat-body">
+          <div class="msg">
+            <div class="msg-avatar ai-new">AI</div>
+            <div class="msg-bubble">
+              <strong>定价页 · P3 定位图谱</strong><br>
+              X 轴：个人工具 ←→ 团队工具<br>
+              Y 轴：功能轻 ←→ 功能重<br><br>
+              Notion 居左上（个人 + 轻功能入门）<br>
+              Linear 居右上（团队 + 轻功能高效率）<br>
+              Jira 居右下（团队 + 重功能企业级）<br><br>
+              <strong>付费转化门槛分析（P4 功能覆盖矩阵）：</strong><br>
+              · 协作人数：Notion 免费限 10 人，Linear 免费无限，Jira 免费限 10 人<br>
+              · 版本历史：Notion 免费版 7 天，Linear 无限，Jira 免费无限<br>
+              · 管理员权限：三款均需付费才解锁<br><br>
+              <span class="good">结论：Linear 免费层最慷慨，Notion 用版本历史做付费钩子最明显</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ EFFECT -->
+<section class="floor" id="effect">
+  <div class="kicker">改进效果</div>
+  <h2>融合后的 Skill 能做什么</h2>
+  <p class="lead">改进不只是把两个文件合并，而是形成了新的能力组合。以下从三个角度衡量效果。</p>
+
+  <div class="grid-3" style="margin-bottom:32px;">
+    <div class="card">
+      <h3>覆盖范围更广</h3>
+      <p>从 UX 单一视角扩展到 5 种视角（UX/PM/UI/Tech/Strategy），对应 5 种骨架类型和 10 种表达模式。一份 Skill 可以服务设计师、产品经理、技术负责人、战略分析师的不同需求，不再需要为每种场景单独写 Skill。</p>
+    </div>
+    <div class="card">
+      <h3>过程更可控</h3>
+      <p>10 个 Human-in-the-Loop 检查点确保用户在关键决策节点都能介入和纠正。Stage 1 的视角显性确认让报告方向在最早期就对齐，避免做完一整份分析才发现视角不对，需要推倒重来。</p>
+    </div>
+    <div class="card">
+      <h3>输出质量更高</h3>
+      <p>图文采集协议保证了素材的可追溯性和真实性；视觉核查防止用 Logo 图、媒体截图凑数；TypeScript 开发规格让报告可以直接驱动前端实现；协作模式表帮助用户更高效地使用 Skill。</p>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:16px;">各视角的覆盖能力</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>视角</th>
+        <th>原始 Skill 支持</th>
+        <th>融合版支持</th>
+        <th>典型使用场景</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>UX</td>
+        <td><span class="tag tag-g">完整支持</span></td>
+        <td><span class="tag tag-g">完整支持</span></td>
+        <td>交互流程优化、用户旅程分析、触点体验对比</td>
+      </tr>
+      <tr>
+        <td>PM</td>
+        <td><span class="tag tag-r">不支持</span></td>
+        <td><span class="tag tag-g">完整支持</span></td>
+        <td>功能覆盖对比、定价策略分析、产品路线图参考</td>
+      </tr>
+      <tr>
+        <td>UI</td>
+        <td><span class="tag tag-r">不支持</span></td>
+        <td><span class="tag tag-g">完整支持</span></td>
+        <td>设计语言对比、视觉系统分析、组件风格调研</td>
+      </tr>
+      <tr>
+        <td>Tech</td>
+        <td><span class="tag tag-r">不支持</span></td>
+        <td><span class="tag tag-g">完整支持</span></td>
+        <td>API 能力对比、技术架构评估、开发者体验分析</td>
+      </tr>
+      <tr>
+        <td>Strategy</td>
+        <td><span class="tag tag-r">不支持</span></td>
+        <td><span class="tag tag-g">完整支持</span></td>
+        <td>市场定位分析、竞争格局研究、差异化机会识别</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-g" style="margin-top:24px;">
+    文件使用方式：将 <code>SKILL.md</code> + <code>references/</code> 下的所有 <code>.md</code> 文件一起上传到知识库。单独上传 <code>SKILL.md</code> 也可以使用，但 Stage 4 可视化报告的输出质量会降低（Mockup 规格、设计系统细节来自 references）。
+  </div>
+</section>
+
+<!-- ⑦ REMAINING -->
+<section class="floor" id="remaining">
+  <div class="kicker">遗留问题与后续建议</div>
+  <h2>还有什么值得继续优化</h2>
+  <p class="lead">融合解决了两个版本各自的核心痛点，但在对话过程中也发现了一个新的结构性问题，以及两个可以继续做的方向。</p>
+
+  <div class="grid-2" style="margin-bottom:32px;">
+    <div class="issue-card">
+      <h4>待修复：Stage 3 分析步骤仍以 UX 视角为主</h4>
+      <p style="margin-top:8px;font-size:14px;color:var(--ink-2);">当前 Stage 3 的核心步骤是：用户旅程地图 → 模式识别 → SWOT → 差距对比 → 洞察提炼。这个结构以 UX 视角为起点（旅程图是 UX 概念），PM 和 Tech 视角不需要从旅程图出发，强行套用会让分析偏离重心。</p>
+      <div style="margin-top:12px;">
+        <p style="font-size:13px;color:var(--ink-3);">建议方向：为每个视角定义独立的 Stage 3 分析步骤序列，例如：</p>
+        <table style="margin-top:8px;font-size:13px;">
+          <thead><tr><th>视角</th><th>Stage 3 核心步骤</th></tr></thead>
+          <tbody>
+            <tr><td>UX</td><td>用户旅程地图 → 触点级对比 → 模式识别 → 差距矩阵 → 洞察</td></tr>
+            <tr><td>PM</td><td>产品定位对比 → 功能覆盖矩阵 → 定价/商业模式分析 → 差距矩阵 → 决策洞察</td></tr>
+            <tr><td>UI</td><td>视觉身份分析 → 色彩/字体/组件系统对比 → 动效/交互模式 → 设计语言洞察</td></tr>
+            <tr><td>Tech</td><td>能力域映射 → API/集成分析 → 性能对比 → 开发者体验 → 技术洞察</td></tr>
+            <tr><td>Strategy</td><td>市场定位图谱 → 竞争策略对比 → 用户声音分析 → 战略洞察</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="card">
+        <h4>建议方向 A：领域特定扩展</h4>
+        <p style="margin-top:6px;font-size:14px;">参考 <code>skill_used_report/芯片算子领域竞品分析Skill.md</code> 的模式，为特定行业（芯片/AI工具/设计软件/电商等）定义专属触点框架。通用 Skill 负责流程，领域 Skill 负责"在这个领域里哪些触点最重要、怎么切分"，两层配合使用。</p>
+      </div>
+      <div class="card">
+        <h4>建议方向 B：references 补充 demo 对话</h4>
+        <p style="margin-top:6px;font-size:14px;"><code>competitive-analysis-bufan/references/</code> 里曾计划写 <code>demo-conversations.md</code>（三个完整 User Story），目前缺失。补充后可以让新用户快速理解 Skill 的交互节奏，也可以作为测试口令复用。对应三个场景：深度分析 / 快速摸底 / 继续历史分析。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>工作量估计：</strong>修复 Stage 3 角色分支约需要新增 200-300 行内容到 <code>references/analysis-frameworks.md</code>，不影响主 SKILL.md 的结构。领域扩展和 demo 对话是增量工作，可以按需补充，不影响当前版本的使用。
+  </div>
+</section>
+
+<footer>
+  <div>竞品分析 Skill 改进工作报告 · 2026-05</div>
+  <div style="color:var(--ink-3);">融合版本位于 <code>competitive-analysis-merged/</code></div>
+</footer>
+
+<script>
+  // 导航高亮
+  const sections = document.querySelectorAll('.floor[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>

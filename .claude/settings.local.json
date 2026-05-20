@@ -6,7 +6,11 @@
       "Bash(git pull *)",
       "Bash(git merge *)",
       "Bash(git branch *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(Get-ChildItem -Recurse -Directory -Filter \"report*\")",
+      "Bash(Select-Object FullName)",
+      "Bash(start *)",
+      "Bash(git add *)"
     ]
   }
 }
