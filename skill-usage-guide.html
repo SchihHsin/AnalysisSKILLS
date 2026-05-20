@@ -585,7 +585,7 @@ competitive-analysis/
   <!-- Stage 2 -->
   <div class="stage-card" data-num="2" style="margin-bottom:16px;">
     <h3>Stage 2 · 信息搜集</h3>
-    <div class="stage-sub">多源搜集 · 截图采集 · 视频解析 · 失败处理</div>
+    <div class="stage-sub">多源搜集 · 截图采集 · 视觉解析 · 视频解析 · 失败处理</div>
     <div class="grid-2" style="gap:24px;">
       <div>
         <h4 style="margin-bottom:8px;">AI 在做什么</h4>
@@ -596,6 +596,7 @@ competitive-analysis/
           <li>遇到搜不到的信息，明确告知并给三个处理选项</li>
           <li>截图/文档/视频摘要保存到 <code>materials/{项目名}/</code></li>
           <li>无法核查的数据标注 ⚠️ 待核查，绝不编造</li>
+          <li>搜集完成后对关键截图做视觉解析——直接读图提取布局、色彩、组件风格、独特设计决策，结果写入 <code>visual-analysis.md</code> 供 Stage 3 使用</li>
         </ul>
       </div>
       <div>
@@ -639,16 +640,17 @@ competitive-analysis/
   <!-- Stage 3 -->
   <div class="stage-card" data-num="3" style="margin-bottom:16px;">
     <h3>Stage 3 · 洞察分析</h3>
-    <div class="stage-sub">用户旅程 · 模式识别 · SWOT · 差距矩阵 · 洞察提炼</div>
+    <div class="stage-sub">用户旅程 · 模式识别 · SWOT · 差距矩阵 · 洞察草稿确认 · 报告生成</div>
     <div class="grid-2" style="gap:24px;">
       <div>
         <h4 style="margin-bottom:8px;">AI 在做什么</h4>
         <ul class="clean">
+          <li>读取 Stage 2 的截图视觉解析结果（<code>visual-analysis.md</code>）作为分析输入</li>
           <li>绘制用户旅程地图（行为 / 触点 / 情绪 / 摩擦 / 机会，4 行结构）</li>
           <li>归纳竞品通用设计模式，识别独特设计语言</li>
           <li>为每个竞品做 SWOT 评估，附具体界面证据</li>
           <li>输出差距矩阵（功能差距 + 体验质量差距）</li>
-          <li>提炼「如何做得不同且更好」的洞察与建议</li>
+          <li><strong>写报告前先给出 3 条洞察草稿</strong>，等你确认方向后再展开完整报告</li>
           <li>生成报告到 <code>reports/{项目名}-{日期}-v1.md</code></li>
         </ul>
       </div>
@@ -657,6 +659,7 @@ competitive-analysis/
         <ul class="clean">
           <li>收到旅程图后可确认或调整触点划分</li>
           <li>遇到设计分歧，AI 会先问你的立场再给分析</li>
+          <li><strong>收到 3 条洞察草稿时确认方向</strong>——这是纠正偏差成本最低的时机</li>
           <li>报告生成后审阅摘要，决定是否要调整深度</li>
           <li>决定是否继续做 Stage 4 HTML 报告</li>
         </ul>
@@ -848,8 +851,8 @@ competitive-analysis/
       </div>
 
       <div class="change-block" style="border-left:3px solid transparent;padding:20px 24px;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box, var(--primary-g) border-box;border-radius:0 12px 12px 0;margin-bottom:12px;">
-        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink);">能继续上次没做完的分析吗？</div>
-        <p style="font-size:13px;">说「继续 [项目名] 的分析」，Skill 会读取 <code>tracking/</code> 里的进度记录，从中断处恢复。项目名就是 <code>tracking/</code> 里的文件名（不含 .md）。</p>
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink);">能继续上次没做完的分析吗？竞品有更新怎么办？</div>
+        <p style="font-size:13px;">说「继续 [项目名] 的分析」，Skill 会读取 <code>tracking/</code> 里的记录，自动判断场景：若分析未完成则从中断处恢复；若已有完整报告，则自动进入增量更新模式——检测竞品官网、更新日志、定价页是否有变化，只更新有变化的部分，不重跑整个流程。</p>
       </div>
 
       <div class="change-block" style="border-left:3px solid transparent;padding:20px 24px;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box, var(--primary-g) border-box;border-radius:0 12px 12px 0;margin-bottom:12px;">
