@@ -16,6 +16,7 @@
       --primary:   #a78bfa;
       --primary-g: linear-gradient(135deg, #60a5fa, #a855f7);
       --primary-s: rgba(167,139,250,0.12);
+      --primary-gs: linear-gradient(135deg, rgba(96,165,250,0.14), rgba(168,85,247,0.14));
       --g:         #4ade80;
       --g-s:       rgba(74,222,128,0.10);
       --r:         #f87171;
@@ -118,10 +119,10 @@
       display: inline-block; font-size: 11px; font-weight: 600;
       padding: 3px 8px; border-radius: 4px; letter-spacing: 0.04em;
     }
-    .tag-g { background: var(--primary-g); color: #fff; }
+    .tag-g { background: var(--primary-gs); color: var(--primary); }
     .tag-r { background: var(--r-s); color: var(--r); }
-    .tag-b { background: var(--b-s); color: var(--b); }
-    .tag-y { background: var(--primary-g); color: #fff; }
+    .tag-b { background: var(--primary-gs); color: var(--primary); }
+    .tag-y { background: var(--primary-gs); color: var(--primary); }
 
     /* TABLE */
     table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 16px; }
@@ -624,8 +625,8 @@
     .rp-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
     .rp-chip { font-size: 11px; padding: 4px 10px; border-radius: 20px; background: var(--bg-soft); color: var(--ink-2); border: 1px solid var(--line); }
     .rp-chip.r { background: var(--r-s); color: var(--r); border-color: transparent; }
-    .rp-chip.g { background: var(--primary-g); color: #fff; border-color: transparent; }
-    .rp-chip.y { background: var(--primary-g); color: #fff; border-color: transparent; }
+    .rp-chip.g { background: var(--primary-gs); color: var(--primary); border-color: transparent; }
+    .rp-chip.y { background: var(--primary-gs); color: var(--primary); border-color: transparent; }
     .rp-missing { color: var(--r); font-size: 12px; font-style: italic; }
     .rp-ok {
       font-size: 12px;
