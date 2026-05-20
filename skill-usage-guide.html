@@ -149,10 +149,10 @@
 
     /* COPY CODE BLOCK */
     .code-wrap { position: relative; }
-    .code-wrap:hover .copy-btn { opacity: 1; }
-    .copy-btn { position: absolute; top: 8px; right: 8px; padding: 4px 10px; font-size: 11px; font-weight: 600; font-family: var(--font), var(--cn); border: 1px solid var(--line); border-radius: 5px; background: var(--bg); color: var(--ink-3); cursor: pointer; opacity: 0; transition: opacity 0.15s, color 0.15s, border-color 0.15s; }
-    .copy-btn:hover { color: var(--primary); border-color: var(--primary); }
-    .copy-btn.copied { color: var(--g); border-color: var(--g); opacity: 1; }
+    .copy-btn { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-soft); color: var(--ink-3); cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; padding: 0; }
+    .copy-btn:hover { color: var(--primary); border-color: var(--primary); background: var(--primary-s); }
+    .copy-btn.copied { color: var(--g); border-color: var(--g); background: var(--g-s); }
+    .copy-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
   </style>
 </head>
 <body>
@@ -257,7 +257,7 @@ competitive-analysis/
 <span class="cmd">/competitive-analysis</span> continue figma-d2c
 <span class="cmd">/competitive-analysis</span> visualize notion-linear
 <span class="cmd">/competitive-analysis</span> query Figma 和 Sketch 的定价</div>
-            <button class="copy-btn" onclick="copyCode('cb-cli',this)">复制</button>
+            <button class="copy-btn" onclick="copyCode('cb-cli',this)" title="复制"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
           </div>
         </div>
       </div>
@@ -304,7 +304,7 @@ competitive-analysis/
 <span class="cmd">/competitive-analysis</span>               <span class="comment">← 完整交互模式</span>
 <span class="cmd">/competitive-analysis</span> fast Figma vs Sketch
 <span class="cmd">/competitive-analysis</span> query Figma 和 Sketch 的定价</div>
-            <button class="copy-btn" onclick="copyCode('cb-ide',this)">复制</button>
+            <button class="copy-btn" onclick="copyCode('cb-ide',this)" title="复制"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
           </div>
         </div>
       </div>
@@ -879,13 +879,15 @@ context/<span class="str">{主题}</span>.md             <span class="comment">�
 </footer>
 
 <script>
+  const copyIcon = `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+  const checkIcon = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`;
   function copyCode(id, btn) {
     const el = document.getElementById(id);
     const text = el.innerText;
     navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '已复制';
+      btn.innerHTML = checkIcon;
       btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 1800);
+      setTimeout(() => { btn.innerHTML = copyIcon; btn.classList.remove('copied'); }, 1800);
     });
   }
 
