@@ -10,7 +10,8 @@
       "Bash(Get-ChildItem -Recurse -Directory -Filter \"report*\")",
       "Bash(Select-Object FullName)",
       "Bash(start *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }
