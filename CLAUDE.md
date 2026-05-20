@@ -2,6 +2,8 @@
 
 这个仓库收录竞品分析相关的 Skill 和报告，供 Claude Code 使用时参考。
 
+GitHub Pages 地址：`https://schihhsin.github.io/AnalysisSKILLS/`
+
 ## 目录结构
 
 ```
@@ -17,7 +19,9 @@ AnalysisSKILLS/
 ├── competitive-analysis-merged/  # 融合优化后的版本（主要使用这个）
 │   ├── SKILL.md
 │   └── references/
-└── SKILL_guide.md                # original_skill 的使用说明
+├── SKILL_guide.md                # original_skill 的使用说明
+├── skill-improvement-report.html # 两版 Skill 的融合分析报告（深色蓝紫渐变主题）
+└── skill-usage-guide.html        # 融合版 Skill 的使用指南（GitHub Pages 对外可访问）
 ```
 
 ## 主要使用版本
@@ -49,3 +53,18 @@ AnalysisSKILLS/
 ## 扩展示例
 
 `skill_used_report/芯片算子领域竞品分析Skill.md` 是一个领域特定扩展，展示了如何基于通用 Skill 定义行业特有的触点框架（芯片/算子领域的 16 个触点）。可以参考这个思路为其他垂直领域做类似扩展。
+
+## 使用指南 HTML（skill-usage-guide.html）
+
+对外展示用的使用说明页面，部署在 GitHub Pages。覆盖内容：
+
+- **三种使用方式**：方式 A（Claude Code CLI）、方式 B（VS Code / JetBrains IDE 插件）、方式 C（Claude.ai 网页版，个人用）
+- **三种分析模式**：快速摸底（15–30 min）、标准分析（1–3 h）、完整可视化（3–6 h）
+- **四个阶段**：Stage 1 规划 → Stage 2 搜集 → Stage 3 分析 → Stage 4 可视化，含全部 10 个 Human-in-the-Loop 检查点
+- **五种分析视角**：UX / PM / UI / Tech / Strategy，各自对应的分析维度和报告骨架类型
+
+**维护规则**：对 `competitive-analysis-merged/` 下的 Skill 内容有任何变动，必须同步更新 `skill-usage-guide.html`。
+
+## 融合分析报告（skill-improvement-report.html）
+
+记录两版 Skill 的差异对比、融合策略、改动前后流程对比，供内部参考。深色蓝紫渐变主题（`#0a0a0a` 底色，`linear-gradient(135deg, #818cf8, #d946ef)` 主色调）。
