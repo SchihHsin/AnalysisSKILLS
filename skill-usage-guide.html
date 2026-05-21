@@ -99,6 +99,21 @@
 
     footer { padding: 40px 80px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-3); display: flex; justify-content: space-between; align-items: center; }
 
+    @media print {
+      @page { size: 1707px auto; margin: 0; }
+      nav { display: none !important; }
+      html, body { overflow: hidden; scroll-snap-type: none; }
+      .floor {
+        min-height: unset;
+        height: auto;
+        padding: 60px 80px;
+        break-after: page;
+        page-break-after: always;
+        border-bottom: none;
+      }
+      footer { break-before: avoid; page-break-before: avoid; }
+    }
+
     /* CODE BLOCK */
     .code-block { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; font-family: var(--mono); font-size: 13px; color: var(--ink-2); line-height: 1.7; margin: 16px 0; overflow-x: auto; }
     .code-block .cmd { color: var(--primary); }
