@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>竞品分析 Skill · 使用指南</title>
+  <style>
+    :root {
+      --bg:        #0a0a0a;
+      --bg-soft:   #161616;
+      --bg-card:   #111111;
+      --ink:       #f0f0f0;
+      --ink-2:     #a0a0a8;
+      --ink-3:     #606068;
+      --line:      #2a2a2a;
+      --primary:   #c084fc;
+      --primary-g: linear-gradient(135deg, #818cf8, #d946ef);
+      --primary-s: rgba(192,132,252,0.12);
+      --primary-gs: linear-gradient(135deg, rgba(129,140,248,0.14), rgba(217,70,239,0.14));
+      --g:         #4ade80;
+      --g-s:       rgba(74,222,128,0.10);
+      --r:         #f87171;
+      --r-s:       rgba(248,113,113,0.10);
+      --b:         #60a5fa;
+      --b-s:       rgba(96,165,250,0.10);
+      --y:         #facc15;
+      --nav-h:     56px;
+      --font: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+      --cn: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-family: var(--font), var(--cn); background: var(--bg); color: var(--ink); }
+    body { overflow-x: hidden; }
+
+    nav {
+      position: static;
+      height: var(--nav-h); display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; background: rgba(10,10,10,0.92);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-brand { font-weight: 700; font-size: 14px; color: var(--ink); letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-links a { font-size: 13px; color: var(--ink-2); text-decoration: none; padding: 5px 12px; border-radius: 6px; white-space: nowrap; transition: background 0.15s; }
+    .nav-links a:hover { background: var(--bg-soft); color: var(--ink); }
+
+    .floor { padding: 60px 80px; display: flex; flex-direction: column; justify-content: flex-start; border-bottom: 1px solid var(--line); }
+    .floor-narrow { max-width: 960px; }
+
+    .kicker { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; background: var(--primary-g); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    h1 { font-size: clamp(36px, 5vw, 60px); line-height: 1.05; margin-bottom: 24px; font-weight: 800; }
+    h2 { font-size: clamp(24px, 3vw, 36px); line-height: 1.15; margin-bottom: 20px; font-weight: 700; }
+    h3 { font-size: 18px; line-height: 1.3; margin-bottom: 10px; font-weight: 600; }
+    h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--ink); }
+    p { font-size: 15px; line-height: 1.75; color: var(--ink-2); max-width: 720px; }
+    p + p { margin-top: 12px; }
+    .lead { font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 780px; margin-bottom: 40px; }
+
+    .metrics { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+    .metric { background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 28px; min-width: 140px; }
+    .metric .num { font-size: 36px; font-weight: 800; line-height: 1; margin-bottom: 6px; background: var(--primary-g); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .metric .label { font-size: 13px; color: var(--ink-3); }
+
+    .card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+    .card h3 { margin-bottom: 12px; }
+    .card p { font-size: 14px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+    .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.04em; }
+    .tag-p { background: var(--primary-gs); color: var(--primary); }
+    .tag-r { background: var(--r-s); color: var(--r); }
+    .tag-b { background: var(--b-s); color: var(--b); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 16px; }
+    th { text-align: left; padding: 10px 14px; background: var(--bg-soft); color: var(--ink); font-weight: 600; font-size: 13px; }
+    td { padding: 10px 14px; border-top: 1px solid var(--line); color: var(--ink-2); vertical-align: top; }
+    td:first-child { font-weight: 500; color: var(--ink); white-space: nowrap; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+
+    .callout { background: var(--primary-s) padding-box, var(--primary-g) border-box; border-left: 3px solid transparent; padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 14px; color: var(--ink-2); line-height: 1.65; margin-top: 16px; }
+    .callout-r { background: var(--r-s) padding-box, linear-gradient(135deg,var(--r),var(--r)) border-box; border-left: 3px solid transparent; padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: 14px; color: var(--ink-2); line-height: 1.65; margin-top: 16px; }
+
+    .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+    .flow-step { background: var(--bg-card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+    .flow-step.hi { background: var(--primary-g); color: #fff; border-color: transparent; }
+    .flow-step.soft { background: var(--primary-gs); border-color: transparent; color: var(--primary); font-weight: 600; }
+    .flow-arrow { color: var(--ink-3); font-size: 16px; }
+
+    ul.clean { list-style: none; padding: 0; }
+    ul.clean li { font-size: 14px; color: var(--ink-2); padding: 8px 0; border-bottom: 1px solid var(--line); line-height: 1.6; }
+    ul.clean li:last-child { border-bottom: none; }
+    ul.clean li::before { content: '·'; margin-right: 10px; font-weight: 700; background: var(--primary-g); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .divider { border: none; border-top: 1px solid var(--line); margin: 32px 0; }
+
+    footer { padding: 40px 80px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-3); display: flex; justify-content: space-between; align-items: center; }
+
+
+    /* CODE BLOCK */
+    .code-block { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; font-family: var(--mono); font-size: 13px; color: var(--ink-2); line-height: 1.7; margin: 16px 0; overflow-x: auto; }
+    .code-block .cmd { color: var(--primary); }
+    .code-block .comment { color: var(--ink-3); }
+    .code-block .str { color: var(--b); }
+
+    /* STAGE CARD */
+    .stage-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; padding: 24px; position: relative; overflow: hidden; }
+    .stage-card::before { content: attr(data-num); position: absolute; top: 12px; right: 20px; font-size: 64px; font-weight: 800; line-height: 1; background: var(--primary-g); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; opacity: 0.18; }
+    .stage-card h3 { margin-bottom: 8px; }
+    .stage-card .stage-sub { font-size: 12px; color: var(--ink-3); margin-bottom: 16px; }
+
+    /* CHECKPOINT */
+    .cp-list { list-style: none; padding: 0; }
+    .cp-list li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--ink-2); line-height: 1.5; }
+    .cp-list li:last-child { border-bottom: none; }
+    .cp-badge { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; background: var(--primary-gs); color: var(--primary); margin-top: 1px; }
+
+    /* CHAT DEMO */
+    .chat { background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; font-size: 13px; }
+    .chat-head { padding: 10px 16px; background: var(--bg-soft); border-bottom: 1px solid var(--line); font-weight: 600; font-size: 12px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; }
+    .chat-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .msg { display: flex; gap: 10px; align-items: flex-start; }
+    .msg.right { flex-direction: row-reverse; }
+    .msg-avatar { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .msg-avatar.user { background: var(--bg-soft); color: var(--ink-3); border: 1px solid var(--line); }
+    .msg-avatar.ai { background: var(--primary-g); color: #fff; }
+    .msg-bubble { background: var(--bg-soft); border-radius: 0 8px 8px 8px; padding: 10px 14px; line-height: 1.6; color: var(--ink-2); max-width: 560px; }
+    .msg-bubble.user { background: var(--primary-s); border-radius: 8px 0 8px 8px; color: var(--ink); }
+    .msg-bubble strong { color: var(--ink); }
+    .msg-bubble .note { color: var(--ink-3); font-size: 12px; font-style: italic; margin-top: 6px; }
+    .msg-bubble code { font-family: var(--mono); font-size: 11px; background: rgba(255,255,255,0.06); padding: 1px 4px; border-radius: 3px; }
+
+    /* PERSPECTIVE CARD */
+    .persp-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; }
+    .persp-card .persp-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; background: var(--primary-g); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .persp-card h3 { font-size: 16px; margin-bottom: 6px; }
+    .persp-card .persp-sub { font-size: 12px; color: var(--ink-3); margin-bottom: 12px; }
+    .persp-card .dim-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .dim-chip { font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--bg-soft); color: var(--ink-3); border: 1px solid var(--line); }
+
+    /* SETUP STEP */
+    .steps-wrap { display: flex; flex-direction: column; }
+    .setup-step { display: flex; gap: 20px; }
+    .setup-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .setup-num { width: 32px; height: 32px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #0a0a0a; flex-shrink: 0; }
+    .steps-wrap .setup-step:not(:last-child) .setup-col::after { content: ''; flex: 1; width: 1px; min-height: 16px; background: var(--line); margin: 6px 0 0; }
+    .setup-body { flex: 1; padding-bottom: 20px; }
+    .setup-step:last-child .setup-body { padding-bottom: 0; }
+    .setup-body h4 { margin-bottom: 8px; }
+    .setup-body p { font-size: 14px; }
+
+    /* COPY CODE BLOCK */
+    .code-wrap { position: relative; }
+    .copy-btn { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-soft); color: var(--ink-3); cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; padding: 0; }
+    .copy-btn:hover { color: var(--primary); border-color: var(--primary); background: var(--primary-s); }
+    .copy-btn.copied { color: var(--g); border-color: var(--g); background: var(--g-s); }
+    .copy-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">竞品分析 Skill · 使用指南</div>
+  <div class="nav-links">
+    <a href="#cover">概览</a>
+    <a href="#setup">安装配置</a>
+    <a href="#modes">使用模式</a>
+    <a href="#stages">四个阶段</a>
+    <a href="#perspectives">分析视角</a>
+    <a href="#reference">参考</a>
+  </div>
+</nav>
+
+<!-- ① COVER -->
+<section class="floor" id="cover">
+  <div class="kicker">Skill Usage Guide · competitive-analysis-merged</div>
+  <h1>竞品分析 Skill<br>使用指南</h1>
+  <p class="lead">告诉 AI 分析什么，它负责搜集、分析、输出——你只需要在关键节点做决策。</p>
+
+  <!-- 三种使用模式 -->
+  <div style="display:flex;flex-direction:column;gap:12px;margin:36px 0 40px;">
+
+    <div style="display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+      <div style="width:4px;background:var(--primary-g);flex-shrink:0;"></div>
+      <div style="flex:1;padding:20px 24px;display:flex;gap:24px;align-items:center;">
+        <div style="flex:0 0 160px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">模式 A</div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink);">快速摸底</div>
+          <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">15–30 分钟</div>
+        </div>
+        <div style="flex:1;font-size:14px;color:var(--ink-2);line-height:1.6;">初步了解某个领域，快速准备会议素材。不写完整报告，直接给出结构化结论。</div>
+        <div style="flex:0 0 120px;text-align:right;font-size:12px;color:var(--ink-3);line-height:1.8;">输出：结论文字<br>不创建文件</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+      <div style="width:4px;background:var(--primary-g);flex-shrink:0;"></div>
+      <div style="flex:1;padding:20px 24px;display:flex;gap:24px;align-items:center;">
+        <div style="flex:0 0 160px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">模式 B</div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink);">标准分析</div>
+          <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">1–3 小时</div>
+        </div>
+        <div style="flex:1;font-size:14px;color:var(--ink-2);line-height:1.6;">做设计决策、给团队汇报、产品规划参考。完整流程，含用户旅程、触点对比、洞察与建议。</div>
+        <div style="flex:0 0 120px;text-align:right;font-size:12px;color:var(--ink-3);line-height:1.8;">输出：Markdown 报告<br>tracking/ + reports/</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+      <div style="width:4px;background:var(--primary-g);flex-shrink:0;"></div>
+      <div style="flex:1;padding:20px 24px;display:flex;gap:24px;align-items:center;">
+        <div style="flex:0 0 160px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px;">模式 C</div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink);">完整可视化</div>
+          <div style="font-size:12px;color:var(--ink-3);margin-top:2px;">3–6 小时</div>
+        </div>
+        <div style="flex:1;font-size:14px;color:var(--ink-2);line-height:1.6;">对外分享、高管评审、长期参考资产。在标准分析基础上额外生成多页 HTML 可视化报告。</div>
+        <div style="flex:0 0 120px;text-align:right;font-size:12px;color:var(--ink-3);line-height:1.8;">输出：Markdown + HTML<br>可在浏览器打开</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 底部：关键数字 + 入口 -->
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:var(--bg-card);border:1px solid var(--line);border-radius:12px;">
+    <div style="display:flex;gap:32px;">
+      <div><span style="font-size:22px;font-weight:800;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">4</span><span style="font-size:13px;color:var(--ink-3);margin-left:6px;">分析阶段</span></div>
+      <div><span style="font-size:22px;font-weight:800;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">5</span><span style="font-size:13px;color:var(--ink-3);margin-left:6px;">分析视角</span></div>
+      <div><span style="font-size:22px;font-weight:800;background:var(--primary-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10</span><span style="font-size:13px;color:var(--ink-3);margin-left:6px;">Human-in-the-Loop 检查点</span></div>
+    </div>
+    <a href="#setup" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#fff;text-decoration:none;background:var(--primary-g);padding:10px 20px;border-radius:8px;">开始配置 →</a>
+  </div>
+
+</section>
+
+<!-- ② SETUP -->
+<section class="floor" id="setup">
+  <div class="kicker">安装配置</div>
+  <h2>使用方式配置</h2>
+  <p class="lead">根据你的工作场景选择配置方式。方式 A / B 均基于 Claude Code，推荐优先使用；方式 C（Claude.ai 网页版）适合个人独立使用，无需开发环境。</p>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 20px;background:var(--bg-card);border:1px solid var(--line);border-radius:10px;margin-bottom:28px;">
+    <div>
+      <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px;">下载 Skill 文件</div>
+      <div style="font-size:13px;color:var(--ink-3);">需要 <code>competitive-analysis-merged/</code> 目录下的全部文件</div>
+    </div>
+    <a href="https://github.com/SchihHsin/AnalysisSKILLS/tree/main/competitive-analysis-merged" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--primary);text-decoration:none;white-space:nowrap;border:1px solid var(--primary);padding:8px 16px;border-radius:7px;flex-shrink:0;transition:background 0.15s;" onmouseover="this.style.background='rgba(192,132,252,0.1)'" onmouseout="this.style.background='transparent'">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      在 GitHub 查看
+    </a>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:32px;align-items:start;">
+
+    <!-- 方式 A -->
+    <div class="card">
+      <h3 style="margin-bottom:20px;">方式 A · Claude Code CLI</h3>
+      <div class="steps-wrap">
+
+        <div class="setup-step">
+          <div class="setup-col"><div class="setup-num">1</div></div>
+          <div class="setup-body">
+            <h4>创建命令文件</h4>
+            <p>在项目根目录下创建以下结构，把 <code>SKILL.md</code> 的内容复制到命令文件里：</p>
+            <div class="code-block">
+<span class="comment"># 项目根目录下</span>
+.claude/
+└── commands/
+    └── <span class="str">competitive-analysis.md</span>  ← SKILL.md 内容</div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="setup-col"><div class="setup-num">2</div></div>
+          <div class="setup-body">
+            <h4>放入 references 文件</h4>
+            <p>将 <code>references/</code> 目录放在项目内任意位置，Claude Code 可直接读取：</p>
+            <div class="code-block">
+competitive-analysis/
+└── references/
+    ├── <span class="str">research-methodology.md</span>
+    ├── <span class="str">analysis-frameworks.md</span>
+    ├── <span class="str">visualization-framework.md</span>
+    ├── <span class="str">verification-protocol.md</span>
+    └── assets/
+        ├── <span class="str">report-template.md</span>
+        └── <span class="str">tracking-template.md</span></div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="setup-col"><div class="setup-num">3</div></div>
+          <div class="setup-body">
+            <h4>用斜杠命令触发</h4>
+            <div class="code-wrap">
+              <div class="code-block" id="cb-cli">
+<span class="cmd">/competitive-analysis</span>               <span class="comment">← 完整交互模式</span>
+<span class="cmd">/competitive-analysis</span> fast Figma vs Sketch
+<span class="cmd">/competitive-analysis</span> continue figma-d2c
+<span class="cmd">/competitive-analysis</span> visualize notion-linear
+<span class="cmd">/competitive-analysis</span> query Figma 和 Sketch 的定价</div>
+              <button class="copy-btn" onclick="copyCode('cb-cli',this)" title="复制"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 方式 B -->
+    <div class="card">
+      <h3 style="margin-bottom:20px;">方式 B · IDE 插件</h3>
+      <div class="steps-wrap">
+
+        <div class="setup-step">
+          <div class="setup-col"><div class="setup-num">1</div></div>
+          <div class="setup-body">
+            <h4>安装 Claude Code 插件</h4>
+            <p>在 VS Code 或 JetBrains IDE 的扩展市场搜索并安装 <strong>Claude Code</strong>，登录 Anthropic 账号完成授权。</p>
+            <table style="margin-top:12px;font-size:13px;">
+              <tr><td style="white-space:nowrap;">VS Code</td><td>Extensions 面板搜索 <code>Claude Code</code></td></tr>
+              <tr><td style="white-space:nowrap;">JetBrains</td><td>Plugins 市场搜索 <code>Claude Code</code></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="setup-col"><div class="setup-num">2</div></div>
+          <div class="setup-body">
+            <h4>放入 Skill 文件（与方式 A 相同）</h4>
+            <p>IDE 插件与 Claude Code CLI 共用同一套命令文件，结构完全一致：</p>
+            <div class="code-block" style="margin-top:10px;">
+<span class="comment"># 项目根目录</span>
+.claude/
+└── commands/
+    └── <span class="str">competitive-analysis.md</span>
+competitive-analysis/
+└── references/  <span class="comment">← 可选，提升输出质量</span></div>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="setup-col"><div class="setup-num">3</div></div>
+          <div class="setup-body">
+            <h4>在 IDE Chat 面板触发</h4>
+            <p>打开侧边栏 Claude Chat 面板，输入斜杠命令，与方式 A 完全相同：</p>
+            <div class="code-wrap" style="margin-top:10px;">
+              <div class="code-block" id="cb-ide">
+<span class="cmd">/competitive-analysis</span>               <span class="comment">← 完整交互模式</span>
+<span class="cmd">/competitive-analysis</span> fast Figma vs Sketch
+<span class="cmd">/competitive-analysis</span> query Figma 和 Sketch 的定价</div>
+              <button class="copy-btn" onclick="copyCode('cb-ide',this)" title="复制"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="callout" style="margin-top:16px;">
+        <strong>IDE 插件优势：</strong>不切换窗口，分析过程中可直接引用当前编辑器里打开的文件（设计稿路径、配置文件等），生成的报告文件也直接出现在项目目录树里。
+      </div>
+    </div>
+
+    <!-- 方式 C -->
+    <div class="card" style="opacity:0.45;">
+      <h3 style="margin-bottom:20px;">方式 C · Claude.ai 网页版</h3>
+      <div class="steps-wrap">
+
+        <div class="setup-step">
+          <div class="setup-col"><div class="setup-num">1</div></div>
+          <div class="setup-body">
+            <h4>创建 Project 并上传文件</h4>
+            <p>在 Claude.ai 创建一个 Project，将以下文件上传到知识库：</p>
+            <table style="margin-top:12px;font-size:13px;">
+              <tr><td style="white-space:nowrap;">SKILL.md</td><td><span class="tag tag-r">必须</span></td></tr>
+              <tr><td>references/research-methodology.md</td><td><span class="tag tag-r">必须</span></td></tr>
+              <tr><td>references/analysis-frameworks.md</td><td><span class="tag tag-r">必须</span></td></tr>
+              <tr><td>references/visualization-framework.md</td><td><span class="tag tag-p">做 HTML 时需要</span></td></tr>
+              <tr><td>references/verification-protocol.md</td><td><span class="tag tag-p">建议上传</span></td></tr>
+              <tr><td>references/assets/report-template.md</td><td><span class="tag tag-p">建议上传</span></td></tr>
+              <tr><td>references/demo-conversations.md</td><td><span class="tag tag-p">建议上传</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <div class="setup-col"><div class="setup-num">2</div></div>
+          <div class="setup-body">
+            <h4>用自然语言触发</h4>
+            <p>网页版没有斜杠命令，用以下口令替代：</p>
+            <table style="margin-top:12px;font-size:13px;">
+              <tr><th>Claude Code 参数</th><th>网页版口令</th></tr>
+              <tr><td>fast</td><td>「快速帮我看看…」</td></tr>
+              <tr><td>continue X</td><td>「继续 X 的分析」</td></tr>
+              <tr><td>visualize X</td><td>「把 X 报告做成可视化网页版」</td></tr>
+              <tr><td>query</td><td>「快查：[问题]」</td></tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <div class="callout" style="margin-top:16px;">
+        最简配置：只上传 SKILL.md 也能用，但 Stage 4 HTML 报告的输出质量会降低——Mockup 规格和设计系统细节依赖 references 文件。
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ③ MODES -->
+<section class="floor" id="modes">
+  <div class="kicker">使用模式</div>
+  <h2>三种使用模式</h2>
+  <p class="lead">根据时间和需求选择。Skill 会自动识别你的意图，不需要明确声明用哪种模式。</p>
+
+  <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:32px;">
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <span class="tag tag-p" style="margin-bottom:8px;display:inline-block;">模式 A</span>
+          <h3>快速摸底 · 15–30 分钟</h3>
+        </div>
+        <div style="font-size:12px;color:var(--ink-3);text-align:right;">不创建文件<br>直接给结论</div>
+      </div>
+      <p style="margin-bottom:16px;">适合初步了解某个领域，或快速准备会议素材。不写完整报告，不做 HTML。</p>
+      <div class="code-block"><span class="comment"># 在需求前加「快速」或「快查」</span>
+快速帮我看看 Claude Code、Cursor、Copilot 各自的定位
+快查：Figma 和 Sketch 的定价差异</div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <span class="tag tag-p">规划（合并为1次）</span>
+        <span style="color:var(--ink-3);font-size:13px;">→</span>
+        <span class="tag tag-p">搜集</span>
+        <span style="color:var(--ink-3);font-size:13px;">→</span>
+        <span class="tag tag-p">直接给结论</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <span class="tag tag-p" style="margin-bottom:8px;display:inline-block;">模式 B</span>
+          <h3>标准分析 · 1–3 小时</h3>
+        </div>
+        <div style="font-size:12px;color:var(--ink-3);text-align:right;">输出 Markdown 报告<br>tracking/ + reports/</div>
+      </div>
+      <p style="margin-bottom:16px;">适合做设计决策、给团队汇报、产品规划参考。完整的分析流程，含用户旅程、触点对比、洞察与建议。</p>
+      <div class="code-block">帮我做一份 Figma vs Sketch vs Adobe XD 的完整竞品分析，UX 视角
+调研一下 Notion、Linear、Jira 的功能和定价</div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <span class="tag tag-p">Stage 1 规划 ⏸</span>
+        <span style="color:var(--ink-3);font-size:13px;">→</span>
+        <span class="tag tag-p">Stage 2 搜集 ⏸</span>
+        <span style="color:var(--ink-3);font-size:13px;">→</span>
+        <span class="tag tag-p">Stage 3 Markdown 报告 ⏸</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <span class="tag tag-p" style="margin-bottom:8px;display:inline-block;">模式 C</span>
+          <h3>完整可视化 · 3–6 小时</h3>
+        </div>
+        <div style="font-size:12px;color:var(--ink-3);text-align:right;">Markdown + HTML 报告<br>可在浏览器打开</div>
+      </div>
+      <p style="margin-bottom:16px;">适合对外分享、高管评审、长期参考资产。标准分析完成后继续生成多页 HTML，含 Snap Scroll 导航和 Mockup。</p>
+      <div class="code-block">帮我做一份竞品分析，最后要做成可以演示的网页版
+<span class="comment"># 或在 Stage 3 报告审阅后说：</span>
+做成 HTML 报告吧</div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <span class="tag tag-p">Stage 1–3</span>
+        <span style="color:var(--ink-3);font-size:13px;">→</span>
+        <span class="tag tag-p">Stage 4 HTML 报告 ⏸</span>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="margin-bottom:16px;">最常用口令</h3>
+  <div class="grid-2">
+    <div>
+      <table>
+        <thead><tr><th>口令</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td>对，继续</td><td>确认当前方案，进入下一步</td></tr>
+          <tr><td>不对，[说明]</td><td>纠正方向</td></tr>
+          <tr><td>先暂停</td><td>中途打断，提出问题</td></tr>
+          <tr><td>去掉 [竞品名]</td><td>调整竞品名单</td></tr>
+          <tr><td>重点放在 [维度]</td><td>调整分析重心</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table>
+        <thead><tr><th>口令</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td>不用做 HTML</td><td>跳过 Stage 4</td></tr>
+          <tr><td>继续之前的 [项目名]</td><td>恢复历史进度</td></tr>
+          <tr><td>这部分深挖一下</td><td>某部分加深分析</td></tr>
+          <tr><td>触点太多，只保留 5 个</td><td>精简报告范围</td></tr>
+          <tr><td>快查：[问题]</td><td>直接问，不启动完整流程</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ④ STAGES -->
+<section class="floor" id="stages">
+  <div class="kicker">四个阶段</div>
+  <h2>每个阶段做什么、你需要做什么</h2>
+  <p class="lead">四个阶段相对独立，可按需跳过或单独运行。每个 ⏸ 标记是检查点，AI 会在此停下等你确认，不会自动推进。</p>
+
+  <div class="flow" style="margin-bottom:40px;">
+    <div class="flow-step soft">Stage 1 · 规划</div>
+    <div class="flow-arrow">⏸ →</div>
+    <div class="flow-step soft">Stage 2 · 搜集</div>
+    <div class="flow-arrow">⏸ →</div>
+    <div class="flow-step soft">Stage 3 · 分析</div>
+    <div class="flow-arrow">⏸ →</div>
+    <div class="flow-step soft">Stage 4 · 可视化（可选）</div>
+  </div>
+
+  <!-- Stage 1 -->
+  <div class="stage-card" data-num="1" style="margin-bottom:16px;">
+    <h3>Stage 1 · 规划</h3>
+    <div class="stage-sub">目标确认 · 视角推断 · 竞品名单 · 分析规划</div>
+    <div class="grid-2" style="gap:24px;">
+      <div>
+        <h4 style="margin-bottom:8px;">AI 在做什么</h4>
+        <ul class="clean">
+          <li>检查 <code>context/</code> 是否有业务背景，有则摘要告知</li>
+          <li>检查 <code>tracking/</code> 是否有历史分析可参考</li>
+          <li>Step 1.1：推断分析目标 + 视角，等你确认</li>
+          <li>Step 1.2：建议竞品名单 + 核心场景 + 分析维度</li>
+          <li>Step 1.3：生成完整规划，估计耗时，等你批准</li>
+          <li>规划确认后保存到 <code>tracking/{项目名}.md</code></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:8px;">你需要做什么</h4>
+        <ul class="clean">
+          <li>说清楚这次分析要支持什么决策，越具体越好</li>
+          <li>Step 1.1：确认或纠正 AI 推断的视角</li>
+          <li>Step 1.2：增减竞品、调整场景和维度</li>
+          <li>Step 1.3：批准规划，说「可以开始了」</li>
+        </ul>
+        <div class="callout" style="margin-top:16px;">
+          <strong>视角在这一步确认，之后不再重新选。</strong>确认视角直接决定 Stage 3 的分析维度和 Stage 4 的报告骨架类型——在 Step 1.1 如果觉得不对及时纠正，比做完再改省事得多。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 1 demo -->
+  <div class="chat" style="margin-bottom:32px;">
+    <div class="chat-head">Stage 1 · 典型对话示例（PM 视角）</div>
+    <div class="chat-body">
+      <div class="msg right">
+        <div class="msg-avatar user">U</div>
+        <div class="msg-bubble user">帮我调研 Notion、Linear、Jira 的任务管理功能</div>
+      </div>
+      <div class="msg">
+        <div class="msg-avatar ai">AI</div>
+        <div class="msg-bubble">好的，我理解你的目标是：<strong>对比三款任务管理工具的功能覆盖与产品取向</strong>。<br><br>这次以 <strong>PM 视角</strong>为主——你的需求聚焦在功能范围、定价和产品差异化，而不是具体的交互流程。对吗？<div class="note">⏸ Step 1.1 · 等待确认目标与视角</div></div>
+      </div>
+      <div class="msg right">
+        <div class="msg-avatar user">U</div>
+        <div class="msg-bubble user">对，重点看功能和定价</div>
+      </div>
+      <div class="msg">
+        <div class="msg-avatar ai">AI</div>
+        <div class="msg-bubble">
+          <strong>竞品名单建议：</strong>Notion / Linear / Jira（直接竞品）+ Asana（体验标杆）<br><br>
+          <strong>核心场景：</strong><br>1. 小团队（5–20人）任务管理全流程<br>2. 跨职能项目协作与进度追踪<br><br>
+          <strong>分析维度：</strong>功能覆盖广度 · 定价档位与免费配额 · 团队协作能力 · 企业级功能 · 生态集成<br><br>
+          有要调整的吗？<div class="note">⏸ Step 1.2 · 等待确认范围</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 2 -->
+  <div class="stage-card" data-num="2" style="margin-bottom:16px;">
+    <h3>Stage 2 · 信息搜集</h3>
+    <div class="stage-sub">多源搜集 · 截图采集 · 视觉解析 · 视频解析 · 失败处理</div>
+    <div class="grid-2" style="gap:24px;">
+      <div>
+        <h4 style="margin-bottom:8px;">AI 在做什么</h4>
+        <ul class="clean">
+          <li>按规划的竞品 × 维度逐一搜集资料</li>
+          <li>优先官方文档，交叉核查关键数据</li>
+          <li>每个竞品搜完后汇报进展（覆盖率 + 关键发现）</li>
+          <li>遇到搜不到的信息，明确告知并给三个处理选项</li>
+          <li>截图/文档/视频摘要保存到 <code>materials/{项目名}/</code></li>
+          <li>无法核查的数据标注 ⚠️ 待核查，绝不编造</li>
+          <li>搜集完成后对关键截图做视觉解析——直接读图提取布局、色彩、组件风格、独特设计决策，结果写入 <code>visual-analysis.md</code> 供 Stage 3 使用</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:8px;">你需要做什么</h4>
+        <ul class="clean">
+          <li>等待，搜集期间可随时打断调整</li>
+          <li>遇到信息缺口时做决策（跳过 / 换来源 / 自己提供）</li>
+          <li>如有账号或截图，可直接发给 AI 补充</li>
+          <li>搜集完成后确认进入分析</li>
+        </ul>
+        <div class="callout" style="margin-top:16px;">
+          <strong>信息缺口很常见。</strong>竞品的部分功能可能未公开、需登录或已下线。AI 遇到这种情况会主动告知而非跳过或猜测，你来决定怎么处理。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:32px;">
+    <div class="card">
+      <h4>来源优先级</h4>
+      <table style="margin-top:12px;">
+        <tr><td><span class="tag tag-p">P0</span></td><td>官网、帮助文档、API 文档、更新日志</td></tr>
+        <tr><td><span class="tag tag-p">P1</span></td><td>专业媒体测评、行业报告、白皮书</td></tr>
+        <tr><td><span class="tag tag-p">P2</span></td><td>YouTube 测评视频、Reddit、论坛反馈</td></tr>
+        <tr><td><span class="tag tag-p">P3</span></td><td>Dribbble / Behance 设计案例、产品截图</td></tr>
+        <tr><td><span class="tag tag-p">P4</span></td><td>集成生态、合作伙伴、应用商店评论</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>视觉证据质量要求</h4>
+      <p style="font-size:14px;margin-bottom:12px;">每条关键结论必须配对应图片，做到图文对照。质量从高到低：</p>
+      <ul class="clean">
+        <li><strong>真实产品截图</strong>（最优）— 一手证据，可直接核实</li>
+        <li><strong>Mockup 复刻</strong>（次选）— 截图不可得时使用</li>
+        <li><strong>来源链接</strong>（最弱）— 需要读者自行点进去验证</li>
+      </ul>
+      <div class="callout-r" style="margin-top:12px;">拒绝用 Logo 图、媒体报道截图、文章配图凑数。</div>
+    </div>
+  </div>
+
+  <!-- Stage 3 -->
+  <div class="stage-card" data-num="3" style="margin-bottom:16px;">
+    <h3>Stage 3 · 洞察分析</h3>
+    <div class="stage-sub">用户旅程 · 模式识别 · SWOT · 差距矩阵 · 洞察草稿确认 · 报告生成</div>
+    <div class="grid-2" style="gap:24px;">
+      <div>
+        <h4 style="margin-bottom:8px;">AI 在做什么</h4>
+        <ul class="clean">
+          <li>读取 Stage 2 的截图视觉解析结果（<code>visual-analysis.md</code>）作为分析输入</li>
+          <li>绘制用户旅程地图（行为 / 触点 / 情绪 / 摩擦 / 机会，4 行结构）</li>
+          <li>归纳竞品通用设计模式，识别独特设计语言</li>
+          <li>为每个竞品做 SWOT 评估，附具体界面证据</li>
+          <li>输出差距矩阵（功能差距 + 体验质量差距）</li>
+          <li><strong>写报告前先给出 3 条洞察草稿</strong>，等你确认方向后再展开完整报告</li>
+          <li>生成报告到 <code>reports/{项目名}-{日期}-v1.md</code></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:8px;">你需要做什么</h4>
+        <ul class="clean">
+          <li>收到旅程图后可确认或调整触点划分</li>
+          <li>遇到设计分歧，AI 会先问你的立场再给分析</li>
+          <li><strong>收到 3 条洞察草稿时确认方向</strong>——这是纠正偏差成本最低的时机</li>
+          <li>报告生成后审阅摘要，决定是否要调整深度</li>
+          <li>决定是否继续做 Stage 4 HTML 报告</li>
+        </ul>
+        <div class="callout" style="margin-top:16px;">
+          <strong>每条洞察需满足三要素：</strong>证据（界面截图 / 数据）→ 分析（为什么这样设计）→ 建议（我们怎么做）。没有建议的洞察不算完成。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 4 -->
+  <div class="stage-card" data-num="4" style="margin-bottom:0;">
+    <h3>Stage 4 · 可视化 HTML 报告（可选）</h3>
+    <div class="stage-sub">骨架选型 · 多页生成 · Snap Scroll 导航 · Mockup 变体</div>
+    <div class="grid-2" style="gap:24px;">
+      <div>
+        <h4 style="margin-bottom:8px;">AI 在做什么</h4>
+        <ul class="clean">
+          <li>前置检查：确认 Stage 3 产物是否足够生成对应视角的骨架</li>
+          <li>基于 Stage 1 确认的视角自动推荐骨架类型，不重新选型</li>
+          <li>展示文件结构方案（index.html + 内容页 + highlights.html）</li>
+          <li>逐文件生成，每完成一个汇报进度</li>
+          <li>生成后自审 §8 质量清单，主动报告问题</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom:8px;">你需要做什么</h4>
+        <ul class="clean">
+          <li>确认页面结构方案（不需要重新选骨架，只确认具体页面合不合理）</li>
+          <li>如需深色主题说「深色」，如需替换字体说明品牌字体名称</li>
+          <li>最终审阅文件清单，打开 index.html 确认效果</li>
+          <li>有问题直接说明，支持迭代修改</li>
+        </ul>
+        <div class="callout" style="margin-top:16px;">
+          Stage 4 是独立可跳过的阶段。<strong>Stage 3 的 Markdown 报告已经是完整交付物</strong>，只在需要演示 / 对外分享 / 长期留存时才需要做 HTML。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ PERSPECTIVES -->
+<section class="floor" id="perspectives">
+  <div class="kicker">分析视角</div>
+  <h2>五种分析视角</h2>
+  <p class="lead">视角在 Stage 1.1 确认，之后贯穿全程。不同视角决定分析维度、对比表的行维度、以及 Stage 4 默认使用的骨架类型。</p>
+
+  <div class="grid-auto" style="margin-bottom:32px;">
+
+    <div class="persp-card">
+      <div class="persp-label">UX 视角</div>
+      <h3>体验旅程</h3>
+      <div class="persp-sub">默认骨架：S1 体验旅程型</div>
+      <div class="dim-list">
+        <span class="dim-chip">步骤数</span>
+        <span class="dim-chip">错误恢复路径</span>
+        <span class="dim-chip">空态设计</span>
+        <span class="dim-chip">帮助引导</span>
+        <span class="dim-chip">操作反馈时机</span>
+      </div>
+      <p style="font-size:13px;">适合：界面设计优化、交互流程研究、用户旅程分析、触点体验对比。</p>
+    </div>
+
+    <div class="persp-card">
+      <div class="persp-label">PM 视角</div>
+      <h3>功能全景</h3>
+      <div class="persp-sub">默认骨架：S2 功能全景型</div>
+      <div class="dim-list">
+        <span class="dim-chip">价格档位</span>
+        <span class="dim-chip">免费配额</span>
+        <span class="dim-chip">付费转化门槛</span>
+        <span class="dim-chip">团队协作</span>
+        <span class="dim-chip">企业级功能</span>
+      </div>
+      <p style="font-size:13px;">适合：功能覆盖对比、定价策略分析、产品路线图参考、商业模式研究。</p>
+    </div>
+
+    <div class="persp-card">
+      <div class="persp-label">UI 视角</div>
+      <h3>设计语言</h3>
+      <div class="persp-sub">默认骨架：S3 设计语言型</div>
+      <div class="dim-list">
+        <span class="dim-chip">视觉密度</span>
+        <span class="dim-chip">颜色语义</span>
+        <span class="dim-chip">组件风格</span>
+        <span class="dim-chip">动效哲学</span>
+        <span class="dim-chip">信息层级策略</span>
+      </div>
+      <p style="font-size:13px;">适合：设计语言对比、视觉系统分析、组件风格调研、品牌表达研究。</p>
+    </div>
+
+    <div class="persp-card">
+      <div class="persp-label">Tech 视角</div>
+      <h3>能力架构</h3>
+      <div class="persp-sub">默认骨架：S4 能力架构型</div>
+      <div class="dim-list">
+        <span class="dim-chip">认证方式</span>
+        <span class="dim-chip">API 速率限制</span>
+        <span class="dim-chip">SDK 覆盖语言</span>
+        <span class="dim-chip">Webhook 支持</span>
+        <span class="dim-chip">文档完整度</span>
+      </div>
+      <p style="font-size:13px;">适合：API 能力对比、技术架构评估、开发者体验分析、集成生态研究。</p>
+    </div>
+
+    <div class="persp-card">
+      <div class="persp-label">Strategy 视角</div>
+      <h3>竞争格局</h3>
+      <div class="persp-sub">默认骨架：S5 竞争格局型</div>
+      <div class="dim-list">
+        <span class="dim-chip">目标用户段</span>
+        <span class="dim-chip">增长策略</span>
+        <span class="dim-chip">商业模式</span>
+        <span class="dim-chip">定价杠杆</span>
+        <span class="dim-chip">社区生态</span>
+      </div>
+      <p style="font-size:13px;">适合：市场定位分析、竞争格局研究、差异化机会识别、战略方向研究。</p>
+    </div>
+
+  </div>
+
+  <h3 style="margin-bottom:16px;">五种报告骨架类型（Stage 4 根据视角自动选择）</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>骨架</th>
+        <th>主导视角</th>
+        <th>index.html 主脊</th>
+        <th>内容页分组单元</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tag-p">S1</span> 体验旅程型</td>
+        <td>UX</td>
+        <td>用户旅程地图（情绪曲线主线）</td>
+        <td>旅程阶段 → 交互触点</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-p">S2</span> 功能全景型</td>
+        <td>PM</td>
+        <td>产品概要对比矩阵（定位/用户/价值主张）</td>
+        <td>功能域 / 能力类别</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-p">S3</span> 设计语言型</td>
+        <td>UI</td>
+        <td>视觉身份总览（第一印象并排）</td>
+        <td>设计层级（视觉/信息/交互/动效）</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-p">S4</span> 能力架构型</td>
+        <td>Tech</td>
+        <td>能力雷达总览（多维评分主脊）</td>
+        <td>技术能力域</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-p">S5</span> 竞争格局型</td>
+        <td>Strategy</td>
+        <td>市场定位图谱（竞争格局主脊）</td>
+        <td>分析视角（市场/产品/用户/增长）</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ⑥ REFERENCE -->
+<section class="floor" id="reference">
+  <div class="kicker">参考</div>
+  <h2>常见问题 · 文件位置 · 迭代指南</h2>
+
+  <div class="grid-2" style="margin-bottom:32px;">
+    <div>
+      <h3 style="margin-bottom:16px;">常见问题</h3>
+
+      <div class="change-block" style="border-left:3px solid transparent;padding:20px 24px;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box, var(--primary-g) border-box;border-radius:0 12px 12px 0;margin-bottom:12px;">
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink);">视角推断不对怎么办？</div>
+        <p style="font-size:13px;">在 Step 1.1 直接纠正：「不对，我想要 PM 视角，重点看功能和定价。」这是最好的纠正时机，后面改代价大。</p>
+      </div>
+
+      <div class="change-block" style="border-left:3px solid transparent;padding:20px 24px;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box, var(--primary-g) border-box;border-radius:0 12px 12px 0;margin-bottom:12px;">
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink);">某个竞品搜不到信息？</div>
+        <p style="font-size:13px;">AI 会主动告知并给三个选项：跳过 / 换来源 / 你来提供。如果你有账号或截图，直接发给它补充效果最好。</p>
+      </div>
+
+      <div class="change-block" style="border-left:3px solid transparent;padding:20px 24px;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box, var(--primary-g) border-box;border-radius:0 12px 12px 0;margin-bottom:12px;">
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink);">报告太长 / 太短怎么调？</div>
+        <p style="font-size:13px;">在 Stage 3 报告审阅环节说：「触点太多了，只保留最重要的 5 个」或「这个部分太浅，帮我深挖定价策略」。</p>
+      </div>
+
+      <div class="change-block" style="border-left:3px solid transparent;padding:20px 24px;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box, var(--primary-g) border-box;border-radius:0 12px 12px 0;margin-bottom:12px;">
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink);">能继续上次没做完的分析吗？竞品有更新怎么办？</div>
+        <p style="font-size:13px;">说「继续 [项目名] 的分析」，Skill 会读取 <code>tracking/</code> 里的记录，自动判断场景：若分析未完成则从中断处恢复；若已有完整报告，则自动进入增量更新模式——检测竞品官网、更新日志、定价页是否有变化，只更新有变化的部分，不重跑整个流程。</p>
+      </div>
+
+      <div class="change-block" style="border-left:3px solid transparent;padding:20px 24px;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box, var(--primary-g) border-box;border-radius:0 12px 12px 0;margin-bottom:12px;">
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink);">HTML 报告做完想改怎么办？</div>
+        <p style="font-size:13px;">直接说具体修改需求，支持：调整某个 mockup、修改亮点排序、增加对比维度（所有产品都会同步补充）、改配色、做成单文件等。</p>
+      </div>
+
+      <div class="change-block" style="border-left:3px solid transparent;padding:20px 24px;background:linear-gradient(var(--bg-card),var(--bg-card)) padding-box, var(--primary-g) border-box;border-radius:0 12px 12px 0;">
+        <div style="font-weight:600;font-size:14px;margin-bottom:6px;color:var(--ink);">只想快速问一个问题？</div>
+        <p style="font-size:13px;">说「快查：[你的问题]」，直接回答，不启动完整流程，不创建任何文件。适合临时查一个竞品的具体参数或价格。</p>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom:16px;">文件位置</h3>
+      <div class="code-block">
+<span class="comment"># 分析过程产物</span>
+tracking/<span class="str">{项目名}</span>.md          <span class="comment">← 规划 + 进度</span>
+materials/<span class="str">{项目名}</span>/          <span class="comment">← 截图 + 素材</span>
+  ├── screenshots/
+  ├── links-to-drill.md
+  ├── sources.md
+  └── failed-links.md
+
+<span class="comment"># 分析报告</span>
+reports/<span class="str">{项目名}</span>-<span class="str">{日期}</span>-v1.md   <span class="comment">← Markdown 报告</span>
+reports/<span class="str">{项目名}</span>-<span class="str">{日期}</span>-visual/  <span class="comment">← HTML 报告目录</span>
+  ├── index.html          <span class="comment">← 从这里打开</span>
+  ├── shared.css
+  ├── nav.js
+  ├── <span class="str">{content}</span>.html × N
+  └── highlights.html
+
+<span class="comment"># 业务背景（长期积累）</span>
+context/<span class="str">{主题}</span>.md             <span class="comment">← 产品背景 + 领域知识</span></div>
+
+      <h3 style="margin-top:24px;margin-bottom:16px;">协作模式</h3>
+      <table>
+        <thead><tr><th>模式</th><th>你做什么</th><th>AI 做什么</th></tr></thead>
+        <tbody>
+          <tr><td>维度拆解</td><td>指出「这两个不是同一维度，原因是…」</td><td>理解原则，找出所有同类问题一起拆</td></tr>
+          <tr><td>批量修正</td><td>「所有 emoji 改成 SVG 线性图标」</td><td>审计清单 → 批量替换 → 验证</td></tr>
+          <tr><td>内容填补</td><td>「对应旅程地图补全缺失触点」</td><td>自主 audit → 发现缺口 → 自动补充</td></tr>
+          <tr><td>结构重构</td><td>「拆成多文件，用跨文件导航」</td><td>设计架构 → 实现导航系统</td></tr>
+          <tr><td>合成升华</td><td>「基于所有分析，输出设计方案」</td><td>跨触点综合 → 提炼亮点 → 生成规格</td></tr>
+        </tbody>
+      </table>
+      <div class="callout" style="margin-top:16px;">
+        给「为什么」比给「怎么做」更有价值。AI 理解了判断原则，会举一反三处理所有同类问题。
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom:16px;">全部 10 个 Human-in-the-Loop 检查点</h3>
+  <table>
+    <thead>
+      <tr><th>检查点</th><th>位置</th><th>触发时机</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>⏸ 目标 + 视角确认</td><td>Stage 1.1 结束</td><td>复述目标与推断视角，等你确认或纠正</td></tr>
+      <tr><td>⏸ 范围确认</td><td>Stage 1.2 结束</td><td>展示竞品 + 场景 + 维度，等你增减</td></tr>
+      <tr><td>⏸ 规划确认</td><td>Stage 1.3 结束</td><td>展示完整规划，等你批准</td></tr>
+      <tr><td>⏸ 开始搜集确认</td><td>Stage 2 开始前</td><td>说明预计耗时，等你同意</td></tr>
+      <tr><td>⏸ 信息缺口决策</td><td>搜集遇到瓶颈</td><td>说明缺口 + 给处理选项，等你决定</td></tr>
+      <tr><td>⏸ 开始分析确认</td><td>Stage 3 开始前</td><td>汇报搜集摘要，等你确认</td></tr>
+      <tr><td>⏸ 报告审阅</td><td>Markdown 报告生成后</td><td>提供摘要，询问是否需要调整</td></tr>
+      <tr><td>⏸ 可视化前置检查</td><td>Stage 4 开始前</td><td>确认 Stage 3 产物是否就绪</td></tr>
+      <tr><td>⏸ 骨架 + 页面方案确认</td><td>Stage 4.1</td><td>展示骨架 + 页面方案，等你确认</td></tr>
+      <tr><td>⏸ 可视化交付审阅</td><td>Stage 4 完成后</td><td>提供文件清单，询问是否需要调整</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <div>竞品分析 Skill · 使用指南 · 2026-05</div>
+  <div style="color:var(--ink-3);">Skill 文件位于 <code>competitive-analysis-merged/</code></div>
+</footer>
+
+<script>
+  const copyIcon = `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+  const checkIcon = `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`;
+  function copyCode(id, btn) {
+    const el = document.getElementById(id);
+    const text = el.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.innerHTML = checkIcon;
+      btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = copyIcon; btn.classList.remove('copied'); }, 1800);
+    });
+  }
+
+</script>
+
+</body>
+</html>
