@@ -11,7 +11,17 @@
       "Bash(Select-Object FullName)",
       "Bash(start *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(gh api *)",
+      "PowerShell(gh api *)",
+      "PowerShell(git remote *)",
+      "WebFetch(domain:schihhsin.github.io)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Screen]::PrimaryScreen.Bounds)",
+      "PowerShell($chromePath = \"C:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\")",
+      "PowerShell($url = \"https://schihhsin.github.io/AnalysisSKILLS/skill-usage-guide.html\")",
+      "PowerShell($pdfFile = \"D:\\\\HW\\\\AnalysisSKILLS\\\\skill-usage-guide.pdf\")",
+      "PowerShell($tmpDir = \"C:\\\\Temp\\\\chrome-pdf-2\")"
     ]
   }
 }
