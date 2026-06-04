@@ -1,0 +1,227 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1660" viewBox="0 0 1280 1660" font-family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#d946ef"/>
+    </linearGradient>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4f46e5"/>
+      <stop offset="1" stop-color="#c026d3"/>
+    </linearGradient>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1f2937" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1280" height="1660" fill="#faf8f4"/>
+
+  <!-- ===== HEADER ===== -->
+  <rect x="40" y="36" width="1200" height="120" rx="18" fill="url(#hdr)"/>
+  <text x="72" y="92" fill="#ffffff" font-size="34" font-weight="700">竞品分析 Skill · 进展看板</text>
+  <text x="72" y="128" fill="#e9d5ff" font-size="18">Competitive-Analysis Skill — Progress Dashboard · 2026-06-04</text>
+  <rect x="980" y="64" width="232" height="64" rx="12" fill="#ffffff" opacity="0.16"/>
+  <text x="1096" y="98" fill="#ffffff" font-size="15" text-anchor="middle">阶段：实战打磨 + 对外推广期</text>
+  <text x="1096" y="118" fill="#f5d0fe" font-size="13" text-anchor="middle">方法论已成型 ✓</text>
+
+  <!-- ===== KPI ROW ===== -->
+  <g font-family="inherit">
+    <!-- card 1 -->
+    <rect x="40" y="186" width="288" height="120" rx="16" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="40" y="186" width="6" height="120" rx="3" fill="#6366f1"/>
+    <text x="68" y="232" fill="#6366f1" font-size="44" font-weight="800">3</text>
+    <text x="68" y="262" fill="#374151" font-size="16" font-weight="600">Skill 版本</text>
+    <text x="68" y="286" fill="#9ca3af" font-size="13">original · bufan · merged(主)</text>
+    <!-- card 2 -->
+    <rect x="344" y="186" width="288" height="120" rx="16" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="344" y="186" width="6" height="120" rx="3" fill="#d946ef"/>
+    <text x="372" y="232" fill="#d946ef" font-size="44" font-weight="800">4 + 10</text>
+    <text x="372" y="262" fill="#374151" font-size="16" font-weight="600">阶段 + HITL 检查点</text>
+    <text x="372" y="286" fill="#9ca3af" font-size="13">规划→搜集→分析→可视化</text>
+    <!-- card 3 -->
+    <rect x="648" y="186" width="288" height="120" rx="16" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="648" y="186" width="6" height="120" rx="3" fill="#10b981"/>
+    <text x="676" y="232" fill="#10b981" font-size="44" font-weight="800">5 × 10</text>
+    <text x="676" y="262" fill="#374151" font-size="16" font-weight="600">可视化骨架 × 模式</text>
+    <text x="676" y="286" fill="#9ca3af" font-size="13">S1–S5 视角 · P1–P10 表达</text>
+    <!-- card 4 -->
+    <rect x="952" y="186" width="288" height="120" rx="16" fill="#ffffff" filter="url(#sh)"/>
+    <rect x="952" y="186" width="6" height="120" rx="3" fill="#f59e0b"/>
+    <text x="980" y="232" fill="#f59e0b" font-size="44" font-weight="800">6</text>
+    <text x="980" y="262" fill="#374151" font-size="16" font-weight="600">实战报告 / 案例</text>
+    <text x="980" y="286" fill="#9ca3af" font-size="13">figma · aigc · cann · 芯片算子…</text>
+  </g>
+
+  <!-- ===== SECTION: 版本演进 ===== -->
+  <text x="40" y="356" fill="#1f2937" font-size="22" font-weight="700">▎三版融合演进路线</text>
+  <g font-family="inherit">
+    <!-- source A -->
+    <rect x="40" y="380" width="300" height="150" rx="16" fill="#ffffff" filter="url(#sh)"/>
+    <text x="60" y="412" fill="#6366f1" font-size="16" font-weight="700">original_skill · 时昕昱</text>
+    <text x="60" y="440" fill="#6b7280" font-size="13.5">5 阶段线性 · 专注 UX</text>
+    <text x="60" y="464" fill="#6b7280" font-size="13.5">强：HTML 视觉规格</text>
+    <text x="60" y="488" fill="#6b7280" font-size="13.5">强：TypeScript 开发规格</text>
+    <rect x="60" y="502" width="78" height="20" rx="10" fill="#eef2ff"/>
+    <text x="99" y="516" fill="#6366f1" font-size="12" text-anchor="middle">已冻结 · 源</text>
+
+    <!-- source B -->
+    <rect x="40" y="540" width="300" height="150" rx="16" fill="#ffffff" filter="url(#sh)"/>
+    <text x="60" y="572" fill="#d946ef" font-size="16" font-weight="700">bufan · 卜凡</text>
+    <text x="60" y="600" fill="#6b7280" font-size="13.5">4 阶段模块化 · 多视角</text>
+    <text x="60" y="624" fill="#6b7280" font-size="13.5">强：信息搜集方法论</text>
+    <text x="60" y="648" fill="#6b7280" font-size="13.5">强：流程控制 / 长期跟踪</text>
+    <rect x="60" y="662" width="78" height="20" rx="10" fill="#fdf4ff"/>
+    <text x="99" y="676" fill="#d946ef" font-size="12" text-anchor="middle">已冻结 · 源</text>
+
+    <!-- arrows -->
+    <path d="M340 455 C 400 455, 400 535, 470 535" stroke="#c7c2d8" stroke-width="3" fill="none"/>
+    <path d="M340 615 C 400 615, 400 535, 470 535" stroke="#c7c2d8" stroke-width="3" fill="none"/>
+    <polygon points="470,529 484,535 470,541" fill="#c7c2d8"/>
+
+    <!-- merged -->
+    <rect x="486" y="430" width="754" height="210" rx="18" fill="url(#brand)" filter="url(#sh)"/>
+    <rect x="486" y="430" width="754" height="210" rx="18" fill="#ffffff" opacity="0.06"/>
+    <text x="514" y="470" fill="#ffffff" font-size="20" font-weight="800">competitive-analysis-merged 　★ 主用版本</text>
+    <text x="514" y="500" fill="#f3e8ff" font-size="14">融合两版优点 · SKILL.md 27KB + references ×6</text>
+    <!-- feature chips -->
+    <g font-size="13" fill="#ffffff">
+      <rect x="514" y="520" width="160" height="30" rx="15" fill="#ffffff" opacity="0.18"/><text x="594" y="540" text-anchor="middle">4 阶段管道</text>
+      <rect x="686" y="520" width="160" height="30" rx="15" fill="#ffffff" opacity="0.18"/><text x="766" y="540" text-anchor="middle">10 个 HITL 检查点</text>
+      <rect x="858" y="520" width="160" height="30" rx="15" fill="#ffffff" opacity="0.18"/><text x="938" y="540" text-anchor="middle">意图路由 / 增量更新</text>
+      <rect x="1030" y="520" width="186" height="30" rx="15" fill="#ffffff" opacity="0.18"/><text x="1123" y="540" text-anchor="middle">5 视角骨架 S1–S5</text>
+      <rect x="514" y="560" width="200" height="30" rx="15" fill="#ffffff" opacity="0.18"/><text x="614" y="580" text-anchor="middle">截图视觉解析（新）</text>
+      <rect x="726" y="560" width="200" height="30" rx="15" fill="#ffffff" opacity="0.18"/><text x="826" y="580" text-anchor="middle">洞察草稿确认（新）</text>
+      <rect x="938" y="560" width="278" height="30" rx="15" fill="#ffffff" opacity="0.18"/><text x="1077" y="580" text-anchor="middle">浅色主题默认 + TS 开发规格</text>
+    </g>
+    <text x="514" y="616" fill="#f3e8ff" font-size="13">引用：analysis-frameworks · research-methodology · visualization-framework · verification-protocol · demo-conversations</text>
+  </g>
+
+  <!-- ===== SECTION: 4 阶段管道 ===== -->
+  <text x="40" y="704" fill="#1f2937" font-size="22" font-weight="700">▎4 阶段管道 · 成熟度</text>
+  <g font-family="inherit">
+    <!-- pipeline track -->
+    <g>
+      <!-- stage boxes -->
+      <rect x="40"  y="728" width="282" height="96" rx="14" fill="#ffffff" filter="url(#sh)"/>
+      <rect x="334" y="728" width="282" height="96" rx="14" fill="#ffffff" filter="url(#sh)"/>
+      <rect x="628" y="728" width="282" height="96" rx="14" fill="#ffffff" filter="url(#sh)"/>
+      <rect x="922" y="728" width="318" height="96" rx="14" fill="#ffffff" filter="url(#sh)"/>
+
+      <circle cx="74" cy="762" r="16" fill="#6366f1"/><text x="74" y="767" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">1</text>
+      <text x="102" y="760" fill="#1f2937" font-size="16" font-weight="700">规划</text>
+      <text x="102" y="784" fill="#6b7280" font-size="12.5">目标+视角·范围·规划</text>
+      <text x="102" y="806" fill="#10b981" font-size="12" font-weight="600">成熟 ✓</text>
+
+      <circle cx="368" cy="762" r="16" fill="#8b5cf6"/><text x="368" y="767" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">2</text>
+      <text x="396" y="760" fill="#1f2937" font-size="16" font-weight="700">搜集</text>
+      <text x="396" y="784" fill="#6b7280" font-size="12.5">搜索策略·截图解析</text>
+      <text x="396" y="806" fill="#10b981" font-size="12" font-weight="600">成熟 ✓</text>
+
+      <circle cx="662" cy="762" r="16" fill="#a855f7"/><text x="662" y="767" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">3</text>
+      <text x="690" y="760" fill="#1f2937" font-size="16" font-weight="700">分析</text>
+      <text x="690" y="784" fill="#6b7280" font-size="12.5">洞察闭环·草稿确认</text>
+      <text x="690" y="806" fill="#10b981" font-size="12" font-weight="600">成熟 ✓</text>
+
+      <circle cx="956" cy="762" r="16" fill="#d946ef"/><text x="956" y="767" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">4</text>
+      <text x="984" y="760" fill="#1f2937" font-size="16" font-weight="700">可视化（可选）</text>
+      <text x="984" y="784" fill="#6b7280" font-size="12.5">S1–S5 骨架 · P1–P10</text>
+      <text x="984" y="806" fill="#f59e0b" font-size="12" font-weight="600">骨架全 · Tech/Strategy demo 待补</text>
+
+      <!-- connectors -->
+      <polygon points="322,776 334,770 334,782" fill="#cbd5e1"/>
+      <polygon points="616,776 628,770 628,782" fill="#cbd5e1"/>
+      <polygon points="910,776 922,770 922,782" fill="#cbd5e1"/>
+    </g>
+  </g>
+
+  <!-- ===== SECTION: 模块完成度 ===== -->
+  <text x="40" y="884" fill="#1f2937" font-size="22" font-weight="700">▎模块完成度</text>
+  <g font-family="inherit" font-size="14">
+    <!-- rows -->
+    <!-- helper: track at x=320 width=720 -->
+    <g>
+      <text x="40" y="930" fill="#374151">融合主版本 SKILL</text>
+      <rect x="320" y="916" width="720" height="18" rx="9" fill="#ece9f5"/>
+      <rect x="320" y="916" width="720" height="18" rx="9" fill="#10b981"/>
+      <text x="1052" y="930" fill="#10b981" font-weight="700">100%</text>
+    </g>
+    <g>
+      <text x="40" y="966" fill="#374151">信息搜集方法论</text>
+      <rect x="320" y="952" width="720" height="18" rx="9" fill="#ece9f5"/>
+      <rect x="320" y="952" width="720" height="18" rx="9" fill="#10b981"/>
+      <text x="1052" y="966" fill="#10b981" font-weight="700">100%</text>
+    </g>
+    <g>
+      <text x="40" y="1002" fill="#374151">可视化框架（5骨架×10模式）</text>
+      <rect x="320" y="988" width="720" height="18" rx="9" fill="#ece9f5"/>
+      <rect x="320" y="988" width="648" height="18" rx="9" fill="#22c55e"/>
+      <text x="1052" y="1002" fill="#22c55e" font-weight="700">90%</text>
+    </g>
+    <g>
+      <text x="40" y="1038" fill="#374151">对外使用指南 / 交付物</text>
+      <rect x="320" y="1024" width="720" height="18" rx="9" fill="#ece9f5"/>
+      <rect x="320" y="1024" width="684" height="18" rx="9" fill="#22c55e"/>
+      <text x="1052" y="1038" fill="#22c55e" font-weight="700">95%</text>
+    </g>
+    <g>
+      <text x="40" y="1074" fill="#374151">实战案例覆盖（多视角）</text>
+      <rect x="320" y="1060" width="720" height="18" rx="9" fill="#ece9f5"/>
+      <rect x="320" y="1060" width="468" height="18" rx="9" fill="#f59e0b"/>
+      <text x="1052" y="1074" fill="#f59e0b" font-weight="700">65%</text>
+    </g>
+    <g>
+      <text x="40" y="1110" fill="#374151">增量跟踪机制（tracking）</text>
+      <rect x="320" y="1096" width="720" height="18" rx="9" fill="#ece9f5"/>
+      <rect x="320" y="1096" width="288" height="18" rx="9" fill="#f59e0b"/>
+      <text x="1052" y="1110" fill="#f59e0b" font-weight="700">40%</text>
+    </g>
+  </g>
+
+  <!-- ===== SECTION: 实战案例 + 交付物 ===== -->
+  <text x="40" y="1168" fill="#1f2937" font-size="22" font-weight="700">▎实战案例</text>
+  <g font-family="inherit" font-size="13.5">
+    <rect x="40" y="1188" width="380" height="58" rx="12" fill="#ffffff" filter="url(#sh)"/>
+    <text x="60" y="1214" fill="#1f2937" font-size="15" font-weight="700">figma-d2c</text>
+    <text x="60" y="1234" fill="#6b7280">D2C 工具对比 · md · UX/PM · 含截图源材料</text>
+    <rect x="436" y="1188" width="380" height="58" rx="12" fill="#ffffff" filter="url(#sh)"/>
+    <text x="456" y="1214" fill="#1f2937" font-size="15" font-weight="700">aigc-competitive-visual-v3</text>
+    <text x="456" y="1234" fill="#6b7280">AIGC 可视化报告 · html · 138KB</text>
+    <rect x="832" y="1188" width="408" height="58" rx="12" fill="#ffffff" filter="url(#sh)"/>
+    <text x="852" y="1214" fill="#1f2937" font-size="15" font-weight="700">cann / cli-analysis</text>
+    <text x="852" y="1234" fill="#6b7280">AI CLI 工具 · html · 最早手工报告（源）</text>
+
+    <rect x="40" y="1254" width="380" height="58" rx="12" fill="#ffffff" filter="url(#sh)"/>
+    <text x="60" y="1280" fill="#1f2937" font-size="15" font-weight="700">芯片算子领域</text>
+    <text x="60" y="1300" fill="#6b7280">垂直扩展 · 16 触点框架示范</text>
+    <rect x="436" y="1254" width="380" height="58" rx="12" fill="#ffffff" filter="url(#sh)"/>
+    <text x="456" y="1280" fill="#1f2937" font-size="15" font-weight="700">cockpit-user-journey</text>
+    <text x="456" y="1300" fill="#6b7280">用户旅程分析 · html · S1 体验旅程型</text>
+    <rect x="832" y="1254" width="408" height="58" rx="12" fill="#ffffff" filter="url(#sh)"/>
+    <text x="852" y="1280" fill="#1f2937" font-size="15" font-weight="700">visualization-framework-demo</text>
+    <text x="852" y="1300" fill="#6b7280">可视化框架演示页 · html · 67KB</text>
+  </g>
+
+  <text x="40" y="1356" fill="#1f2937" font-size="22" font-weight="700">▎对外交付（GitHub Pages）</text>
+  <g font-family="inherit" font-size="13.5">
+    <rect x="40" y="1376" width="1200" height="120" rx="16" fill="#ffffff" filter="url(#sh)"/>
+    <text x="64" y="1408" fill="#374151" font-size="14">schihhsin.github.io/AnalysisSKILLS — 使用指南三形态分发</text>
+    <g>
+      <rect x="64"  y="1424" width="180" height="48" rx="10" fill="#eef2ff"/><text x="154" y="1453" fill="#4f46e5" font-size="14" text-anchor="middle">usage-guide.html</text>
+      <rect x="260" y="1424" width="180" height="48" rx="10" fill="#eef2ff"/><text x="350" y="1453" fill="#4f46e5" font-size="14" text-anchor="middle">flat.html（流式）</text>
+      <rect x="456" y="1424" width="180" height="48" rx="10" fill="#fdf4ff"/><text x="546" y="1453" fill="#c026d3" font-size="14" text-anchor="middle">PDF ×3</text>
+      <rect x="652" y="1424" width="180" height="48" rx="10" fill="#fdf4ff"/><text x="742" y="1453" fill="#c026d3" font-size="14" text-anchor="middle">JPEG 长图</text>
+      <rect x="848" y="1424" width="392" height="48" rx="10" fill="#ecfdf5"/><text x="1044" y="1453" fill="#059669" font-size="14" text-anchor="middle">improvement-report.html（融合分析·深色主题）</text>
+    </g>
+  </g>
+
+  <!-- ===== NEXT STEPS ===== -->
+  <text x="40" y="1546" fill="#1f2937" font-size="22" font-weight="700">▎下一步建议</text>
+  <g font-family="inherit" font-size="14">
+    <rect x="40" y="1566" width="588" height="66" rx="12" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+    <text x="62" y="1594" fill="#9a3412" font-size="15" font-weight="700">① 补齐 S4 Tech / S5 Strategy 完整 demo</text>
+    <text x="62" y="1617" fill="#b45309">现有案例偏 UX/PM，技术与战略骨架缺独立样例</text>
+    <rect x="652" y="1566" width="588" height="66" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+    <text x="674" y="1594" fill="#1e40af" font-size="15" font-weight="700">② 跑通增量跟踪（tracking）闭环</text>
+    <text x="674" y="1617" fill="#2563eb">continue/增量更新已入 SKILL，待真实多轮样本验证</text>
+  </g>
+</svg>
