@@ -13,7 +13,7 @@
   <line x1="0" y1="150" x2="1280" y2="150" stroke="#E2E4E8" stroke-width="1"/>
   <rect x="40" y="43" width="64" height="64" rx="14" fill="#F1F3F5"/>
   <!-- 竞品分析图标：放大镜审视对比柱状图 -->
-  <g transform="translate(72,75)" stroke="#1532F5" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(72,75)" stroke="#2A323D" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <line x1="-10" y1="6" x2="6" y2="6"/>
     <line x1="-6" y1="6" x2="-6" y2="0" stroke-width="2.4"/>
     <line x1="0" y1="6" x2="0" y2="-5" stroke-width="2.4"/>
