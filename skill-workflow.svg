@@ -1,19 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="784" viewBox="0 0 1280 784" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
-  <defs>
-    <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#EDF0F4"/>
-      <stop offset="1" stop-color="#FAFBFC"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="1280" height="784" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="1280" height="720" fill="#FFFFFF"/>
 
   <!-- ===== HEADER ===== -->
-  <rect x="0" y="0" width="1280" height="150" fill="#FFFFFF"/>
-  <line x1="0" y1="150" x2="1280" y2="150" stroke="#E2E4E8" stroke-width="1"/>
-  <rect x="40" y="43" width="64" height="64" rx="14" fill="#F1F3F5"/>
+  <line x1="0" y1="128" x2="1280" y2="128" stroke="#E2E4E8" stroke-width="1"/>
+  <rect x="40" y="32" width="64" height="64" rx="14" fill="#F1F3F5"/>
   <!-- 竞品分析图标：放大镜审视对比柱状图 -->
-  <g transform="translate(70,73)" stroke="#2A323D" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(72,64)" stroke="#2A323D" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="0" cy="0" r="12.5"/>
     <line x1="-6" y1="5" x2="6" y2="5"/>
     <line x1="-3.5" y1="5" x2="-3.5" y2="1" stroke-width="2.4"/>
@@ -21,61 +13,61 @@
     <line x1="3.5" y1="5" x2="3.5" y2="-7" stroke-width="2.4"/>
     <line x1="9" y1="9" x2="16" y2="16" stroke-width="2.6"/>
   </g>
-  <text x="130" y="64" fill="#1B2430" font-size="23" font-weight="800">竞品分析 Skill 的完整工作过程：<tspan fill="#1532F5">规划 → 搜集 → 洞察 → 可视化</tspan> 四阶段流水线，</text>
-  <text x="130" y="102" fill="#1B2430" font-size="23" font-weight="800">从一句分析目标出发，逐步沉淀为<tspan fill="#1532F5">有据可查的洞察报告与可视化交付物</tspan>。</text>
+  <text x="130" y="56" fill="#1B2430" font-size="22" font-weight="800">竞品分析 Skill 的完整工作过程：<tspan fill="#1532F5">规划 → 搜集 → 洞察 → 可视化</tspan> 四阶段流水线，</text>
+  <text x="130" y="92" fill="#1B2430" font-size="22" font-weight="800">从一句分析目标出发，逐步沉淀为<tspan fill="#1532F5">有据可查的洞察报告与可视化交付物</tspan>。</text>
 
-  <!-- ================= ROWS ================= -->
-  <!-- row tops: 168 268 368 468 568 668 ; h=100 -->
+  <!-- ================= ROWS (16:9) ================= -->
+  <!-- normal row tops: 140 228 316 404 492 ; h=88 ; highlight: 600 -->
 
   <!-- divider lines between rows -->
   <g stroke="#E4E6EA" stroke-width="1" stroke-dasharray="1 4">
-    <line x1="40" y1="268" x2="1240" y2="268"/>
-    <line x1="40" y1="368" x2="1240" y2="368"/>
-    <line x1="40" y1="468" x2="1240" y2="468"/>
-    <line x1="40" y1="568" x2="1240" y2="568"/>
+    <line x1="40" y1="228" x2="1240" y2="228"/>
+    <line x1="40" y1="316" x2="1240" y2="316"/>
+    <line x1="40" y1="404" x2="1240" y2="404"/>
+    <line x1="40" y1="492" x2="1240" y2="492"/>
   </g>
 
   <!-- ROW 1 -->
-  <text x="84" y="232" fill="#C4C9D0" font-size="44" font-weight="400" text-anchor="middle">1</text>
-  <text x="148" y="212" fill="#1E2733" font-size="18.5" font-weight="700">意图路由</text>
-  <text x="148" y="238" fill="#1E2733" font-size="18.5" font-weight="700">接住用户需求</text>
-  <text x="468" y="210" fill="#525B68" font-size="15">解析指令 <tspan font-weight="700" fill="#2A323D">new / continue / visualize / query / fast</tspan>，识别本次意图。</text>
-  <text x="468" y="236" fill="#525B68" font-size="15">判断是新建分析、恢复中断，还是对已有报告做增量更新。</text>
+  <text x="84" y="196" fill="#C4C9D0" font-size="42" font-weight="400" text-anchor="middle">1</text>
+  <text x="148" y="178" fill="#1E2733" font-size="18" font-weight="700">意图路由</text>
+  <text x="148" y="203" fill="#1E2733" font-size="18" font-weight="700">接住用户需求</text>
+  <text x="468" y="176" fill="#525B68" font-size="15">解析指令 <tspan font-weight="700" fill="#2A323D">new / continue / visualize / query / fast</tspan>，识别本次意图。</text>
+  <text x="468" y="201" fill="#525B68" font-size="15">判断是新建分析、恢复中断，还是对已有报告做增量更新。</text>
 
   <!-- ROW 2 -->
-  <text x="84" y="332" fill="#C4C9D0" font-size="44" font-weight="400" text-anchor="middle">2</text>
-  <text x="148" y="312" fill="#1E2733" font-size="18.5" font-weight="700">明确目标</text>
-  <text x="148" y="338" fill="#1E2733" font-size="18.5" font-weight="700">锁定分析视角</text>
-  <text x="468" y="310" fill="#525B68" font-size="15">复述用户的决策目标，推断 <tspan font-weight="700" fill="#2A323D">UX / PM / UI / Tech / Strategy</tspan> 主视角。</text>
-  <text x="468" y="336" fill="#525B68" font-size="15">此后分析维度、报告骨架、对比表行维度<tspan font-weight="700" fill="#2A323D">全程跟随该视角</tspan>。</text>
+  <text x="84" y="284" fill="#C4C9D0" font-size="42" font-weight="400" text-anchor="middle">2</text>
+  <text x="148" y="266" fill="#1E2733" font-size="18" font-weight="700">明确目标</text>
+  <text x="148" y="291" fill="#1E2733" font-size="18" font-weight="700">锁定分析视角</text>
+  <text x="468" y="264" fill="#525B68" font-size="15">复述用户的决策目标，推断 <tspan font-weight="700" fill="#2A323D">UX / PM / UI / Tech / Strategy</tspan> 主视角。</text>
+  <text x="468" y="289" fill="#525B68" font-size="15">此后分析维度、报告骨架、对比表行维度<tspan font-weight="700" fill="#2A323D">全程跟随该视角</tspan>。</text>
 
   <!-- ROW 3 -->
-  <text x="84" y="432" fill="#C4C9D0" font-size="44" font-weight="400" text-anchor="middle">3</text>
-  <text x="148" y="412" fill="#1E2733" font-size="18.5" font-weight="700">圈定范围</text>
-  <text x="148" y="438" fill="#1E2733" font-size="18.5" font-weight="700">生成分析规划</text>
-  <text x="468" y="410" fill="#525B68" font-size="15">给出竞品名单（<tspan font-weight="700" fill="#2A323D">直接竞品 + 跨行业体验标杆</tspan>）、核心场景、≤ 5 个分析维度。</text>
-  <text x="468" y="436" fill="#525B68" font-size="15">整合为完整规划，存入 <tspan font-weight="700" fill="#2A323D">tracking/</tspan>，并预估耗时。</text>
+  <text x="84" y="372" fill="#C4C9D0" font-size="42" font-weight="400" text-anchor="middle">3</text>
+  <text x="148" y="354" fill="#1E2733" font-size="18" font-weight="700">圈定范围</text>
+  <text x="148" y="379" fill="#1E2733" font-size="18" font-weight="700">生成分析规划</text>
+  <text x="468" y="352" fill="#525B68" font-size="15">给出竞品名单（<tspan font-weight="700" fill="#2A323D">直接竞品 + 跨行业体验标杆</tspan>）、核心场景、≤ 5 个分析维度。</text>
+  <text x="468" y="377" fill="#525B68" font-size="15">整合为完整规划，存入 <tspan font-weight="700" fill="#2A323D">tracking/</tspan>，并预估耗时。</text>
 
   <!-- ROW 4 -->
-  <text x="84" y="532" fill="#C4C9D0" font-size="44" font-weight="400" text-anchor="middle">4</text>
-  <text x="148" y="512" fill="#1E2733" font-size="18.5" font-weight="700">多源搜集</text>
-  <text x="148" y="538" fill="#1E2733" font-size="18.5" font-weight="700">留存图文证据</text>
-  <text x="468" y="510" fill="#525B68" font-size="15"><tspan font-weight="700" fill="#2A323D">官方一手 &gt; 权威评测 &gt; UGC</tspan> 多源交叉核查；浏览器截图采集后做多模态视觉解析。</text>
-  <text x="468" y="536" fill="#525B68" font-size="15">确认是真实 UI，素材落到 <tspan font-weight="700" fill="#2A323D">materials/</tspan>，遇信息缺口主动给出替代方案。</text>
+  <text x="84" y="460" fill="#C4C9D0" font-size="42" font-weight="400" text-anchor="middle">4</text>
+  <text x="148" y="442" fill="#1E2733" font-size="18" font-weight="700">多源搜集</text>
+  <text x="148" y="467" fill="#1E2733" font-size="18" font-weight="700">留存图文证据</text>
+  <text x="468" y="440" fill="#525B68" font-size="15"><tspan font-weight="700" fill="#2A323D">官方一手 &gt; 权威评测 &gt; UGC</tspan> 多源交叉核查；浏览器截图采集后做多模态视觉解析。</text>
+  <text x="468" y="465" fill="#525B68" font-size="15">确认是真实 UI，素材落到 <tspan font-weight="700" fill="#2A323D">materials/</tspan>，遇信息缺口主动给出替代方案。</text>
 
   <!-- ROW 5 -->
-  <text x="84" y="632" fill="#C4C9D0" font-size="44" font-weight="400" text-anchor="middle">5</text>
-  <text x="148" y="612" fill="#1E2733" font-size="18.5" font-weight="700">洞察分析</text>
-  <text x="148" y="638" fill="#1E2733" font-size="18.5" font-weight="700">提炼核心洞察</text>
-  <text x="468" y="610" fill="#525B68" font-size="15">用户旅程地图 + SWOT + 差距矩阵；每条洞察含 <tspan font-weight="700" fill="#2A323D">证据 / 分析 / 建议</tspan>。</text>
-  <text x="468" y="636" fill="#525B68" font-size="15">提炼最重要的洞察方向，形成结构化分析结论（中间产物，留待可视化）。</text>
+  <text x="84" y="548" fill="#C4C9D0" font-size="42" font-weight="400" text-anchor="middle">5</text>
+  <text x="148" y="530" fill="#1E2733" font-size="18" font-weight="700">洞察分析</text>
+  <text x="148" y="555" fill="#1E2733" font-size="18" font-weight="700">提炼核心洞察</text>
+  <text x="468" y="528" fill="#525B68" font-size="15">用户旅程地图 + SWOT + 差距矩阵；每条洞察含 <tspan font-weight="700" fill="#2A323D">证据 / 分析 / 建议</tspan>。</text>
+  <text x="468" y="553" fill="#525B68" font-size="15">提炼最重要的洞察方向，形成结构化分析结论（中间产物，留待可视化）。</text>
 
   <!-- ROW 6 (HIGHLIGHT) -->
-  <rect x="0" y="668" width="1280" height="116" fill="#F7CE46"/>
-  <text x="84" y="738" fill="#7A5800" font-size="44" font-weight="700" text-anchor="middle">6</text>
-  <text x="148" y="714" fill="#1532F5" font-size="18.5" font-weight="800">可视化 HTML 报告</text>
-  <text x="148" y="740" fill="#1532F5" font-size="18.5" font-weight="800">核心交付成果</text>
-  <text x="468" y="706" fill="#2A2300" font-size="15"><tspan font-weight="800">把分析结论做成可视化网页 —— Skill 最有价值的产出：</tspan>按视角自动选骨架 <tspan font-weight="800">S1–S5</tspan>，</text>
-  <text x="468" y="732" fill="#2A2300" font-size="15">生成多页楼层 + Snap Scroll + Mockup 变体的 HTML 报告，质量自审后交付。</text>
-  <text x="468" y="758" fill="#5A4400" font-size="14.5">评审 / 汇报 / 对外分享 / 长期资产都靠这一份网页版报告。</text>
+  <rect x="0" y="600" width="1280" height="120" fill="#F7CE46"/>
+  <text x="84" y="676" fill="#1532F5" font-size="44" font-weight="700" text-anchor="middle">6</text>
+  <text x="148" y="652" fill="#1532F5" font-size="18" font-weight="800">可视化 HTML 报告</text>
+  <text x="148" y="678" fill="#1532F5" font-size="18" font-weight="800">核心交付成果</text>
+  <text x="468" y="644" fill="#2A2300" font-size="15"><tspan font-weight="800">把分析结论做成可视化网页 —— Skill 最有价值的产出：</tspan>按视角自动选骨架 <tspan font-weight="800">S1–S5</tspan>，</text>
+  <text x="468" y="670" fill="#2A2300" font-size="15">生成多页楼层 + Snap Scroll + Mockup 变体的 HTML 报告，质量自审后交付。</text>
+  <text x="468" y="696" fill="#5A4400" font-size="14.5">评审 / 汇报 / 对外分享 / 长期资产都靠这一份网页版报告。</text>
 </svg>
