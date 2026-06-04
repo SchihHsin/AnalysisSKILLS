@@ -58,16 +58,16 @@
   <!-- ROW 5 -->
   <text x="84" y="632" fill="#C4C9D0" font-size="44" font-weight="400" text-anchor="middle">5</text>
   <text x="148" y="612" fill="#1E2733" font-size="18.5" font-weight="700">洞察分析</text>
-  <text x="148" y="638" fill="#1E2733" font-size="18.5" font-weight="700">产出 MD 报告</text>
+  <text x="148" y="638" fill="#1E2733" font-size="18.5" font-weight="700">提炼核心洞察</text>
   <text x="468" y="610" fill="#525B68" font-size="15">用户旅程地图 + SWOT + 差距矩阵；每条洞察含 <tspan font-weight="700" fill="#2A323D">证据 / 分析 / 建议</tspan>。</text>
-  <text x="468" y="636" fill="#525B68" font-size="15">提炼最重要的洞察方向，展开写成完整 Markdown 报告。</text>
+  <text x="468" y="636" fill="#525B68" font-size="15">提炼最重要的洞察方向，形成结构化分析结论（中间产物，留待可视化）。</text>
 
   <!-- ROW 6 (HIGHLIGHT) -->
   <rect x="0" y="668" width="1280" height="116" fill="#F4A800"/>
   <text x="84" y="738" fill="#7A5800" font-size="44" font-weight="700" text-anchor="middle">6</text>
-  <text x="148" y="714" fill="#16347F" font-size="18.5" font-weight="800">可视化报告</text>
-  <text x="148" y="740" fill="#16347F" font-size="18.5" font-weight="800">对外交付成果</text>
-  <text x="468" y="706" fill="#2A2300" font-size="15"><tspan font-weight="800">可选阶段 · 最终成果交付：</tspan>按 Stage 1 视角自动选骨架 <tspan font-weight="800">S1–S5</tspan>，</text>
+  <text x="148" y="714" fill="#16347F" font-size="18.5" font-weight="800">可视化 HTML 报告</text>
+  <text x="148" y="740" fill="#16347F" font-size="18.5" font-weight="800">核心交付成果</text>
+  <text x="468" y="706" fill="#2A2300" font-size="15"><tspan font-weight="800">把分析结论做成可视化网页 —— Skill 最有价值的产出：</tspan>按视角自动选骨架 <tspan font-weight="800">S1–S5</tspan>，</text>
   <text x="468" y="732" fill="#2A2300" font-size="15">生成多页楼层 + Snap Scroll + Mockup 变体的 HTML 报告，质量自审后交付。</text>
-  <text x="468" y="758" fill="#5A4400" font-size="14.5">用于对外展示 / 评审 / 长期资产时才做；不需要可直接停在第 5 步的 Markdown 报告。</text>
+  <text x="468" y="758" fill="#5A4400" font-size="14.5">评审 / 汇报 / 对外分享 / 长期资产都靠这一份网页版报告。</text>
 </svg>
