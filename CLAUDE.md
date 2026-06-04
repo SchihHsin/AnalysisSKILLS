@@ -16,7 +16,7 @@ AnalysisSKILLS/
 ├── competitive-analysis-bufan/   # 另一位同学（卜凡）独立开发的 Skill
 │   ├── SKILL.md
 │   └── references/               # 方法论拆分存放（搜集/分析/可视化/核查）
-├── competitive-analysis-merged/  # 融合优化后的版本（主要使用这个）
+├── competitive-analysis/  # 融合优化后的版本（主要使用这个）
 │   ├── SKILL.md
 │   └── references/
 │       └── guizang-ppt-skill/    # 内置的横向翻页 PPT skill（Stage 4 形态 B 调用）
@@ -27,7 +27,7 @@ AnalysisSKILLS/
 
 ## 主要使用版本
 
-**`competitive-analysis-merged/`** 是融合后的主版本，融合了两个版本的优点：
+**`competitive-analysis/`** 是融合后的主版本，融合了两个版本的优点：
 
 - **流程结构**：来自 competitive-analysis-bufan 的 4 阶段管道（规划→搜集→分析→可视化），有完整的 Human-in-the-Loop 检查点
 - **视角选择**：Stage 1 显性确认分析视角（UX/PM/UI/Tech/Strategy），贯穿全程
@@ -74,7 +74,7 @@ PPT 路径不自己手写，直接调 guizang-ppt-skill 的模板（`assets/temp
 - **四个阶段**：Stage 1 规划 → Stage 2 搜集 → Stage 3 分析 → Stage 4 可视化，含全部 10 个 Human-in-the-Loop 检查点
 - **五种分析视角**：UX / PM / UI / Tech / Strategy，各自对应的分析维度和报告骨架类型
 
-**维护规则**：对 `competitive-analysis-merged/` 下的 Skill 内容有任何变动，必须同步更新 `skill-usage-guide.html`。
+**维护规则**：对 `competitive-analysis/` 下的 Skill 内容有任何变动，必须同步更新 `skill-usage-guide.html`。
 
 ## 融合分析报告（skill-improvement-report.html）
 
