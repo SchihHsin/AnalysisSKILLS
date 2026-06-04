@@ -71,7 +71,7 @@
   <text x="468" y="636" fill="#525B68" font-size="15">提炼最重要的洞察方向，形成结构化分析结论（中间产物，留待可视化）。</text>
 
   <!-- ROW 6 (HIGHLIGHT) -->
-  <rect x="0" y="668" width="1280" height="116" fill="#F4A800"/>
+  <rect x="0" y="668" width="1280" height="116" fill="#F7CE46"/>
   <text x="84" y="738" fill="#7A5800" font-size="44" font-weight="700" text-anchor="middle">6</text>
   <text x="148" y="714" fill="#16347F" font-size="18.5" font-weight="800">可视化 HTML 报告</text>
   <text x="148" y="740" fill="#16347F" font-size="18.5" font-weight="800">核心交付成果</text>
