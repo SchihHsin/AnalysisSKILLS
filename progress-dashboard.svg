@@ -1,11 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="812" viewBox="0 0 720 812" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
-  <defs>
-    <marker id="aht" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#B8412C"/>
-    </marker>
-  </defs>
-
-  <rect width="720" height="812" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="672" viewBox="0 0 720 672" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="720" height="672" fill="#FFFFFF"/>
 
   <!-- ===== HEADER ===== -->
   <text x="48" y="46" fill="#141414" font-size="20" font-weight="700">竞品分析 Skill · 推进流程</text>
@@ -79,22 +73,5 @@
     <text x="186" y="595" fill="#141414" font-size="15" font-weight="700">录制使用视频</text>
     <text x="186" y="615" fill="#9A9A9A" font-size="12">按文档走查全流程 · 录屏 + 讲解</text>
     <text x="636" y="595" fill="#8C8C8C" font-size="11.5" text-anchor="end">✓ 已完成</text>
-  </g>
-
-  <!-- ===== BRANCH to 待办支线 ===== -->
-  <path d="M126,612 L126,658 L162,658" fill="none" stroke="#B8412C" stroke-width="1.3" stroke-dasharray="4 4" marker-end="url(#aht)"/>
-  <text x="186" y="662" fill="#141414" font-size="13.5" font-weight="700">后续优化 · 待办支线</text>
-
-  <!-- 2 TODO ITEMS -->
-  <g>
-    <rect x="182" y="682" width="478" height="48" rx="8" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="1.2"/>
-    <text x="202" y="711" fill="#B8412C" font-size="13.5" font-weight="800">01</text>
-    <text x="230" y="705" fill="#141414" font-size="13" font-weight="700">补 S4 / S5 视角 demo</text>
-    <text x="230" y="722" fill="#9A9A9A" font-size="11.5">技术架构型 / 竞争格局型各出一份完整样例</text>
-
-    <rect x="182" y="742" width="478" height="48" rx="8" fill="#FFFFFF" stroke="#E5E5E5" stroke-width="1.2"/>
-    <text x="202" y="771" fill="#B8412C" font-size="13.5" font-weight="800">02</text>
-    <text x="230" y="765" fill="#141414" font-size="13" font-weight="700">跑通增量跟踪闭环</text>
-    <text x="230" y="782" fill="#9A9A9A" font-size="11.5">真实样本验证 continue 的 diff 工作流</text>
   </g>
 </svg>
