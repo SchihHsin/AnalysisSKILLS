@@ -13,8 +13,8 @@
     <line x1="3.5" y1="5" x2="3.5" y2="-7" stroke-width="2.4"/>
     <line x1="9" y1="9" x2="16" y2="16" stroke-width="2.6"/>
   </g>
-  <text x="130" y="56" fill="#1B2430" font-size="22" font-weight="400">竞品分析 Skill 的完整工作过程：<tspan fill="#1532F5">规划 → 搜集 → 洞察 → 可视化</tspan> 四阶段流水线，</text>
-  <text x="130" y="92" fill="#1B2430" font-size="22" font-weight="400">从一句分析目标出发，逐步沉淀为<tspan fill="#1532F5">有据可查的洞察报告与可视化交付物</tspan>。</text>
+  <text x="130" y="56" fill="#1B2430" font-size="22" font-weight="400">竞品分析 Skill 的完整工作过程：<tspan font-weight="700" fill="#1532F5">规划 → 搜集 → 洞察 → 可视化</tspan><tspan font-weight="700"> 四阶段流水线，</tspan></text>
+  <text x="130" y="92" fill="#1B2430" font-size="22" font-weight="700">从一句分析目标出发，逐步沉淀为<tspan fill="#1532F5">有据可查的洞察报告与可视化交付物</tspan>。</text>
 
   <!-- ================= ROWS (16:9) ================= -->
   <!-- normal row tops: 140 228 316 404 492 ; h=88 ; highlight: 600 -->
