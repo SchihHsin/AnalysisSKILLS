@@ -1,53 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="708" viewBox="0 0 760 708" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
-  <rect width="760" height="708" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="602" viewBox="0 0 760 602" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="760" height="602" fill="#FFFFFF"/>
 
   <!-- ===== PHASE BLOCKS (outer) ===== -->
   <g fill="#FFFFFF" stroke="#E6E6E6" stroke-width="1.2">
-    <rect x="32" y="12"  width="696" height="178" rx="16"/>
-    <rect x="32" y="204" width="696" height="178" rx="16"/>
-    <rect x="32" y="396" width="696" height="106" rx="16"/>
-    <rect x="32" y="516" width="696" height="178" rx="16"/>
+    <rect x="32" y="12"  width="696" height="152" rx="16"/>
+    <rect x="32" y="178" width="696" height="152" rx="16"/>
+    <rect x="32" y="344" width="696" height="80"  rx="16"/>
+    <rect x="32" y="438" width="696" height="152" rx="16"/>
   </g>
 
   <!-- ===== LEFT LABEL PANELS (shaded) ===== -->
   <g fill="#ECEDF0">
-    <path d="M116,12  L48,12  Q32,12 32,28  L32,174 Q32,190 48,190 L116,190 Z"/>
-    <path d="M116,204 L48,204 Q32,204 32,220 L32,366 Q32,382 48,382 L116,382 Z"/>
-    <path d="M116,396 L48,396 Q32,396 32,412 L32,486 Q32,502 48,502 L116,502 Z"/>
-    <path d="M116,516 L48,516 Q32,516 32,532 L32,678 Q32,694 48,694 L116,694 Z"/>
+    <path d="M116,12  L48,12  Q32,12  32,28  L32,148 Q32,164 48,164 L116,164 Z"/>
+    <path d="M116,178 L48,178 Q32,178 32,194 L32,314 Q32,330 48,330 L116,330 Z"/>
+    <path d="M116,344 L48,344 Q32,344 32,360 L32,408 Q32,424 48,424 L116,424 Z"/>
+    <path d="M116,438 L48,438 Q32,438 32,454 L32,574 Q32,590 48,590 L116,590 Z"/>
   </g>
   <g fill="#3A3A3A" font-size="13" font-weight="700" text-anchor="middle">
-    <text x="74" y="105">形成</text>
-    <text x="74" y="297">能力<tspan x="74" dy="18">建设</tspan></text>
-    <text x="74" y="453">验证</text>
-    <text x="74" y="609">推广</text>
+    <text x="74" y="92">形成</text>
+    <text x="74" y="250">能力<tspan x="74" dy="18">建设</tspan></text>
+    <text x="74" y="388">验证</text>
+    <text x="74" y="518">推广</text>
   </g>
 
   <!-- ===== TIMELINE SPINE (within blocks) ===== -->
   <g stroke="#D9D9D9" stroke-width="2" stroke-linecap="round">
-    <line x1="156" y1="104" x2="156" y2="128"/>
-    <line x1="156" y1="296" x2="156" y2="320"/>
-    <line x1="156" y1="608" x2="156" y2="632"/>
+    <line x1="156" y1="76"  x2="156" y2="100"/>
+    <line x1="156" y1="242" x2="156" y2="266"/>
+    <line x1="156" y1="502" x2="156" y2="526"/>
   </g>
 
   <!-- ================= NODES ================= -->
 
-  <!-- NODE 1  T=56 cy=80 -->
-  <rect x="132" y="56" width="48" height="48" rx="12" fill="#F4F5F7"/>
-  <g transform="translate(156,80)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- NODE 1  T=28 cy=52 -->
+  <rect x="132" y="28" width="48" height="48" rx="12" fill="#F4F5F7"/>
+  <g transform="translate(156,52)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <rect x="-11" y="-9" width="22" height="18" rx="3"/>
     <polyline points="-7,-3 -3.5,0 -7,3"/>
     <line x1="-1" y1="4" x2="5" y2="4"/>
   </g>
-  <circle cx="132" cy="56" r="11" fill="#141414"/>
-  <text x="132" y="60" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">1</text>
-  <text x="204" y="75" fill="#141414" font-size="15.5" font-weight="700">基于实际业务 AI CLI 竞品分析跑通后建立 Skill</text>
-  <text x="204" y="95" fill="#8C8C8C" font-size="11.5">original_report(AI CLI 竞品分析)→ original_skill 第一版</text>
-  <g transform="translate(696,80)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="132" cy="28" r="11" fill="#141414"/>
+  <text x="132" y="32" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">1</text>
+  <text x="204" y="47" fill="#141414" font-size="15.5" font-weight="700">基于实际业务 AI CLI 竞品分析跑通后建立 Skill</text>
+  <text x="204" y="67" fill="#8C8C8C" font-size="11.5">original_report(AI CLI 竞品分析)→ original_skill 第一版</text>
+  <g transform="translate(696,52)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
 
-  <!-- NODE 2  T=128 cy=152 -->
-  <rect x="132" y="128" width="48" height="48" rx="12" fill="#F4F5F7"/>
-  <g transform="translate(156,152)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- NODE 2  T=100 cy=124 -->
+  <rect x="132" y="100" width="48" height="48" rx="12" fill="#F4F5F7"/>
+  <g transform="translate(156,124)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <line x1="-8" y1="-8" x2="0" y2="0"/>
     <line x1="8" y1="-8" x2="0" y2="0"/>
     <line x1="0" y1="0" x2="0" y2="9"/>
@@ -55,75 +55,75 @@
     <circle cx="8" cy="-8" r="1.8" fill="#141414" stroke="none"/>
     <circle cx="0" cy="9" r="1.8" fill="#141414" stroke="none"/>
   </g>
-  <circle cx="132" cy="128" r="11" fill="#141414"/>
-  <text x="132" y="132" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">2</text>
-  <text x="204" y="147" fill="#141414" font-size="15.5" font-weight="700">方法论两版融合</text>
-  <text x="204" y="167" fill="#8C8C8C" font-size="11.5">xinyu:HTML 可视化规格 + bufan:流程与搜集方法论</text>
-  <g transform="translate(696,152)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="132" cy="100" r="11" fill="#141414"/>
+  <text x="132" y="104" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">2</text>
+  <text x="204" y="119" fill="#141414" font-size="15.5" font-weight="700">方法论两版融合</text>
+  <text x="204" y="139" fill="#8C8C8C" font-size="11.5">xinyu:HTML 可视化规格 + bufan:流程与搜集方法论</text>
+  <g transform="translate(696,124)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
 
-  <!-- NODE 3  T=248 cy=272 -->
-  <rect x="132" y="248" width="48" height="48" rx="12" fill="#F4F5F7"/>
-  <g transform="translate(156,272)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- NODE 3  T=194 cy=218 -->
+  <rect x="132" y="194" width="48" height="48" rx="12" fill="#F4F5F7"/>
+  <g transform="translate(156,218)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <line x1="-10" y1="8" x2="10" y2="8"/>
     <line x1="-6" y1="8" x2="-6" y2="1" stroke-width="2.4"/>
     <line x1="0" y1="8" x2="0" y2="-3" stroke-width="2.4"/>
     <line x1="6" y1="8" x2="6" y2="-7" stroke-width="2.4"/>
   </g>
-  <circle cx="132" cy="248" r="11" fill="#141414"/>
-  <text x="132" y="252" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">3</text>
-  <text x="204" y="267" fill="#141414" font-size="15.5" font-weight="700">可视化完整体系建立</text>
-  <text x="204" y="287" fill="#8C8C8C" font-size="11.5">5 视角骨架 S1–S5 × 10 表达模式 P1–P10</text>
-  <g transform="translate(696,272)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="132" cy="194" r="11" fill="#141414"/>
+  <text x="132" y="198" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">3</text>
+  <text x="204" y="213" fill="#141414" font-size="15.5" font-weight="700">可视化完整体系建立</text>
+  <text x="204" y="233" fill="#8C8C8C" font-size="11.5">5 视角骨架 S1–S5 × 10 表达模式 P1–P10</text>
+  <g transform="translate(696,218)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
 
-  <!-- NODE 4  T=320 cy=344 -->
-  <rect x="132" y="320" width="48" height="48" rx="12" fill="#F4F5F7"/>
-  <g transform="translate(156,344)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- NODE 4  T=266 cy=290 -->
+  <rect x="132" y="266" width="48" height="48" rx="12" fill="#F4F5F7"/>
+  <g transform="translate(156,290)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="-4,-7 -2,-11 4,-11 6,-7"/>
     <rect x="-11" y="-7" width="22" height="16" rx="3"/>
     <circle cx="0" cy="1" r="4.5"/>
   </g>
-  <circle cx="132" cy="320" r="11" fill="#141414"/>
-  <text x="132" y="324" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">4</text>
-  <text x="204" y="339" fill="#141414" font-size="15.5" font-weight="700">视觉素材采集能力增强</text>
-  <text x="204" y="359" fill="#8C8C8C" font-size="11.5">图文采集协议 · 浏览器截图采集 · 多模态视觉核查</text>
-  <g transform="translate(696,344)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="132" cy="266" r="11" fill="#141414"/>
+  <text x="132" y="270" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">4</text>
+  <text x="204" y="285" fill="#141414" font-size="15.5" font-weight="700">视觉素材采集能力增强</text>
+  <text x="204" y="305" fill="#8C8C8C" font-size="11.5">图文采集协议 · 浏览器截图采集 · 多模态视觉核查</text>
+  <g transform="translate(696,290)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
 
-  <!-- NODE 5  T=440 cy=464 -->
-  <rect x="132" y="440" width="48" height="48" rx="12" fill="#F4F5F7"/>
-  <g transform="translate(156,464)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- NODE 5  T=360 cy=384 -->
+  <rect x="132" y="360" width="48" height="48" rx="12" fill="#F4F5F7"/>
+  <g transform="translate(156,384)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <rect x="-9" y="-10" width="18" height="22" rx="3"/>
     <rect x="-4" y="-13" width="8" height="5" rx="1.5"/>
     <polyline points="-5,1 -1,5 6,-4"/>
   </g>
-  <circle cx="132" cy="440" r="11" fill="#141414"/>
-  <text x="132" y="444" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">5</text>
-  <text x="204" y="459" fill="#141414" font-size="15.5" font-weight="700">实战案例验证</text>
-  <text x="204" y="479" fill="#8C8C8C" font-size="11.5">6 个案例跑通 · md / html 两类产出</text>
-  <g transform="translate(696,464)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="132" cy="360" r="11" fill="#141414"/>
+  <text x="132" y="364" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">5</text>
+  <text x="204" y="379" fill="#141414" font-size="15.5" font-weight="700">实战案例验证</text>
+  <text x="204" y="399" fill="#8C8C8C" font-size="11.5">6 个案例跑通 · md / html 两类产出</text>
+  <g transform="translate(696,384)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
 
-  <!-- NODE 6  T=560 cy=584 -->
-  <rect x="132" y="560" width="48" height="48" rx="12" fill="#F4F5F7"/>
-  <g transform="translate(156,584)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- NODE 6  T=454 cy=478 -->
+  <rect x="132" y="454" width="48" height="48" rx="12" fill="#F4F5F7"/>
+  <g transform="translate(156,478)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M-9,-11 L3,-11 L7,-7 L7,11 L-9,11 Z"/>
     <polyline points="3,-11 3,-7 7,-7"/>
     <line x1="-5" y1="-1" x2="4" y2="-1"/>
     <line x1="-5" y1="4" x2="4" y2="4"/>
   </g>
-  <circle cx="132" cy="560" r="11" fill="#141414"/>
-  <text x="132" y="564" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">6</text>
-  <text x="204" y="579" fill="#141414" font-size="15.5" font-weight="700">使用说明文档</text>
-  <text x="204" y="599" fill="#8C8C8C" font-size="11.5">形成 md 说明文档 → 形成 html 使用说明网页</text>
-  <g transform="translate(696,584)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="132" cy="454" r="11" fill="#141414"/>
+  <text x="132" y="458" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">6</text>
+  <text x="204" y="473" fill="#141414" font-size="15.5" font-weight="700">使用说明文档</text>
+  <text x="204" y="493" fill="#8C8C8C" font-size="11.5">形成 md 说明文档 → 形成 html 使用说明网页</text>
+  <g transform="translate(696,478)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
 
-  <!-- NODE 7  T=632 cy=656 -->
-  <rect x="132" y="632" width="48" height="48" rx="12" fill="#F4F5F7"/>
-  <g transform="translate(156,656)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- NODE 7  T=526 cy=550 -->
+  <rect x="132" y="526" width="48" height="48" rx="12" fill="#F4F5F7"/>
+  <g transform="translate(156,550)" stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <rect x="-11" y="-9" width="22" height="18" rx="3"/>
     <polygon points="-3,-4 -3,4 4,0" fill="#141414" stroke="none"/>
   </g>
-  <circle cx="132" cy="632" r="11" fill="#141414"/>
-  <text x="132" y="636" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">7</text>
-  <text x="204" y="651" fill="#141414" font-size="15.5" font-weight="700">录制教程视频</text>
-  <text x="204" y="671" fill="#8C8C8C" font-size="11.5">按文档走查全流程 · 录屏 + 讲解</text>
-  <g transform="translate(696,656)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="132" cy="526" r="11" fill="#141414"/>
+  <text x="132" y="530" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">7</text>
+  <text x="204" y="545" fill="#141414" font-size="15.5" font-weight="700">录制教程视频</text>
+  <text x="204" y="565" fill="#8C8C8C" font-size="11.5">按文档走查全流程 · 录屏 + 讲解</text>
+  <g transform="translate(696,550)"><circle r="11" fill="#F4F5F7"/><polyline points="-4.5,0 -1.5,3.5 4.5,-4" fill="none" stroke="#6B6B6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
 </svg>
