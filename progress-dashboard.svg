@@ -19,8 +19,8 @@
     <text x="124" y="47" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">1</text>
     <rect x="160" y="16" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
     <rect x="168" y="29" width="4" height="26" rx="2" fill="#3F6E8C"/>
-    <text x="184" y="39" fill="#141414" font-size="14.5" font-weight="700">基于业务 CLI 竞品分析建立 Skill</text>
-    <text x="184" y="57" fill="#9A9A9A" font-size="11.5">original_report(AI CLI 工具)→ original_skill 第一版</text>
+    <text x="184" y="39" fill="#141414" font-size="14.5" font-weight="700">基于实际业务 AI CLI 竞品分析跑通后建立 Skill</text>
+    <text x="184" y="57" fill="#9A9A9A" font-size="11.5">original_report(AI CLI 竞品分析)→ original_skill 第一版</text>
     <text x="636" y="39" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
     <!-- 2 奠基 -->
@@ -29,7 +29,7 @@
     <rect x="160" y="82" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
     <rect x="168" y="95" width="4" height="26" rx="2" fill="#3F6E8C"/>
     <text x="184" y="105" fill="#141414" font-size="14.5" font-weight="700">方法论两版融合</text>
-    <text x="184" y="123" fill="#9A9A9A" font-size="11.5">xinyu:可视化规格 · bufan:流程与搜集方法论</text>
+    <text x="184" y="123" fill="#9A9A9A" font-size="11.5">xinyu:HTML 可视化规格 + bufan:流程与搜集方法论</text>
     <text x="636" y="105" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
     <!-- 3 能力建设 -->
@@ -37,8 +37,8 @@
     <text x="124" y="179" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">3</text>
     <rect x="160" y="148" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
     <rect x="168" y="161" width="4" height="26" rx="2" fill="#4E8D7C"/>
-    <text x="184" y="171" fill="#141414" font-size="14.5" font-weight="700">视觉素材采集能力建立</text>
-    <text x="184" y="189" fill="#9A9A9A" font-size="11.5">图文采集协议 · 浏览器截图采集 · 多模态视觉核查</text>
+    <text x="184" y="171" fill="#141414" font-size="14.5" font-weight="700">可视化完整体系建立</text>
+    <text x="184" y="189" fill="#9A9A9A" font-size="11.5">5 视角骨架 S1–S5 × 10 表达模式 P1–P10</text>
     <text x="636" y="171" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
     <!-- 4 能力建设 -->
@@ -46,8 +46,8 @@
     <text x="124" y="245" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">4</text>
     <rect x="160" y="214" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
     <rect x="168" y="227" width="4" height="26" rx="2" fill="#4E8D7C"/>
-    <text x="184" y="237" fill="#141414" font-size="14.5" font-weight="700">可视化体系建立</text>
-    <text x="184" y="255" fill="#9A9A9A" font-size="11.5">5 视角骨架 S1–S5 × 10 表达模式 P1–P10</text>
+    <text x="184" y="237" fill="#141414" font-size="14.5" font-weight="700">视觉素材采集能力增强</text>
+    <text x="184" y="255" fill="#9A9A9A" font-size="11.5">图文采集协议 · 浏览器截图采集 · 多模态视觉核查</text>
     <text x="636" y="237" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
     <!-- 5 验证 -->
@@ -65,7 +65,7 @@
     <rect x="160" y="346" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
     <rect x="168" y="359" width="4" height="26" rx="2" fill="#B8412C"/>
     <text x="184" y="369" fill="#141414" font-size="14.5" font-weight="700">使用说明文档</text>
-    <text x="184" y="387" fill="#9A9A9A" font-size="11.5">skill-usage-guide · 部署 GitHub Pages</text>
+    <text x="184" y="387" fill="#9A9A9A" font-size="11.5">形成 md 说明文档 → 形成 html 使用说明网页</text>
     <text x="636" y="369" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
     <!-- 7 推广 -->
@@ -73,7 +73,7 @@
     <text x="124" y="443" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">7</text>
     <rect x="160" y="412" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
     <rect x="168" y="425" width="4" height="26" rx="2" fill="#B8412C"/>
-    <text x="184" y="435" fill="#141414" font-size="14.5" font-weight="700">录制使用视频</text>
+    <text x="184" y="435" fill="#141414" font-size="14.5" font-weight="700">录制教程视频</text>
     <text x="184" y="453" fill="#9A9A9A" font-size="11.5">按文档走查全流程 · 录屏 + 讲解</text>
     <text x="636" y="435" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
   </g>
