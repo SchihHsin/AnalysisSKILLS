@@ -1,6 +1,6 @@
 ---
 name: competitive-analysis
-description: AI 驱动的竞品分析系统，支持从规划到搜集到洞察到可视化的全流程竞品分析。核心能力：(1) Interactive Mode 引导用户明确分析目标、视角、范围，生成分析规划；(2) 多源信息搜集与事实核查（官方资料、二手资料、YouTube 视频解析、浏览器截图采集）；(3) 多视角洞察分析（PM / UX / UI / Tech / Strategy，显性确认后贯穿全程）；(4) 用户旅程地图（4 行结构 + 触点级深度对比）；(5) 可视化 HTML 报告生成（多页楼层、Snap Scroll、两层导航、Mockup 变体、设计亮点提炼）。支持长期竞品跟踪与业务背景积累。当用户要求「竞品分析」「竞品调研」「竞品对比」「竞品跟踪」「分析竞品」「可视化报告」「生成 HTML 报告」「做成网页版」或相关意图时使用。
+description: AI 驱动的竞品分析系统，支持从规划到搜集到洞察到可视化的全流程竞品分析。核心能力：(1) Interactive Mode 引导用户明确分析目标、视角、范围，生成分析规划；(2) 多源信息搜集与事实核查（官方资料、二手资料、YouTube 视频解析、浏览器截图采集）；(3) 多视角洞察分析（PM / UX / UI / Tech / Strategy，显性确认后贯穿全程）；(4) 用户旅程地图（4 行结构 + 触点级深度对比）；(5) 可视化交付：楼层滚动深度报告（多页楼层、Snap Scroll、两层导航、Mockup 变体、设计亮点提炼），或横向翻页演讲 PPT（单文件 HTML，内置 guizang-ppt-skill，电子杂志风 / 瑞士国际主义风）。支持长期竞品跟踪与业务背景积累。当用户要求「竞品分析」「竞品调研」「竞品对比」「竞品跟踪」「分析竞品」「可视化报告」「生成 HTML 报告」「做成网页版」「做成 PPT」「做成演讲稿」「做成分享版」或相关意图时使用。
 argument-hint: [new|continue|visualize|query] [项目或竞品名...]
 ---
 
@@ -463,8 +463,33 @@ C. 这个信息你能直接提供吗？
 
 ### 何时进入
 
-- 用户显式请求：「做成可视化的」「生成 HTML 报告」「做成网页版」「做成可演示的版本」
+- 用户显式请求：「做成可视化的」「生成 HTML 报告」「做成网页版」「做成可演示的版本」「做成 PPT / 演讲稿 / 分享版」
 - Stage 3 完成后，用户对报告满意，主动询问交付形式
+
+### 交付形态选择（进入 Stage 4 的第一步）
+
+可视化有两种交付物，受众和场景不同，先让用户选：
+
+```
+报告可以做成两种形态——
+
+A. 楼层滚动深度报告（HTML）
+   多页楼层 + Snap Scroll + 两层导航，适合深读、评审、长期资产。
+
+B. 横向翻页演讲 PPT（单文件 HTML）
+   横向翻页 + 章节幕封 + 数据大字报，适合分享、路演、发布。
+   由 guizang-ppt-skill 提供模板与风格（电子杂志风 / 瑞士国际主义风）。
+
+C. 两者都要（先出 A 深度报告，再把核心结论浓缩成 B 演讲 PPT）
+
+要哪种？
+```
+
+⏸ **等待用户选择交付形态**
+
+- 选 **A** → 走下面的「前置硬性检查」→ Step 4.1～4.4（楼层报告流程，原有逻辑）
+- 选 **B** → 走下面的「前置硬性检查」→ 跳转 [Step 4.PPT — 横向翻页演讲 PPT](#step-4ppt--横向翻页演讲-ppt)
+- 选 **C** → 先完成 A 全流程，再执行 Step 4.PPT，PPT 内容取自已完成的楼层报告核心结论
 
 ### 前置硬性检查（不通过就不开始）
 
@@ -596,6 +621,58 @@ Strategy 视角 额外需要：
 
 ---
 
+## Step 4.PPT — 横向翻页演讲 PPT
+
+当用户在「交付形态选择」里选了 **B** 或 **C** 时执行。这一步**不自己手写 PPT 的 HTML/CSS**，而是委派给打包在仓库里的 guizang-ppt-skill，由它的模板与风格规范产出单文件横向翻页 PPT。
+
+**Skill 位置**：[references/guizang-ppt-skill/SKILL.md](guizang-ppt-skill/SKILL.md)
+
+### 执行流程
+
+1. **加载 guizang skill**：读取 `references/guizang-ppt-skill/SKILL.md`，按其工作流执行。模板与资源都在该目录下：
+   - 风格 A 模板：`references/guizang-ppt-skill/assets/template.html`
+   - 风格 B 模板：`references/guizang-ppt-skill/assets/template-swiss.html`
+   - 主题色 / 布局规范：`references/guizang-ppt-skill/references/`
+
+2. **喂入分析产物作为 PPT 大纲**——不要让 guizang 从零澄清选题，直接把已完成的分析结论作为内容输入：
+   - 封面：分析主题 + 竞品名单 + 视角
+   - 章节：按 Stage 3 的核心洞察分章（每条洞察一节）
+   - 数据大字报：搜集中拿到的关键数字（用户数、效率提升、占比等）
+   - 图片网格：`materials/{project}/screenshots/` 里的关键界面截图
+   - 收尾：差距结论 + 行动建议
+
+3. **风格选择**——基于 Stage 1 视角给默认建议，仍让用户确认：
+   - UI / UX / Strategy 视角 → 默认风格 A（电子杂志风，视觉感强）
+   - PM / Tech 视角 → 默认风格 B（瑞士国际主义风，数据/信息驱动）
+
+```
+PPT 形态我建议用 guizang 的 {风格 A 电子杂志风 / 风格 B 瑞士风}，
+因为这次是 {视角} 视角，{一句话理由}。
+
+大纲（{N} 页）：
+1. 封面 — {主题}
+2. {洞察一}
+3. {数据大字报 — 关键数字}
+...
+N. 行动建议
+
+风格和大纲 OK 吗？
+```
+
+⏸ **等待用户确认风格 + 大纲**
+
+4. **生成**：按 guizang 工作流产出单文件 HTML，保存到 `reports/{project}-{date}-slides.html`（与楼层报告目录 `reports/{project}-{date}-visual/` 区分开）。
+
+5. **交付自审**：横向翻页是否正常（← →、滚轮、ESC 索引）、截图是否清晰、关键数字有无来源标注。
+
+### 注意
+
+- guizang 的来源标识（歸藏 / op7418）**只用于确认 skill 来源，不要写进生成的 PPT 页面、封面或配图**。
+- PPT 是「最浓缩 5 分钟」，控制在合理页数，不要把楼层报告逐页搬过来。
+- 事实核查规则照旧：PPT 里的数字同样要可追溯，不确定的不放。
+
+---
+
 ## 协作模式参考
 
 | 模式 | Human 做什么 | AI 做什么 |
@@ -642,6 +719,7 @@ Strategy 视角 额外需要：
 | 搜索策略与信息搜集方法论 | [references/research-methodology.md](references/research-methodology.md) |
 | 分析框架与洞察提炼方法（用户旅程 4 行结构 + 触点级对比） | [references/analysis-frameworks.md](references/analysis-frameworks.md) |
 | 可视化报告框架（骨架类型、表达模式库、设计系统、Mockup 变体） | [references/visualization-framework.md](references/visualization-framework.md) |
+| 横向翻页演讲 PPT 生成（Stage 4 形态 B，电子杂志风 / 瑞士风模板） | [references/guizang-ppt-skill/SKILL.md](references/guizang-ppt-skill/SKILL.md) |
 | 事实核查与减少幻觉协议 | [references/verification-protocol.md](references/verification-protocol.md) |
 | 分析报告输出模板（Markdown） | [references/assets/report-template.md](references/assets/report-template.md) |
 | 竞品跟踪表模板 | [references/assets/tracking-template.md](references/assets/tracking-template.md) |

@@ -19,6 +19,7 @@ AnalysisSKILLS/
 ├── competitive-analysis-merged/  # 融合优化后的版本（主要使用这个）
 │   ├── SKILL.md
 │   └── references/
+│       └── guizang-ppt-skill/    # 内置的横向翻页 PPT skill（Stage 4 形态 B 调用）
 ├── SKILL_guide.md                # original_skill 的使用说明
 ├── skill-improvement-report.html # 两版 Skill 的融合分析报告（深色蓝紫渐变主题）
 └── skill-usage-guide.html        # 融合版 Skill 的使用指南（GitHub Pages 对外可访问）
@@ -35,7 +36,17 @@ AnalysisSKILLS/
 - **开发规格**：original_skill 的 TypeScript 接口 + 状态机格式
 - **设计系统**：浅色主题默认（暖白），深色为显式可选
 
-使用时将 `SKILL.md` + `references/` 下所有文件一起上传到知识库。
+使用时将 `SKILL.md` + `references/` 下所有文件一起上传到知识库（含 `references/guizang-ppt-skill/`，PPT 模板要一起传）。
+
+### Stage 4 可视化的两种交付形态
+
+可视化阶段进入时先让用户选交付物：
+
+- **形态 A — 楼层滚动深度报告（HTML）**：多页楼层 + Snap Scroll + 两层导航，适合深读 / 评审 / 长期资产。走原有 Step 4.1～4.4。
+- **形态 B — 横向翻页演讲 PPT（单文件 HTML）**：适合分享 / 路演 / 发布，委派内置的 `references/guizang-ppt-skill/` 生成（电子杂志风 / 瑞士国际主义风）。走 Step 4.PPT。
+- **形态 C — 两者都要**：先 A 后 B，PPT 内容取自楼层报告核心结论。
+
+PPT 路径不自己手写，直接调 guizang-ppt-skill 的模板（`assets/template.html` / `assets/template-swiss.html`）与风格规范。guizang 的来源标识只用于确认 skill 来源，不写进生成的 PPT 页面。
 
 ## 两个源版本
 
