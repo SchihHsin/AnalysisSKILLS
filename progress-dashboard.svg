@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
   <rect width="720" height="480" fill="#FFFFFF"/>
 
-  <!-- ===== RAIL CONNECTORS (dashed) ===== -->
+  <!-- ===== RAIL CONNECTORS (dashed, neutral) ===== -->
   <g stroke="#C2C2C2" stroke-width="1.3" stroke-dasharray="4 5">
     <line x1="124" y1="60" x2="124" y2="90"/>
     <line x1="124" y1="126" x2="124" y2="156"/>
@@ -11,60 +11,68 @@
     <line x1="124" y1="390" x2="124" y2="420"/>
   </g>
 
-  <!-- ===== NODES (7) ===== badge cx=124 r13 ; rect x160 w500 h52 -->
+  <!-- ===== NODES (7) — 阶段配色 ===== -->
+  <!-- 奠基 #3F6E8C | 能力建设 #4E8D7C | 验证 #C9923E | 推广 #B8412C -->
   <g>
-    <!-- 1 -->
-    <circle cx="124" cy="42" r="13" fill="#141414"/>
+    <!-- 1 奠基 -->
+    <circle cx="124" cy="42" r="13" fill="#3F6E8C"/>
     <text x="124" y="47" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">1</text>
     <rect x="160" y="16" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+    <rect x="168" y="29" width="4" height="26" rx="2" fill="#3F6E8C"/>
     <text x="184" y="39" fill="#141414" font-size="14.5" font-weight="700">基于业务 CLI 竞品分析建立 Skill</text>
     <text x="184" y="57" fill="#9A9A9A" font-size="11.5">original_report(AI CLI 工具)→ original_skill 第一版</text>
     <text x="636" y="39" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
-    <!-- 2 -->
-    <circle cx="124" cy="108" r="13" fill="#141414"/>
+    <!-- 2 奠基 -->
+    <circle cx="124" cy="108" r="13" fill="#3F6E8C"/>
     <text x="124" y="113" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">2</text>
     <rect x="160" y="82" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+    <rect x="168" y="95" width="4" height="26" rx="2" fill="#3F6E8C"/>
     <text x="184" y="105" fill="#141414" font-size="14.5" font-weight="700">方法论两版融合</text>
-    <text x="184" y="123" fill="#9A9A9A" font-size="11.5">xinyu 强在可视化规格 · bufan 强在流程与搜集方法论</text>
+    <text x="184" y="123" fill="#9A9A9A" font-size="11.5">xinyu:可视化规格 · bufan:流程与搜集方法论</text>
     <text x="636" y="105" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
-    <!-- 3 -->
-    <circle cx="124" cy="174" r="13" fill="#141414"/>
+    <!-- 3 能力建设 -->
+    <circle cx="124" cy="174" r="13" fill="#4E8D7C"/>
     <text x="124" y="179" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">3</text>
     <rect x="160" y="148" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+    <rect x="168" y="161" width="4" height="26" rx="2" fill="#4E8D7C"/>
     <text x="184" y="171" fill="#141414" font-size="14.5" font-weight="700">视觉素材采集能力建立</text>
     <text x="184" y="189" fill="#9A9A9A" font-size="11.5">图文采集协议 · 浏览器截图采集 · 多模态视觉核查</text>
     <text x="636" y="171" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
-    <!-- 4 -->
-    <circle cx="124" cy="240" r="13" fill="#141414"/>
+    <!-- 4 能力建设 -->
+    <circle cx="124" cy="240" r="13" fill="#4E8D7C"/>
     <text x="124" y="245" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">4</text>
     <rect x="160" y="214" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+    <rect x="168" y="227" width="4" height="26" rx="2" fill="#4E8D7C"/>
     <text x="184" y="237" fill="#141414" font-size="14.5" font-weight="700">可视化体系建立</text>
     <text x="184" y="255" fill="#9A9A9A" font-size="11.5">5 视角骨架 S1–S5 × 10 表达模式 P1–P10</text>
     <text x="636" y="237" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
-    <!-- 5 -->
-    <circle cx="124" cy="306" r="13" fill="#141414"/>
+    <!-- 5 验证 -->
+    <circle cx="124" cy="306" r="13" fill="#C9923E"/>
     <text x="124" y="311" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">5</text>
     <rect x="160" y="280" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+    <rect x="168" y="293" width="4" height="26" rx="2" fill="#C9923E"/>
     <text x="184" y="303" fill="#141414" font-size="14.5" font-weight="700">实战案例验证</text>
     <text x="184" y="321" fill="#9A9A9A" font-size="11.5">6 个案例跑通 · md / html 两类产出</text>
     <text x="636" y="303" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
-    <!-- 6 -->
-    <circle cx="124" cy="372" r="13" fill="#141414"/>
+    <!-- 6 推广 -->
+    <circle cx="124" cy="372" r="13" fill="#B8412C"/>
     <text x="124" y="377" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">6</text>
     <rect x="160" y="346" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+    <rect x="168" y="359" width="4" height="26" rx="2" fill="#B8412C"/>
     <text x="184" y="369" fill="#141414" font-size="14.5" font-weight="700">使用说明文档</text>
     <text x="184" y="387" fill="#9A9A9A" font-size="11.5">skill-usage-guide · 部署 GitHub Pages</text>
     <text x="636" y="369" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 
-    <!-- 7 -->
-    <circle cx="124" cy="438" r="13" fill="#141414"/>
+    <!-- 7 推广 -->
+    <circle cx="124" cy="438" r="13" fill="#B8412C"/>
     <text x="124" y="443" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">7</text>
     <rect x="160" y="412" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+    <rect x="168" y="425" width="4" height="26" rx="2" fill="#B8412C"/>
     <text x="184" y="435" fill="#141414" font-size="14.5" font-weight="700">录制使用视频</text>
     <text x="184" y="453" fill="#9A9A9A" font-size="11.5">按文档走查全流程 · 录屏 + 讲解</text>
     <text x="636" y="435" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
