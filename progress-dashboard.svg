@@ -1,145 +1,124 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="772" viewBox="0 0 1200 772" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
-  <!-- canvas -->
-  <rect width="1200" height="772" fill="#F6F4EE"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="624" viewBox="0 0 1000 624" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="1000" height="624" fill="#FFFFFF"/>
 
-  <!-- ============ HEADER ============ -->
-  <text x="64" y="62" fill="#8A8275" font-size="12.5" font-weight="600" letter-spacing="3">PROGRESS REVIEW · 2026.06.04</text>
-  <text x="64" y="100" fill="#1A1714" font-size="30" font-weight="700">竞品分析 Skill 进展</text>
-  <text x="66" y="124" fill="#6E675C" font-size="14">主版本 competitive-analysis-merged · 框架成熟度约 95%</text>
+  <!-- ===== HEADER ===== -->
+  <text x="56" y="52" fill="#141414" font-size="23" font-weight="700">竞品分析 Skill 进展</text>
+  <text x="944" y="52" fill="#8C8C8C" font-size="13" text-anchor="end">2026.06.04　·　框架成熟度 95%</text>
+  <line x1="56" y1="70" x2="944" y2="70" stroke="#E8E8E8" stroke-width="1"/>
 
-  <!-- status pill -->
-  <rect x="980" y="74" width="156" height="34" rx="17" fill="none" stroke="#C6BFAF" stroke-width="1.2"/>
-  <circle cx="1006" cy="91" r="5" fill="#4C7A5B"/>
-  <text x="1020" y="96" fill="#4A463E" font-size="13.5" font-weight="600">推广收尾阶段</text>
+  <!-- ===== A. 四阶段管道 ===== -->
+  <text x="56" y="104" fill="#141414" font-size="14" font-weight="700">四阶段管道</text>
+  <text x="146" y="104" fill="#B5B5B5" font-size="12.5">规格完整度 · 10 个 Human-in-the-Loop 检查点</text>
 
-  <line x1="64" y1="148" x2="1136" y2="148" stroke="#DDD7C9" stroke-width="1.2"/>
-
-  <!-- ============ A. 四阶段管道 ============ -->
-  <text x="64" y="190" fill="#1A1714" font-size="16" font-weight="700">四阶段管道</text>
-  <text x="150" y="190" fill="#A39B8B" font-size="13">规格完整度 · 10 个 Human-in-the-Loop 检查点</text>
-
-  <!-- columns: centers 198 466 734 1002 ; each block left = center-134 -->
-  <!-- Stage 1 -->
-  <g>
-    <text x="64" y="232" fill="#B6AE9C" font-size="13" font-weight="700">01</text>
-    <text x="64" y="262" fill="#1A1714" font-size="16.5" font-weight="700">规划</text>
-    <text x="64" y="284" fill="#8A8275" font-size="12.5">Interactive · 意图路由 · 视角推断</text>
-    <text x="284" y="262" fill="#4C7A5B" font-size="20" font-weight="800" text-anchor="end">100%</text>
-    <rect x="64" y="300" width="220" height="6" rx="3" fill="#E4DFD2"/>
-    <rect x="64" y="300" width="220" height="6" rx="3" fill="#4C7A5B"/>
-  </g>
-  <!-- Stage 2 -->
-  <g>
-    <text x="332" y="232" fill="#B6AE9C" font-size="13" font-weight="700">02</text>
-    <text x="332" y="262" fill="#1A1714" font-size="16.5" font-weight="700">搜集</text>
-    <text x="332" y="284" fill="#8A8275" font-size="12.5">图文采集 · 截图视觉解析 · 多源核查</text>
-    <text x="552" y="262" fill="#4C7A5B" font-size="20" font-weight="800" text-anchor="end">95%</text>
-    <rect x="332" y="300" width="220" height="6" rx="3" fill="#E4DFD2"/>
-    <rect x="332" y="300" width="209" height="6" rx="3" fill="#4C7A5B"/>
-  </g>
-  <!-- Stage 3 -->
-  <g>
-    <text x="600" y="232" fill="#B6AE9C" font-size="13" font-weight="700">03</text>
-    <text x="600" y="262" fill="#1A1714" font-size="16.5" font-weight="700">分析</text>
-    <text x="600" y="284" fill="#8A8275" font-size="12.5">用户旅程 · SWOT · 洞察草稿确认</text>
-    <text x="820" y="262" fill="#4C7A5B" font-size="20" font-weight="800" text-anchor="end">98%</text>
-    <rect x="600" y="300" width="220" height="6" rx="3" fill="#E4DFD2"/>
-    <rect x="600" y="300" width="216" height="6" rx="3" fill="#4C7A5B"/>
-  </g>
-  <!-- Stage 4 -->
-  <g>
-    <text x="868" y="232" fill="#B6AE9C" font-size="13" font-weight="700">04</text>
-    <text x="868" y="262" fill="#1A1714" font-size="16.5" font-weight="700">可视化</text>
-    <text x="868" y="284" fill="#8A8275" font-size="12.5">楼层多页 · Snap Scroll · Mockup 变体</text>
-    <text x="1088" y="262" fill="#B5823B" font-size="20" font-weight="800" text-anchor="end">90%</text>
-    <rect x="868" y="300" width="220" height="6" rx="3" fill="#E4DFD2"/>
-    <rect x="868" y="300" width="198" height="6" rx="3" fill="#B5823B"/>
-  </g>
-
-  <line x1="64" y1="348" x2="1136" y2="348" stroke="#DDD7C9" stroke-width="1.2"/>
-
-  <!-- ============ B. KPI inline ============ -->
-  <g>
-    <text x="64" y="400" fill="#1A1714" font-size="34" font-weight="800">5×10</text>
-    <text x="64" y="424" fill="#8A8275" font-size="13">视角骨架 × 表达模式</text>
-    <text x="64" y="442" fill="#A39B8B" font-size="12">S1–S5 · P1–P10</text>
-
-    <line x1="300" y1="378" x2="300" y2="446" stroke="#DDD7C9" stroke-width="1.2"/>
-    <text x="332" y="400" fill="#1A1714" font-size="34" font-weight="800">10</text>
-    <text x="332" y="424" fill="#8A8275" font-size="13">Human-in-Loop 检查点</text>
-    <text x="332" y="442" fill="#A39B8B" font-size="12">每个 ⏸ 必停等确认</text>
-
-    <line x1="568" y1="378" x2="568" y2="446" stroke="#DDD7C9" stroke-width="1.2"/>
-    <text x="600" y="400" fill="#1A1714" font-size="34" font-weight="800">6</text>
-    <text x="600" y="424" fill="#8A8275" font-size="13">实战验证案例</text>
-    <text x="600" y="442" fill="#A39B8B" font-size="12">md / html 两类产出</text>
-
-    <line x1="836" y1="378" x2="836" y2="446" stroke="#DDD7C9" stroke-width="1.2"/>
-    <text x="868" y="400" fill="#1A1714" font-size="34" font-weight="800">9<tspan font-size="18" fill="#8A8275" font-weight="600"> 文件</tspan></text>
-    <text x="868" y="424" fill="#8A8275" font-size="13">知识库 ≈ 136 KB</text>
-    <text x="868" y="442" fill="#A39B8B" font-size="12">+ HTML / PDF / JPEG 对外文档</text>
-  </g>
-
-  <line x1="64" y1="478" x2="1136" y2="478" stroke="#DDD7C9" stroke-width="1.2"/>
-
-  <!-- ============ C. 五视角骨架覆盖 ============ -->
-  <text x="64" y="520" fill="#1A1714" font-size="16" font-weight="700">五视角骨架覆盖</text>
-  <text x="184" y="520" fill="#A39B8B" font-size="13">规格全就绪;实战 demo 仍偏 S1 体验旅程型</text>
-
-  <!-- legend -->
-  <circle cx="930" cy="515" r="5" fill="#4C7A5B"/><text x="942" y="520" fill="#6E675C" font-size="12.5">规格+demo</text>
-  <circle cx="1024" cy="515" r="5" fill="#9DBBA6"/><text x="1036" y="520" fill="#6E675C" font-size="12.5">仅规格</text>
-  <circle cx="1100" cy="515" r="5" fill="#D8B884"/><text x="1112" y="520" fill="#6E675C" font-size="12.5">缺 demo</text>
-
-  <!-- 5 segments, 64..1136 width 1072, gap 16 -> seg 198.4 -->
-  <g>
-    <!-- S1 -->
-    <rect x="64" y="540" width="198" height="92" rx="10" fill="#EAF1E9" stroke="#CDDCCF" stroke-width="1.2"/>
-    <rect x="64" y="540" width="5" height="92" rx="2.5" fill="#4C7A5B"/>
-    <text x="84" y="568" fill="#2E4C3A" font-size="15" font-weight="700">S1 体验旅程</text>
-    <text x="84" y="589" fill="#5E7A66" font-size="12.5">UX · 默认骨架</text>
-    <text x="84" y="618" fill="#4C7A5B" font-size="12.5" font-weight="600">cockpit / figma-d2c</text>
-    <!-- S2 -->
-    <rect x="278" y="540" width="198" height="92" rx="10" fill="#EEF3ED" stroke="#D5E0D6" stroke-width="1.2"/>
-    <rect x="278" y="540" width="5" height="92" rx="2.5" fill="#9DBBA6"/>
-    <text x="298" y="568" fill="#3A4D40" font-size="15" font-weight="700">S2 功能全景</text>
-    <text x="298" y="589" fill="#6E7A70" font-size="12.5">PM</text>
-    <text x="298" y="618" fill="#7E8C82" font-size="12.5">报告中局部出现</text>
-    <!-- S3 -->
-    <rect x="492" y="540" width="198" height="92" rx="10" fill="#EEF3ED" stroke="#D5E0D6" stroke-width="1.2"/>
-    <rect x="492" y="540" width="5" height="92" rx="2.5" fill="#9DBBA6"/>
-    <text x="512" y="568" fill="#3A4D40" font-size="15" font-weight="700">S3 设计语言</text>
-    <text x="512" y="589" fill="#6E7A70" font-size="12.5">UI</text>
-    <text x="512" y="618" fill="#7E8C82" font-size="12.5">截图视觉解析支撑</text>
-    <!-- S4 -->
-    <rect x="706" y="540" width="198" height="92" rx="10" fill="#F5ECDB" stroke="#E4D2B0" stroke-width="1.2"/>
-    <rect x="706" y="540" width="5" height="92" rx="2.5" fill="#B5823B"/>
-    <text x="726" y="568" fill="#6B4F22" font-size="15" font-weight="700">S4 能力架构</text>
-    <text x="726" y="589" fill="#9A7B43" font-size="12.5">Tech</text>
-    <text x="726" y="618" fill="#B5823B" font-size="12.5" font-weight="600">待补独立 demo</text>
-    <!-- S5 -->
-    <rect x="920" y="540" width="216" height="92" rx="10" fill="#F5ECDB" stroke="#E4D2B0" stroke-width="1.2"/>
-    <rect x="920" y="540" width="5" height="92" rx="2.5" fill="#B5823B"/>
-    <text x="940" y="568" fill="#6B4F22" font-size="15" font-weight="700">S5 竞争格局</text>
-    <text x="940" y="589" fill="#9A7B43" font-size="12.5">Strategy</text>
-    <text x="940" y="618" fill="#B5823B" font-size="12.5" font-weight="600">待补独立 demo</text>
-  </g>
-
-  <!-- ============ D. 下一步 ============ -->
-  <text x="64" y="684" fill="#1A1714" font-size="16" font-weight="700">下一步重点</text>
-  <text x="170" y="684" fill="#A39B8B" font-size="13">按优先级</text>
-
+  <!-- rows: bar x440 w410 -->
   <g font-size="13.5">
-    <text x="64" y="724" fill="#B5823B" font-size="15" font-weight="800">01</text>
-    <text x="92" y="724" fill="#2B2823" font-weight="700">录制使用视频</text>
-    <text x="92" y="744" fill="#8A8275">推广闭环最后一环,优先级最高</text>
+    <text x="56" y="140" fill="#141414" font-weight="700">规划</text>
+    <text x="96" y="140" fill="#9A9A9A" font-size="12.5">Interactive · 意图路由 · 视角推断</text>
+    <rect x="440" y="129" width="410" height="6" rx="3" fill="#EDEDED"/>
+    <rect x="440" y="129" width="410" height="6" rx="3" fill="#141414"/>
+    <text x="944" y="140" fill="#141414" font-weight="700" text-anchor="end">100%</text>
 
-    <text x="424" y="724" fill="#B5823B" font-size="15" font-weight="800">02</text>
-    <text x="452" y="724" fill="#2B2823" font-weight="700">补 S4 / S5 视角 demo</text>
-    <text x="452" y="744" fill="#8A8275">技术架构型 / 竞争格局型各出一份</text>
+    <text x="56" y="174" fill="#141414" font-weight="700">搜集</text>
+    <text x="96" y="174" fill="#9A9A9A" font-size="12.5">图文采集 · 截图视觉解析 · 多源核查</text>
+    <rect x="440" y="163" width="410" height="6" rx="3" fill="#EDEDED"/>
+    <rect x="440" y="163" width="390" height="6" rx="3" fill="#141414"/>
+    <text x="944" y="174" fill="#141414" font-weight="700" text-anchor="end">95%</text>
 
-    <text x="784" y="724" fill="#B5823B" font-size="15" font-weight="800">03</text>
-    <text x="812" y="724" fill="#2B2823" font-weight="700">跑通增量跟踪闭环</text>
-    <text x="812" y="744" fill="#8A8275">用真实样本验证 continue 的 diff 工作流</text>
+    <text x="56" y="208" fill="#141414" font-weight="700">分析</text>
+    <text x="96" y="208" fill="#9A9A9A" font-size="12.5">用户旅程 · SWOT · 洞察草稿确认</text>
+    <rect x="440" y="197" width="410" height="6" rx="3" fill="#EDEDED"/>
+    <rect x="440" y="197" width="402" height="6" rx="3" fill="#141414"/>
+    <text x="944" y="208" fill="#141414" font-weight="700" text-anchor="end">98%</text>
+
+    <text x="56" y="242" fill="#141414" font-weight="700">可视化</text>
+    <text x="104" y="242" fill="#9A9A9A" font-size="12.5">楼层多页 · Snap Scroll · Mockup 变体</text>
+    <rect x="440" y="231" width="410" height="6" rx="3" fill="#EDEDED"/>
+    <rect x="440" y="231" width="369" height="6" rx="3" fill="#141414"/>
+    <text x="944" y="242" fill="#B8412C" font-weight="700" text-anchor="end">90%</text>
+  </g>
+
+  <line x1="56" y1="270" x2="944" y2="270" stroke="#E8E8E8" stroke-width="1"/>
+
+  <!-- ===== B. KPI inline ===== -->
+  <g>
+    <text x="56" y="318" fill="#141414" font-size="29" font-weight="800">5×10</text>
+    <text x="56" y="340" fill="#8C8C8C" font-size="12.5">视角骨架 × 表达模式</text>
+    <text x="56" y="357" fill="#B5B5B5" font-size="11.5">S1–S5 · P1–P10</text>
+
+    <line x1="262" y1="296" x2="262" y2="358" stroke="#E8E8E8" stroke-width="1"/>
+    <text x="294" y="318" fill="#141414" font-size="29" font-weight="800">10</text>
+    <text x="294" y="340" fill="#8C8C8C" font-size="12.5">Human-in-Loop 检查点</text>
+    <text x="294" y="357" fill="#B5B5B5" font-size="11.5">每个 ⏸ 必停等确认</text>
+
+    <line x1="500" y1="296" x2="500" y2="358" stroke="#E8E8E8" stroke-width="1"/>
+    <text x="532" y="318" fill="#141414" font-size="29" font-weight="800">6</text>
+    <text x="532" y="340" fill="#8C8C8C" font-size="12.5">实战验证案例</text>
+    <text x="532" y="357" fill="#B5B5B5" font-size="11.5">md / html 两类产出</text>
+
+    <line x1="738" y1="296" x2="738" y2="358" stroke="#E8E8E8" stroke-width="1"/>
+    <text x="770" y="318" fill="#141414" font-size="29" font-weight="800">9<tspan font-size="15" fill="#8C8C8C" font-weight="600"> 文件</tspan></text>
+    <text x="770" y="340" fill="#8C8C8C" font-size="12.5">知识库 ≈ 136 KB</text>
+    <text x="770" y="357" fill="#B5B5B5" font-size="11.5">+ HTML / PDF / JPEG</text>
+  </g>
+
+  <line x1="56" y1="386" x2="944" y2="386" stroke="#E8E8E8" stroke-width="1"/>
+
+  <!-- ===== C. 五视角骨架覆盖 ===== -->
+  <text x="56" y="420" fill="#141414" font-size="14" font-weight="700">五视角骨架覆盖</text>
+  <text x="186" y="420" fill="#B5B5B5" font-size="12.5">规格全就绪;实战 demo 仍偏 S1</text>
+
+  <circle cx="700" cy="415" r="4" fill="#141414"/><text x="710" y="420" fill="#8C8C8C" font-size="12">规格+demo</text>
+  <circle cx="800" cy="415" r="4" fill="#C4C4C4"/><text x="810" y="420" fill="#8C8C8C" font-size="12">仅规格</text>
+  <circle cx="884" cy="415" r="4" fill="#B8412C"/><text x="894" y="420" fill="#8C8C8C" font-size="12">缺 demo</text>
+
+  <!-- 5 cells: x 56/236/416/596/776, w168, h72 -->
+  <g>
+    <rect x="56" y="436" width="168" height="72" rx="8" fill="#FFFFFF" stroke="#E8E8E8" stroke-width="1"/>
+    <circle cx="74" cy="460" r="4" fill="#141414"/>
+    <text x="88" y="465" fill="#141414" font-size="13.5" font-weight="700">S1 体验旅程</text>
+    <text x="72" y="486" fill="#9A9A9A" font-size="12">UX · 默认骨架</text>
+    <text x="72" y="500" fill="#6E6E6E" font-size="11.5">cockpit / figma-d2c</text>
+
+    <rect x="236" y="436" width="168" height="72" rx="8" fill="#FFFFFF" stroke="#E8E8E8" stroke-width="1"/>
+    <circle cx="254" cy="460" r="4" fill="#C4C4C4"/>
+    <text x="268" y="465" fill="#141414" font-size="13.5" font-weight="700">S2 功能全景</text>
+    <text x="252" y="486" fill="#9A9A9A" font-size="12">PM</text>
+    <text x="252" y="500" fill="#9A9A9A" font-size="11.5">报告中局部出现</text>
+
+    <rect x="416" y="436" width="168" height="72" rx="8" fill="#FFFFFF" stroke="#E8E8E8" stroke-width="1"/>
+    <circle cx="434" cy="460" r="4" fill="#C4C4C4"/>
+    <text x="448" y="465" fill="#141414" font-size="13.5" font-weight="700">S3 设计语言</text>
+    <text x="432" y="486" fill="#9A9A9A" font-size="12">UI</text>
+    <text x="432" y="500" fill="#9A9A9A" font-size="11.5">截图视觉解析支撑</text>
+
+    <rect x="596" y="436" width="168" height="72" rx="8" fill="#FFFFFF" stroke="#E8E8E8" stroke-width="1"/>
+    <circle cx="614" cy="460" r="4" fill="#B8412C"/>
+    <text x="628" y="465" fill="#141414" font-size="13.5" font-weight="700">S4 能力架构</text>
+    <text x="612" y="486" fill="#9A9A9A" font-size="12">Tech</text>
+    <text x="612" y="500" fill="#B8412C" font-size="11.5">待补独立 demo</text>
+
+    <rect x="776" y="436" width="168" height="72" rx="8" fill="#FFFFFF" stroke="#E8E8E8" stroke-width="1"/>
+    <circle cx="794" cy="460" r="4" fill="#B8412C"/>
+    <text x="808" y="465" fill="#141414" font-size="13.5" font-weight="700">S5 竞争格局</text>
+    <text x="792" y="486" fill="#9A9A9A" font-size="12">Strategy</text>
+    <text x="792" y="500" fill="#B8412C" font-size="11.5">待补独立 demo</text>
+  </g>
+
+  <!-- ===== D. 下一步 ===== -->
+  <text x="56" y="548" fill="#141414" font-size="14" font-weight="700">下一步重点</text>
+  <text x="156" y="548" fill="#B5B5B5" font-size="12.5">按优先级</text>
+
+  <g>
+    <text x="56" y="584" fill="#B8412C" font-size="14" font-weight="800">01</text>
+    <text x="84" y="584" fill="#141414" font-size="13.5" font-weight="700">录制使用视频</text>
+    <text x="84" y="603" fill="#9A9A9A" font-size="12.5">推广闭环最后一环</text>
+
+    <text x="352" y="584" fill="#B8412C" font-size="14" font-weight="800">02</text>
+    <text x="380" y="584" fill="#141414" font-size="13.5" font-weight="700">补 S4 / S5 视角 demo</text>
+    <text x="380" y="603" fill="#9A9A9A" font-size="12.5">技术架构型 / 竞争格局型各一份</text>
+
+    <text x="700" y="584" fill="#B8412C" font-size="14" font-weight="800">03</text>
+    <text x="728" y="584" fill="#141414" font-size="13.5" font-weight="700">跑通增量跟踪</text>
+    <text x="728" y="603" fill="#9A9A9A" font-size="12.5">真实样本验证 continue diff</text>
   </g>
 </svg>
