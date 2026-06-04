@@ -1,80 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
-  <rect width="720" height="480" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="548" viewBox="0 0 720 548" font-family="'Inter','Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="720" height="548" fill="#FFFFFF"/>
 
-  <!-- ===== RAIL CONNECTORS (dashed, neutral) ===== -->
+  <!-- ===== RAIL CONNECTORS (dashed) ===== -->
   <g stroke="#C2C2C2" stroke-width="1.3" stroke-dasharray="4 5">
-    <line x1="124" y1="60" x2="124" y2="90"/>
-    <line x1="124" y1="126" x2="124" y2="156"/>
-    <line x1="124" y1="192" x2="124" y2="222"/>
-    <line x1="124" y1="258" x2="124" y2="288"/>
-    <line x1="124" y1="324" x2="124" y2="354"/>
-    <line x1="124" y1="390" x2="124" y2="420"/>
+    <line x1="124" y1="64" x2="124" y2="104"/>
+    <line x1="124" y1="140" x2="124" y2="180"/>
+    <line x1="124" y1="216" x2="124" y2="256"/>
+    <line x1="124" y1="292" x2="124" y2="332"/>
+    <line x1="124" y1="368" x2="124" y2="408"/>
+    <line x1="124" y1="444" x2="124" y2="484"/>
   </g>
 
-  <!-- ===== NODES (7) — 阶段配色 ===== -->
-  <!-- 奠基 #3F6E8C | 能力建设 #4E8D7C | 验证 #C9923E | 推广 #B8412C -->
-  <g>
-    <!-- 1 奠基 -->
-    <circle cx="124" cy="42" r="13" fill="#3F6E8C"/>
-    <text x="124" y="47" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">1</text>
-    <rect x="160" y="16" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
-    <rect x="168" y="29" width="4" height="26" rx="2" fill="#3F6E8C"/>
-    <text x="184" y="39" fill="#141414" font-size="14.5" font-weight="700">基于实际业务 AI CLI 竞品分析跑通后建立 Skill</text>
-    <text x="184" y="57" fill="#9A9A9A" font-size="11.5">original_report(AI CLI 竞品分析)→ original_skill 第一版</text>
-    <text x="636" y="39" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
-
-    <!-- 2 奠基 -->
-    <circle cx="124" cy="108" r="13" fill="#3F6E8C"/>
-    <text x="124" y="113" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">2</text>
-    <rect x="160" y="82" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
-    <rect x="168" y="95" width="4" height="26" rx="2" fill="#3F6E8C"/>
-    <text x="184" y="105" fill="#141414" font-size="14.5" font-weight="700">方法论两版融合</text>
-    <text x="184" y="123" fill="#9A9A9A" font-size="11.5">xinyu:HTML 可视化规格 + bufan:流程与搜集方法论</text>
-    <text x="636" y="105" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
-
-    <!-- 3 能力建设 -->
-    <circle cx="124" cy="174" r="13" fill="#4E8D7C"/>
-    <text x="124" y="179" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">3</text>
-    <rect x="160" y="148" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
-    <rect x="168" y="161" width="4" height="26" rx="2" fill="#4E8D7C"/>
-    <text x="184" y="171" fill="#141414" font-size="14.5" font-weight="700">可视化完整体系建立</text>
-    <text x="184" y="189" fill="#9A9A9A" font-size="11.5">5 视角骨架 S1–S5 × 10 表达模式 P1–P10</text>
-    <text x="636" y="171" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
-
-    <!-- 4 能力建设 -->
-    <circle cx="124" cy="240" r="13" fill="#4E8D7C"/>
-    <text x="124" y="245" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">4</text>
-    <rect x="160" y="214" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
-    <rect x="168" y="227" width="4" height="26" rx="2" fill="#4E8D7C"/>
-    <text x="184" y="237" fill="#141414" font-size="14.5" font-weight="700">视觉素材采集能力增强</text>
-    <text x="184" y="255" fill="#9A9A9A" font-size="11.5">图文采集协议 · 浏览器截图采集 · 多模态视觉核查</text>
-    <text x="636" y="237" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
-
-    <!-- 5 验证 -->
-    <circle cx="124" cy="306" r="13" fill="#C9923E"/>
-    <text x="124" y="311" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">5</text>
-    <rect x="160" y="280" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
-    <rect x="168" y="293" width="4" height="26" rx="2" fill="#C9923E"/>
-    <text x="184" y="303" fill="#141414" font-size="14.5" font-weight="700">实战案例验证</text>
-    <text x="184" y="321" fill="#9A9A9A" font-size="11.5">6 个案例跑通 · md / html 两类产出</text>
-    <text x="636" y="303" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
-
-    <!-- 6 推广 -->
-    <circle cx="124" cy="372" r="13" fill="#B8412C"/>
-    <text x="124" y="377" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">6</text>
-    <rect x="160" y="346" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
-    <rect x="168" y="359" width="4" height="26" rx="2" fill="#B8412C"/>
-    <text x="184" y="369" fill="#141414" font-size="14.5" font-weight="700">使用说明文档</text>
-    <text x="184" y="387" fill="#9A9A9A" font-size="11.5">形成 md 说明文档 → 形成 html 使用说明网页</text>
-    <text x="636" y="369" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
-
-    <!-- 7 推广 -->
-    <circle cx="124" cy="438" r="13" fill="#B8412C"/>
-    <text x="124" y="443" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">7</text>
-    <rect x="160" y="412" width="500" height="52" rx="9" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
-    <rect x="168" y="425" width="4" height="26" rx="2" fill="#B8412C"/>
-    <text x="184" y="435" fill="#141414" font-size="14.5" font-weight="700">录制教程视频</text>
-    <text x="184" y="453" fill="#9A9A9A" font-size="11.5">按文档走查全流程 · 录屏 + 讲解</text>
-    <text x="636" y="435" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
+  <!-- ===== NODE 1 ===== top16 cy46 -->
+  <circle cx="124" cy="46" r="13" fill="#141414"/>
+  <text x="124" y="51" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">1</text>
+  <rect x="160" y="16" width="500" height="60" rx="10" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+  <g stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="180" y="37" width="20" height="18" rx="3"/>
+    <polyline points="184,43 187.5,46 184,49"/>
+    <line x1="190" y1="50" x2="196" y2="50"/>
   </g>
+  <text x="216" y="42" fill="#141414" font-size="14.5" font-weight="700">基于实际业务 AI CLI 竞品分析跑通后建立 Skill</text>
+  <text x="216" y="60" fill="#9A9A9A" font-size="11.5">original_report(AI CLI 竞品分析)→ original_skill 第一版</text>
+  <text x="636" y="42" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
+
+  <!-- ===== NODE 2 ===== top92 cy122 -->
+  <circle cx="124" cy="122" r="13" fill="#141414"/>
+  <text x="124" y="127" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">2</text>
+  <rect x="160" y="92" width="500" height="60" rx="10" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+  <g stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="182" y1="114" x2="190" y2="122"/>
+    <line x1="198" y1="114" x2="190" y2="122"/>
+    <line x1="190" y1="122" x2="190" y2="130"/>
+  </g>
+  <text x="216" y="118" fill="#141414" font-size="14.5" font-weight="700">方法论两版融合</text>
+  <text x="216" y="136" fill="#9A9A9A" font-size="11.5">xinyu:HTML 可视化规格 + bufan:流程与搜集方法论</text>
+  <text x="636" y="118" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
+
+  <!-- ===== NODE 3 ===== top168 cy198 -->
+  <circle cx="124" cy="198" r="13" fill="#141414"/>
+  <text x="124" y="203" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">3</text>
+  <rect x="160" y="168" width="500" height="60" rx="10" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+  <g stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="180" y1="206" x2="200" y2="206"/>
+    <line x1="184" y1="206" x2="184" y2="199" stroke-width="2.2"/>
+    <line x1="190" y1="206" x2="190" y2="194" stroke-width="2.2"/>
+    <line x1="196" y1="206" x2="196" y2="190" stroke-width="2.2"/>
+  </g>
+  <text x="216" y="194" fill="#141414" font-size="14.5" font-weight="700">可视化完整体系建立</text>
+  <text x="216" y="212" fill="#9A9A9A" font-size="11.5">5 视角骨架 S1–S5 × 10 表达模式 P1–P10</text>
+  <text x="636" y="194" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
+
+  <!-- ===== NODE 4 ===== top244 cy274 -->
+  <circle cx="124" cy="274" r="13" fill="#141414"/>
+  <text x="124" y="279" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">4</text>
+  <rect x="160" y="244" width="500" height="60" rx="10" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+  <g stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="186,267 188,263 194,263 196,267"/>
+    <rect x="179" y="267" width="22" height="15" rx="3"/>
+    <circle cx="190" cy="275" r="4"/>
+  </g>
+  <text x="216" y="270" fill="#141414" font-size="14.5" font-weight="700">视觉素材采集能力增强</text>
+  <text x="216" y="288" fill="#9A9A9A" font-size="11.5">图文采集协议 · 浏览器截图采集 · 多模态视觉核查</text>
+  <text x="636" y="270" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
+
+  <!-- ===== NODE 5 ===== top320 cy350 -->
+  <circle cx="124" cy="350" r="13" fill="#141414"/>
+  <text x="124" y="355" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">5</text>
+  <rect x="160" y="320" width="500" height="60" rx="10" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+  <g stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="181" y="340" width="18" height="22" rx="3"/>
+    <rect x="186" y="337" width="8" height="5" rx="1.5"/>
+    <polyline points="185,351 189,355 196,346"/>
+  </g>
+  <text x="216" y="346" fill="#141414" font-size="14.5" font-weight="700">实战案例验证</text>
+  <text x="216" y="364" fill="#9A9A9A" font-size="11.5">6 个案例跑通 · md / html 两类产出</text>
+  <text x="636" y="346" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
+
+  <!-- ===== NODE 6 ===== top396 cy426 -->
+  <circle cx="124" cy="426" r="13" fill="#141414"/>
+  <text x="124" y="431" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">6</text>
+  <rect x="160" y="396" width="500" height="60" rx="10" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+  <g stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M183,416 L195,416 L199,420 L199,436 L183,436 Z"/>
+    <polyline points="195,416 195,420 199,420"/>
+    <line x1="187" y1="425" x2="196" y2="425"/>
+    <line x1="187" y1="430" x2="196" y2="430"/>
+  </g>
+  <text x="216" y="422" fill="#141414" font-size="14.5" font-weight="700">使用说明文档</text>
+  <text x="216" y="440" fill="#9A9A9A" font-size="11.5">形成 md 说明文档 → 形成 html 使用说明网页</text>
+  <text x="636" y="422" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
+
+  <!-- ===== NODE 7 ===== top472 cy502 -->
+  <circle cx="124" cy="502" r="13" fill="#141414"/>
+  <text x="124" y="507" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">7</text>
+  <rect x="160" y="472" width="500" height="60" rx="10" fill="#FFFFFF" stroke="#D8D8D8" stroke-width="1.3"/>
+  <g stroke="#141414" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="179" y="493" width="22" height="18" rx="3"/>
+    <polygon points="188,498 188,506 195,502" fill="#141414" stroke="none"/>
+  </g>
+  <text x="216" y="498" fill="#141414" font-size="14.5" font-weight="700">录制教程视频</text>
+  <text x="216" y="516" fill="#9A9A9A" font-size="11.5">按文档走查全流程 · 录屏 + 讲解</text>
+  <text x="636" y="498" fill="#8C8C8C" font-size="11" text-anchor="end">✓ 已完成</text>
 </svg>
