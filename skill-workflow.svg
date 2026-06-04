@@ -73,8 +73,8 @@
   <!-- ROW 6 (HIGHLIGHT) -->
   <rect x="0" y="668" width="1280" height="116" fill="#F7CE46"/>
   <text x="84" y="738" fill="#7A5800" font-size="44" font-weight="700" text-anchor="middle">6</text>
-  <text x="148" y="714" fill="#16347F" font-size="18.5" font-weight="800">可视化 HTML 报告</text>
-  <text x="148" y="740" fill="#16347F" font-size="18.5" font-weight="800">核心交付成果</text>
+  <text x="148" y="714" fill="#1532F5" font-size="18.5" font-weight="800">可视化 HTML 报告</text>
+  <text x="148" y="740" fill="#1532F5" font-size="18.5" font-weight="800">核心交付成果</text>
   <text x="468" y="706" fill="#2A2300" font-size="15"><tspan font-weight="800">把分析结论做成可视化网页 —— Skill 最有价值的产出：</tspan>按视角自动选骨架 <tspan font-weight="800">S1–S5</tspan>，</text>
   <text x="468" y="732" fill="#2A2300" font-size="15">生成多页楼层 + Snap Scroll + Mockup 变体的 HTML 报告，质量自审后交付。</text>
   <text x="468" y="758" fill="#5A4400" font-size="14.5">评审 / 汇报 / 对外分享 / 长期资产都靠这一份网页版报告。</text>
