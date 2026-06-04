@@ -13,7 +13,7 @@
   <line x1="0" y1="150" x2="1280" y2="150" stroke="#E2E4E8" stroke-width="1"/>
   <rect x="40" y="43" width="64" height="64" rx="14" fill="#F1F3F5"/>
   <!-- 竞品分析图标：放大镜审视对比柱状图 -->
-  <g transform="translate(72,75)" stroke="#2547A0" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="translate(72,75)" stroke="#1532F5" stroke-width="1.9" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <line x1="-10" y1="6" x2="6" y2="6"/>
     <line x1="-6" y1="6" x2="-6" y2="0" stroke-width="2.4"/>
     <line x1="0" y1="6" x2="0" y2="-5" stroke-width="2.4"/>
@@ -21,8 +21,8 @@
     <circle cx="2" cy="-2" r="12"/>
     <line x1="11" y1="7" x2="18" y2="14" stroke-width="2.6"/>
   </g>
-  <text x="130" y="64" fill="#1B2430" font-size="23" font-weight="800">竞品分析 Skill 的完整工作过程：<tspan fill="#2547A0">规划 → 搜集 → 洞察 → 可视化</tspan> 四阶段流水线，</text>
-  <text x="130" y="102" fill="#1B2430" font-size="23" font-weight="800">从一句分析目标出发，逐步沉淀为<tspan fill="#2547A0">有据可查的洞察报告与可视化交付物</tspan>。</text>
+  <text x="130" y="64" fill="#1B2430" font-size="23" font-weight="800">竞品分析 Skill 的完整工作过程：<tspan fill="#1532F5">规划 → 搜集 → 洞察 → 可视化</tspan> 四阶段流水线，</text>
+  <text x="130" y="102" fill="#1B2430" font-size="23" font-weight="800">从一句分析目标出发，逐步沉淀为<tspan fill="#1532F5">有据可查的洞察报告与可视化交付物</tspan>。</text>
 
   <!-- ================= ROWS ================= -->
   <!-- row tops: 168 268 368 468 568 668 ; h=100 -->
