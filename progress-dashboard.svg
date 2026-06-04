@@ -8,11 +8,11 @@
     <rect x="32" y="396" width="696" height="106" rx="16"/>
     <rect x="32" y="516" width="696" height="178" rx="16"/>
   </g>
-  <g fill="#6A6A6A" font-size="12.5" font-weight="700" letter-spacing="2">
-    <text x="52" y="36">形成</text>
-    <text x="52" y="228">能力建设</text>
-    <text x="52" y="420">验证</text>
-    <text x="52" y="540">推广</text>
+  <g fill="#6A6A6A" font-size="12.5" font-weight="700" letter-spacing="2" text-anchor="middle">
+    <text x="380" y="36">形成</text>
+    <text x="380" y="228">能力建设</text>
+    <text x="380" y="420">验证</text>
+    <text x="380" y="540">推广</text>
   </g>
 
   <!-- ===== TIMELINE SPINE (within blocks) ===== -->
